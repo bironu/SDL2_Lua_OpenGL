@@ -29,7 +29,16 @@ void OpeningUseCase::onResume(int pos)
 
 void OpeningUseCase::pushEnter()
 {
-	presenter_.startMenuScene();
+	switch(getPos())
+	{
+	case 0:
+		presenter_.startMenuScene();
+		break;
+
+	case 1:
+		presenter_.startChapter05Scene();
+		break;
+	}
 }
 
 void OpeningUseCase::pushCancel()

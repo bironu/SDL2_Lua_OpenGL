@@ -4,9 +4,8 @@
 OpeningDataStore::OpeningDataStore()
 	: DataStore()
 	, listMenuItem_{
-		getString(StringId::MenuItem2DMenuDemo),
 		getString(StringId::MenuItem3DMenuDemo),
-		getString(StringId::MenuItemEtcDemo),
+		getString(StringId::MenuItemChapter05),
 	}
 {
 }

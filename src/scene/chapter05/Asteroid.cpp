@@ -26,7 +26,7 @@ Asteroid::Asteroid(Chapter05Scene* game)
 
 	// Create a sprite component
 	SpriteComponent* sc = new SpriteComponent(this);
-	sc->SetTexture(game->GetTexture("Assets/Asteroid.png"));
+	sc->SetTexture(game->GetTexture("Assets/chapter05/Asteroid.png"));
 
 	// Create a move component, and set a forward speed
 	MoveComponent* mc = new MoveComponent(this);

@@ -11,7 +11,6 @@
 #include "Ship.h"
 #include "Asteroid.h"
 #include "Random.h"
-#include <GL/glew.h>
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_opengl.h>
 #include <algorithm>
@@ -171,7 +170,7 @@ void Chapter05Scene::GenerateOutput()
 bool Chapter05Scene::LoadShaders()
 {
 	mSpriteShader = new Shader();
-	if (!mSpriteShader->Load("Shaders/Sprite.vert", "Shaders/Sprite.frag"))
+	if (!mSpriteShader->Load("Shaders/chapter05/Sprite.vert", "Shaders/chapter05/Sprite.frag"))
 	{
 		return false;
 	}

@@ -2,18 +2,36 @@
 #include "sdl/SDLWindow.h"
 #include "resource/Resources.h"
 #include "scene/opening/OpeningScene.h"
-//#include <GL/glew.h>
 #include <SDL2/SDL_log.h>
 #include <SDL2/SDL_opengl.h>
+//#include <glad/gl.h>
 #include <memory>
+
+        // mShaderProgram = glCreateProgram();
+        // glAttachShader(mShaderProgram, mVertexShader);
+        // glAttachShader(mShaderProgram, mFragShader);
+        // glLinkProgram(mShaderProgram);
+        // glDeleteProgram(mShaderProgram);
+        // glDeleteShader(mVertexShader);
+        // glDeleteShader(mFragShader);
+        // glUseProgram(mShaderProgram);
+        // GLuint loc = glGetUniformLocation(mShaderProgram, name);
+        // glUniformMatrix4fv(loc, 1, GL_TRUE, matrix.GetAsFloatPtr());
+        //         outShader = glCreateShader(shaderType);
+        //         glShaderSource(outShader, 1, &(contentsChar), nullptr);
+        //         glCompileShader(outShader);
+        // glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
+        //         glGetShaderInfoLog(shader, 511, nullptr, buffer);
+        // glGetProgramiv(mShaderProgram, GL_LINK_STATUS, &status);
+        //         glGetProgramInfoLog(mShaderProgram, 511, nullptr, buffer);
 
 namespace
 {
 void setup_opengl()
 {
 	::SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	::SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	::SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	::SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	::SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
 	::SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
 	::SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
 	::SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);

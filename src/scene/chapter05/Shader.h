@@ -7,9 +7,9 @@
 // ----------------------------------------------------------------
 
 #pragma once
-#include <GL/glew.h>
-#include <string>
 #include "Math.h"
+#include <string>
+#include <SDL2/SDL_opengl.h>
 
 class Shader
 {

@@ -31,7 +31,7 @@ public:
 	bool moveCursor(int, int, bool);
 	void action(uint32_t);
 	void startMenuScene();
-	void startSettingScene();
+	void startChapter05Scene();
 
 	void init();
 

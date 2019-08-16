@@ -19,7 +19,7 @@ Laser::Laser(Chapter05Scene* game)
 {
 	// Create a sprite component
 	SpriteComponent* sc = new SpriteComponent(this);
-	sc->SetTexture(game->GetTexture("Assets/Laser.png"));
+	sc->SetTexture(game->GetTexture("Assets/chapter05/Laser.png"));
 
 	// Create a move component, and set a forward speed
 	MoveComponent* mc = new MoveComponent(this);

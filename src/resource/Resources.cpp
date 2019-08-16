@@ -96,10 +96,8 @@ void Resources::loadString()
 {
 	mapString_.insert(std::make_pair(StringId::TitleOpeningScene, "SDL2&OpenGL動作デモ"));
 	mapString_.insert(std::make_pair(StringId::TitleMenuScene, "最初の画面"));
-	mapString_.insert(std::make_pair(StringId::TitleSettingScene, "次の画面"));
 	mapString_.insert(std::make_pair(StringId::MenuItem3DMenuDemo, "3Dメニュー　動作デモ"));
-	mapString_.insert(std::make_pair(StringId::MenuItem2DMenuDemo, "2Dメニュー　動作デモ"));
-	mapString_.insert(std::make_pair(StringId::MenuItemEtcDemo, "その他動作デモ"));
+	mapString_.insert(std::make_pair(StringId::MenuItemChapter05, "Chapter 05"));
 }
 
 void Resources::clearString()

@@ -7,7 +7,8 @@
 // ----------------------------------------------------------------
 
 #include "VertexArray.h"
-#include <GL/glew.h>
+#include <SDL2/SDL_opengl.h>
+#include <SDL2/SDL_opengl_glext.h>
 
 VertexArray::VertexArray(const float* verts, unsigned int numVerts,
 	const unsigned int* indices, unsigned int numIndices)

@@ -4,11 +4,9 @@
 enum class StringId
 {
 	TitleMenuScene,
-	TitleSettingScene,
 	TitleOpeningScene,
 	MenuItem3DMenuDemo,
-	MenuItem2DMenuDemo,
-	MenuItemEtcDemo,
+	MenuItemChapter05,
 };
 
 #endif // RESOURCES_STRINGID_H_

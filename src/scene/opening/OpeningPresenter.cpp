@@ -2,6 +2,7 @@
 #include "scene/opening/OpeningDataStore.h"
 #include "scene/opening/OpeningScene.h"
 #include "scene/menu/MenuScene.h"
+#include "scene/chapter05/Chapter05Scene.h"
 #include "app/Application.h"
 #include "gl/GLUCompatible.h"
 #include "sdl/SDLWindow.h"
@@ -103,8 +104,9 @@ void OpeningPresenter::startMenuScene()
 	scene_.setNextScene(std::make_shared<MenuScene>(scene_.getWindow()->getWindowId()));
 }
 
-void OpeningPresenter::startSettingScene()
+void OpeningPresenter::startChapter05Scene()
 {
+	scene_.setNextScene(std::make_shared<Chapter05Scene>(scene_.getWindow()->getWindowId()));
 }
 
 void OpeningPresenter::init()
