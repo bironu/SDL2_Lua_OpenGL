@@ -1,10 +1,10 @@
 #include "app/Application.h"
 #include "sdl/SDLWindow.h"
 #include "resource/Resources.h"
-#include <SDL_ttf.h>
-#include <SDL_image.h>
-#include <SDL_mixer.h>
-#include <SDL_log.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_log.h>
 
 int Application::return_code_ = 0;
 

@@ -4,31 +4,24 @@ project(sdl2_lua_opengl VERSION 0.1.0)
 #include(CTest)
 #enable_testing()
 
-#add_executable(sdl2_lua_opengl
-# main.cpp
-# )
-
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
-#include(CPack)
 
 #include(FindPkgConfig)
-#pkg_search_module(SDL2 REQUIRED sdl2)
-#pkg_search_module(SDL2Image REQUIRED SDL2_image>=2.0.0)
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(OpenGL REQUIRED)
+#find_package(GLEW REQUIRED)
 find_package(Lua51 REQUIRED)
 
-
-include_directories(SYSTEM)
+include_directories(/usr/local/include/)
 include_directories(${OPENGL_INCLUDE_DIRS})
-include_directories(${SDL2_INCLUDE_DIRS})
-include_directories(${SDL2_MIXER_INCLUDE_DIRS})
-include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
-include_directories(${SDL2_TTF_INCLUDE_DIRS})
+#include_directories(${SDL2_INCLUDE_DIRS})
+#include_directories(${SDL2_MIXER_INCLUDE_DIRS})
+#include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
+#include_directories(${SDL2_TTF_INCLUDE_DIRS})
 include_directories(${LUA_INCLUDE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/)
 
@@ -50,12 +43,7 @@ file(GLOB root_files ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 set(CMAKE_CXX_STANDARD 17)
 
 # 実行ファイルを作る方法を指定
-add_executable(${PROJECT_NAME}
- ${root_files}
-# $<TARGET_OBJECTS:root>
-#$<TARGET_OBJECTS:project>
-# $<TARGET_OBJECTS:util>
-)
+add_executable(${PROJECT_NAME} ${root_files})
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/app)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/gl)
@@ -70,6 +58,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/task)
  
 # リンクするライブラリを指定
 target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES})
+#target_link_libraries(${PROJECT_NAME} GLEW::glew)
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${SDL2_TTF_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${SDL2_IMAGE_LIBRARIES})
@@ -97,3 +86,4 @@ link_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/scene/menu)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/sdl)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/sdl/widget)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/task)
+

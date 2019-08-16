@@ -1,7 +1,7 @@
 #include "sdl/SDLSoundMixer.h"
 #include "sdl/SDLSoundChunk.h"
-#include <SDL_mixer.h>
-#include <SDL_audio.h>
+#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_audio.h>
 
 namespace SDL_ {
 

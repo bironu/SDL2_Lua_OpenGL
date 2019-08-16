@@ -3,7 +3,7 @@
 #include "scene/menu/MenuUseCase.h"
 #include "sdl/SDLJoystick.h"
 #include "app/Application.h"
-#include <SDL_events.h>
+#include <SDL2/SDL_events.h>
 
 MenuController::MenuController(MenuUseCase &useCase, const MenuDataStore &dataStore)
 	: Controller()

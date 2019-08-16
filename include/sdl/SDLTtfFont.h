@@ -2,14 +2,14 @@
 #define SDLTTFFONT_H_
 
 #include "misc/Misc.h"
-#include <SDL_ttf.h>
+#include <SDL2/SDL_ttf.h>
 #include <memory>
 
 class Size;
-class Color;
 
 namespace SDL_
 {
+class Color;
 class Image;
 class TtfFont
 {
@@ -31,9 +31,9 @@ public:
 	bool is_font() const { return font_; }
 
 	bool getTextSize(const char *text, Size *size);
-	std::shared_ptr<SDL_::Image> renderSolidText(const char *text, const Color &fg);
-	std::shared_ptr<SDL_::Image> renderShadedText(const char *text, const Color &fg, const Color &bg);
-	std::shared_ptr<SDL_::Image> renderBlendedText(const char *text, const Color &fg);
+	std::shared_ptr<SDL_::Image> renderSolidText(const char *text, const SDL_::Color &fg);
+	std::shared_ptr<SDL_::Image> renderShadedText(const char *text, const SDL_::Color &fg, const SDL_::Color &bg);
+	std::shared_ptr<SDL_::Image> renderBlendedText(const char *text, const SDL_::Color &fg);
 
 private:
 	TTF_Font * const font_;

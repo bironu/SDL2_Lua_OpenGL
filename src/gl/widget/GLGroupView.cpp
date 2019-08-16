@@ -1,6 +1,6 @@
 #include "gl/widget/GLGroupView.h"
 #include "gl/GLSprite2D.h"
-#include <SDL_opengl.h>
+#include <SDL2/SDL_opengl.h>
 
 namespace GL_
 {

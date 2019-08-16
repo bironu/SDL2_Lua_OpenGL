@@ -1,6 +1,6 @@
 #include "gl/widget/VerticalRotateMenu.h"
 #include "gl/GLSprite3D.h"
-#include <SDL_opengl.h>
+#include <SDL2/SDL_opengl.h>
 #include <iostream>
 
 namespace GL_ {

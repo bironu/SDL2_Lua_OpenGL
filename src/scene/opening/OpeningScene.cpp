@@ -3,8 +3,8 @@
 #include "scene/opening/OpeningPresenter.h"
 #include "scene/opening/OpeningUseCase.h"
 #include "sdl/SDLWindow.h"
-#include <SDL_events.h>
-#include <SDL_opengl.h>
+#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_opengl.h>
 
 OpeningScene::OpeningScene(uint32_t windowId)
 	: Scene(windowId)

@@ -4,8 +4,8 @@
 #include "app/Application.h"
 #include "resource/Resources.h"
 #include "task/TaskManager.h"
-#include <SDL_log.h>
-#include <SDL_opengl.h>
+#include <SDL2/SDL_log.h>
+#include <SDL2/SDL_opengl.h>
 
 Scene::Scene(uint32_t windowId)
 	: nextScene_()

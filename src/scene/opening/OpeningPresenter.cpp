@@ -14,7 +14,7 @@
 #include "gl/widget/GLScreenView.h"
 #include "task/Interpolator.h"
 #include "task/ActionTask.h"
-#include <SDL_opengl.h>
+#include <SDL2/SDL_opengl.h>
 
 OpeningPresenter::OpeningPresenter(OpeningScene &scene, const OpeningDataStore &dataStore)
 	: Presenter(scene)
@@ -32,7 +32,7 @@ OpeningPresenter::OpeningPresenter(OpeningScene &scene, const OpeningDataStore &
 
 	auto title = std::make_shared<GL_::TextView>();
 	GL_::GroupView::addChild(root, title);
-	title->setText(fontTitle, dataStore.getStringTitle(), Color::WHITE);
+	title->setText(fontTitle, dataStore.getStringTitle(), SDL_::Color::WHITE);
 	title->setWrapContentSize();
 	title->centeringXPos();
 	title->setYPos(100);
@@ -116,7 +116,7 @@ void OpeningPresenter::init()
 	rotateMenu_.setRadius(dataStore_.getRadius());
 	for (auto item : listMenuItem_) {
 		auto sprite = std::make_shared<GL_::Sprite3D>();
-		auto imageMenuString = font.renderBlendedText(item, Color::WHITE);
+		auto imageMenuString = font.renderBlendedText(item, SDL_::Color::WHITE);
 		sprite->setTexture(imageMenuString);
 		sprite->setWidth(imageMenuString->getWidth() * 4 / imageMenuString->getHeight());
 		sprite->setHeight(4.0);

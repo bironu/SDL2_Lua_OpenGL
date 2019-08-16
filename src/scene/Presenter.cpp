@@ -3,7 +3,7 @@
 #include "sdl/SDLWindow.h"
 #include "app/Application.h"
 #include "gl/widget/GLScreenView.h"
-#include <SDL_opengl.h>
+#include <SDL2/SDL_opengl.h>
 
 Presenter::Presenter(Scene &scene)
 	: scene_(scene)

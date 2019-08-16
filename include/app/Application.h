@@ -4,7 +4,7 @@
 #include "misc/Misc.h"
 #include "scene/Scene.h"
 #include "task/TaskManager.h"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <memory>
 #include <stack>
 

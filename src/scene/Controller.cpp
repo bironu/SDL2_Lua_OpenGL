@@ -1,7 +1,7 @@
 #include "scene/Controller.h"
 #include "sdl/SDLJoystick.h"
 #include "app/Application.h"
-#include <SDL_events.h>
+#include <SDL2/SDL_events.h>
 
 Controller::Controller()
 	: idling_(false)

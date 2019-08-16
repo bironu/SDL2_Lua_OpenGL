@@ -1,6 +1,6 @@
 #include "gl/GLScreenBoard.h"
 #include "gl/GLTexture.h"
-#include <SDL_opengl.h>
+#include <SDL2/SDL_opengl.h>
 
 namespace GL_ {
 

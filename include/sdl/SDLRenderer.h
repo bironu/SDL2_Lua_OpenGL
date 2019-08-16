@@ -4,9 +4,9 @@
 #include "sdl/SDLColor.h"
 #include "geo/Geometry.h"
 #include "misc/Misc.h"
-#include <SDL_render.h>
-#include <SDL_stdinc.h>
-#include <SDL_blendmode.h>
+#include <SDL2/SDL_render.h>
+#include <SDL2/SDL_stdinc.h>
+#include <SDL2/SDL_blendmode.h>
 #include <memory>
 
 

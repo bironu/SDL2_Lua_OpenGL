@@ -1,9 +1,9 @@
 #ifndef JOYSTICK_H_
 #define JOYSTICK_H_
 
-#include <SDL_joystick.h>
-#include <SDL_events.h>
-#include <SDL_log.h>
+#include <SDL2/SDL_joystick.h>
+#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_log.h>
 #include <map>
 #include <vector>
 #include <tuple>

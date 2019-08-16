@@ -3,7 +3,7 @@
 #include "sdl/SDLImage.h"
 #include "lua/sol.hpp"
 #include "sdl/SDLJoystick.h"
-#include <SDL_events.h>
+#include <SDL2/SDL_events.h>
 
 Resources::Resources()
 	: windowWidth_()

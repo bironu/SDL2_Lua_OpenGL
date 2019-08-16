@@ -3,8 +3,8 @@
 #include "sdl/SDLImage.h"
 #include "sdl/SDLTexture.h"
 #include "sdl/SDLWindow.h"
-#include <SDL_video.h>
-#include <SDL_render.h>
+#include <SDL2/SDL_video.h>
+#include <SDL2/SDL_render.h>
 
 namespace SDL_
 {

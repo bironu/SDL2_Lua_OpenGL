@@ -3,8 +3,8 @@
 
 #include "misc/Misc.h"
 #include "sdl/SDLRenderer.h"
-#include <SDL_video.h>
-#include <SDL_messagebox.h>
+#include <SDL2/SDL_video.h>
+#include <SDL2/SDL_messagebox.h>
 #include <map>
 #include <memory>
 

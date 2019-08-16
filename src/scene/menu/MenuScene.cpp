@@ -12,8 +12,8 @@
 #include "gl/widget/GLScreenView.h"
 #include "gl/widget/GLTextView.h"
 #include "sdl/SDLTtfFont.h"
-#include <SDL_events.h>
-#include <SDL_opengl.h>
+#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_opengl.h>
 
 MenuScene::MenuScene(uint32_t windowId)
 	: Scene(windowId)

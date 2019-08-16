@@ -1,7 +1,10 @@
 #ifndef COLOR_H_
 #define COLOR_H_
 
-#include <SDL_pixels.h>
+#include <SDL2/SDL_pixels.h>
+
+namespace SDL_
+{
 
 class Color final : public SDL_Color
 {
@@ -28,5 +31,7 @@ public:
 	static const Color BLUE;
 	static const Color GREEN;
 };
+
+}
 
 #endif // COLOR_H_

@@ -1,7 +1,7 @@
 #if !defined(GEOMETRY_H_)
 #define GEOMETRY_H_
 
-#include <SDL_rect.h>
+#include <SDL2/SDL_rect.h>
 
 class RectTest;
 //=============================================================================

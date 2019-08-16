@@ -20,7 +20,7 @@
 #include "task/SerialTask.h"
 #include "task/Interpolator.h"
 #include "task/ActionTask.h"
-#include <SDL_opengl.h>
+#include <SDL2/SDL_opengl.h>
 #include <iostream>
 
 MenuPresenter::MenuPresenter(MenuScene &scene, const MenuDataStore &dataStore)

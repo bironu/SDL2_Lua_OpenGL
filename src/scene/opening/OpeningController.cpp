@@ -2,7 +2,7 @@
 #include "scene/opening/OpeningDataStore.h"
 #include "scene/opening/OpeningUseCase.h"
 #include "sdl/SDLJoystick.h"
-#include <SDL_events.h>
+#include <SDL2/SDL_events.h>
 
 OpeningController::OpeningController(OpeningUseCase &model, const OpeningDataStore &dataStore)
 	: Controller()

@@ -18,7 +18,7 @@ bool TtfFont::getTextSize(const char* text, Size *size) {
 	return result;
 }
 
-std::shared_ptr<SDL_::Image> TtfFont::renderSolidText(const char* text, const Color& fg)
+std::shared_ptr<SDL_::Image> TtfFont::renderSolidText(const char* text, const SDL_::Color& fg)
 {
 	std::shared_ptr<SDL_::Image> result;
 	SDL_Surface *surface = ::TTF_RenderUTF8_Solid(font_, text, fg);
@@ -28,7 +28,7 @@ std::shared_ptr<SDL_::Image> TtfFont::renderSolidText(const char* text, const Co
 	return result;
 }
 
-std::shared_ptr<SDL_::Image> TtfFont::renderShadedText(const char* text, const Color& fg, const Color& bg)
+std::shared_ptr<SDL_::Image> TtfFont::renderShadedText(const char* text, const SDL_::Color& fg, const SDL_::Color& bg)
 {
 	std::shared_ptr<SDL_::Image> result;
 	SDL_Surface *surface = ::TTF_RenderUTF8_Shaded(font_, text, fg, bg);
@@ -38,7 +38,7 @@ std::shared_ptr<SDL_::Image> TtfFont::renderShadedText(const char* text, const C
 	return result;
 }
 
-std::shared_ptr<SDL_::Image> TtfFont::renderBlendedText(const char* text, const Color& fg)
+std::shared_ptr<SDL_::Image> TtfFont::renderBlendedText(const char* text, const SDL_::Color& fg)
 {
 	std::shared_ptr<SDL_::Image> result;
 	SDL_Surface *surface = ::TTF_RenderUTF8_Blended(font_, text, fg);

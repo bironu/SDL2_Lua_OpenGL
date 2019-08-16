@@ -1,6 +1,6 @@
 #include "gl/GLTexture.h"
 #include "sdl/SDLImage.h"
-#include <SDL_opengl.h>
+#include <SDL2/SDL_opengl.h>
 
 namespace GL_
 {
@@ -74,7 +74,7 @@ std::shared_ptr<SDL_::Image> Texture::prepareTextureImage(std::shared_ptr<SDL_::
 	auto image = std::make_shared<SDL_::Image>(w, h);
 
 	// Save the alpha blending attributes
-	const Color savedColor = src->getColorMod();
+	const SDL_::Color savedColor = src->getColorMod();
 	const auto savedMode = src->getBlendMode();
 
 	// Copy the surface into the GL texture image

@@ -1,7 +1,7 @@
 #ifndef GLUCOMPATIBLE_H_
 #define GLUCOMPATIBLE_H_
 
-#include <SDL_opengl.h>
+#include <SDL2/SDL_opengl.h>
 
 void gluLookAtCompatible(GLfloat eyeX, GLfloat eyeY, GLfloat eyeZ,
 		GLfloat lookAtX, GLfloat lookAtY, GLfloat lookAtZ,

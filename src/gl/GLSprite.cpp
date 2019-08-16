@@ -1,7 +1,7 @@
 #include "gl/GLSprite.h"
 #include "gl/GLTexture.h"
 #include "sdl/SDLImage.h"
-#include <SDL_opengl.h>
+#include <SDL2/SDL_opengl.h>
 
 namespace GL_
 {

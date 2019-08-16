@@ -4,9 +4,9 @@
 #include "misc/Misc.h"
 #include "geo/Vector3.h"
 #include "geo/Geometry.h"
+#include "task/Interpolator.h"
 #include <memory>
 #include <array>
-#include "task/Interpolator.h"
 
 namespace SDL_
 {

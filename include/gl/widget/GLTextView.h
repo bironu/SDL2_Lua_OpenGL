@@ -23,8 +23,8 @@ public:
 	}
 	virtual ~TextView() override = default;
 
-	void setText(SDL_::TtfFont &, const char * const, const Color &);
-	void setText(SDL_::TtfFont &font, const std::string &text, const Color &color) { setText(font, text.c_str(), color); }
+	void setText(SDL_::TtfFont &, const char * const, const SDL_::Color &);
+	void setText(SDL_::TtfFont &font, const std::string &text, const SDL_::Color &color) { setText(font, text.c_str(), color); }
 	const char *getText() const { return text_.c_str(); }
 
 private:

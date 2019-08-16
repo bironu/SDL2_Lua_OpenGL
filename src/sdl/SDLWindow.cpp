@@ -1,6 +1,6 @@
 #include "sdl/SDLWindow.h"
 #include "app/Application.h"
-#include <SDL_video.h>
+#include <SDL2/SDL_video.h>
 
 namespace SDL_
 {
