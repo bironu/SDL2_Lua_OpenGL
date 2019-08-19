@@ -6,6 +6,10 @@
 #include "sdl/SDLSoundMixer.h"
 #include "sdl/SDLSoundChunk.h"
 #include <vector>
+#include <memory>
+
+class Shader;
+class VertexArray;
 
 namespace GL_
 {
@@ -38,12 +42,19 @@ public:
 private:
 	static constexpr int ID_ROTATE_MENU = 200;
 
+	bool loadShaders();
+	void createSpriteVerts();
+
 	OpeningScene &scene_;
 	const OpeningDataStore &dataStore_;
 	const std::vector<const char *> &listMenuItem_;
 	GL_::VerticalRotateMenu rotateMenu_;
 	SDL_::SoundMixer mixer_;
 	SDL_::SoundChunk chunk_;
+
+	std::shared_ptr<Shader> mSpriteShader;
+	std::shared_ptr<VertexArray> mSpriteVerts;
+
 };
 
 #endif // SCENE_OPENING_OPENINGPRESENTER_H_

@@ -1,3 +1,6 @@
+#include "../src/scene/chapter05/Shader.h" // TODO
+#include "../src/scene/chapter05/VertexArray.h" // TODO
+#include "../src/scene/chapter05/Math.h" // TODO
 #include "scene/opening/OpeningPresenter.h"
 #include "scene/opening/OpeningDataStore.h"
 #include "scene/opening/OpeningScene.h"
@@ -15,6 +18,7 @@
 #include "gl/widget/GLScreenView.h"
 #include "task/Interpolator.h"
 #include "task/ActionTask.h"
+
 #include <SDL2/SDL_opengl.h>
 
 OpeningPresenter::OpeningPresenter(OpeningScene &scene, const OpeningDataStore &dataStore)
@@ -24,6 +28,8 @@ OpeningPresenter::OpeningPresenter(OpeningScene &scene, const OpeningDataStore &
 	, listMenuItem_(dataStore_.getOpeningMenuItemList())
 	, mixer_()
 	, chunk_("res/sound/cursor7.wav")
+	, mSpriteShader()
+	, mSpriteVerts()
 {
 	auto root = getRootView();
 	root->setBack(dataStore.getTextureScreenBack());
@@ -45,24 +51,59 @@ OpeningPresenter::OpeningPresenter(OpeningScene &scene, const OpeningDataStore &
 
 OpeningPresenter::~OpeningPresenter()
 {
+	if (mSpriteShader) {
+		mSpriteShader->Unload();
+	}
 }
 
 void OpeningPresenter::exposed()
 {
-	::glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	Scene::Enter2DMode();
-	getRootView()->draw();
-	Scene::Leave2DMode();
+	// ::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// Scene::Enter2DMode();
+	// getRootView()->draw();
+	// Scene::Leave2DMode();
 
-	Scene::Enter3DMode();
-	gluLookAtCompatible(
-			0.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, -1.0f,
-			0.0f, 1.0f, 0.0f
-	);
-	glTranslated(0.0, 0.0, -40.0);
-	rotateMenu_.draw();
-	Scene::Leave3DMode();
+	// Scene::Enter3DMode();
+	// gluLookAtCompatible(
+	// 		0.0f, 0.0f, 0.0f,
+	// 		0.0f, 0.0f, -1.0f,
+	// 		0.0f, 1.0f, 0.0f
+	// );
+	// glTranslated(0.0, 0.0, -40.0);
+	// rotateMenu_.draw();
+	// Scene::Leave3DMode();
+
+	// Set the clear color to grey
+	glClearColor(0.86f, 0.86f, 0.86f, 1.0f);
+	// Clear the color buffer
+	glClear(GL_COLOR_BUFFER_BIT);
+	
+	// Draw all sprite components
+	// Enable alpha blending on the color buffer
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	
+	// Set shader/vao as active
+	mSpriteShader->SetActive();
+	mSpriteVerts->SetActive();
+
+		// Scale the quad by the width/height of texture
+		// Matrix4 scaleMat = Matrix4::CreateScale(
+		// 	static_cast<float>(mTexWidth),
+		// 	static_cast<float>(mTexHeight),
+		// 	1.0f);
+		
+		//Matrix4 world = scaleMat * mOwner->GetWorldTransform();
+		
+		// Since all sprites use the same shader/vertices,
+		// the game first sets them active before any sprite draws
+		
+		// Set world transform
+		//shader->SetMatrixUniform("uWorldTransform", world);
+		// Set current texture
+		//mTexture->bind();
+		// Draw quad
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
 	scene_.swap();
 }
@@ -124,4 +165,39 @@ void OpeningPresenter::init()
 		sprite->setHeight(4.0);
 		rotateMenu_.addMenuItem(sprite);
 	}
+
+	loadShaders();
+	createSpriteVerts();
+}
+
+bool OpeningPresenter::loadShaders()
+{
+	mSpriteShader = std::make_shared<Shader>();
+	if (!mSpriteShader->Load("Shaders/chapter05/Basic.vert", "Shaders/chapter05/Basic.frag"))
+	{
+		return false;
+	}
+
+	mSpriteShader->SetActive();
+	// Set the view-projection matrix
+	//Matrix4 viewProj = Matrix4::CreateSimpleViewProj(dataStore_.getScreenWidth(), dataStore_.getScreenHeight());
+	//mSpriteShader->SetMatrixUniform("uViewProj", viewProj);
+	return true;
+}
+
+void OpeningPresenter::createSpriteVerts()
+{
+	float vertices[] = {
+		-0.5f,  0.5f, 0.f, 0.f, 0.f, // top left
+		 0.5f,  0.5f, 0.f, 1.f, 0.f, // top right
+		 0.5f, -0.5f, 0.f, 1.f, 1.f, // bottom right
+		-0.5f, -0.5f, 0.f, 0.f, 1.f  // bottom left
+	};
+
+	unsigned int indices[] = {
+		0, 1, 2,
+		2, 3, 0
+	};
+
+	mSpriteVerts = std::make_shared<VertexArray>(vertices, 4, indices, 6);
 }

@@ -4,41 +4,26 @@
 #include "scene/opening/OpeningScene.h"
 #include <SDL2/SDL_log.h>
 #include <SDL2/SDL_opengl.h>
-//#include <glad/gl.h>
 #include <memory>
-
-        // mShaderProgram = glCreateProgram();
-        // glAttachShader(mShaderProgram, mVertexShader);
-        // glAttachShader(mShaderProgram, mFragShader);
-        // glLinkProgram(mShaderProgram);
-        // glDeleteProgram(mShaderProgram);
-        // glDeleteShader(mVertexShader);
-        // glDeleteShader(mFragShader);
-        // glUseProgram(mShaderProgram);
-        // GLuint loc = glGetUniformLocation(mShaderProgram, name);
-        // glUniformMatrix4fv(loc, 1, GL_TRUE, matrix.GetAsFloatPtr());
-        //         outShader = glCreateShader(shaderType);
-        //         glShaderSource(outShader, 1, &(contentsChar), nullptr);
-        //         glCompileShader(outShader);
-        // glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
-        //         glGetShaderInfoLog(shader, 511, nullptr, buffer);
-        // glGetProgramiv(mShaderProgram, GL_LINK_STATUS, &status);
-        //         glGetProgramInfoLog(mShaderProgram, 511, nullptr, buffer);
+#include <iostream>
 
 namespace
 {
 void setup_opengl()
 {
-	::SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	::SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-	::SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
-	::SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-	::SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
-	::SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-	::SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
-	::SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	::SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
-	::SDL_GL_SetSwapInterval(1);
+	// ::SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	// ::SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
+	// ::SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	// ::SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	// ::SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+	// ::SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+	// ::SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+	// ::SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+	// ::SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	// ::SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
+    // ::SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+    // ::SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+	// ::SDL_GL_SetSwapInterval(1);
 
 	::glShadeModel(GL_SMOOTH);
 	::glEnable(GL_TEXTURE_2D);
@@ -106,17 +91,24 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	// glewExperimental = GL_TRUE;
-	// if (glewInit() != GLEW_OK)
-	// {
-	// 	SDL_Log("Failed to initialize GLEW.");
-	// 	return 1;
-	// }
-
 	Resources &res = Resources::instance();
 
 	const int width = res.getWindowWidth();
 	const int height = res.getWindowHeight();
+
+	//::SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	//::SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+	::SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	::SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
+	::SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+	::SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+	::SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+	::SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+	::SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	::SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
+    ::SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+    ::SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+	::SDL_GL_SetSwapInterval(1);
 
 	auto mainWindow = std::make_shared<SDL_::Window>("main", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 	SDL_::Window::registWindow(mainWindow);
@@ -124,7 +116,10 @@ int main(int argc, char *argv[])
 	res.setWindowWidth(size.get_width());
 	res.setWindowHeight(size.get_height());
 
-	setup_opengl();
+	//setup_opengl();
+
+	std::cout << "GL_VERSION: " << glGetString(GL_VERSION) << std::endl;
+	std::cout << "GL_SHADING_LANGUAGE_VERSION: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
 
 	return app.run(std::make_shared<OpeningScene>(mainWindow->getWindowId()));
 }

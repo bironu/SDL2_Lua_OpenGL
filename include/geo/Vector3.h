@@ -6,6 +6,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
+namespace geo {
 template<typename T>
 class Vector3
 {
@@ -184,7 +185,9 @@ inline std::ostream& operator<<(std::ostream& s, const Vector3<T> &v)
 	return s << '[' << v.getX() << ", " << v.getY() << ", " << v.getZ() << ']';
 }
 
-using Vector3f = Vector3<float>;
-using Vector3d = Vector3<double>;
+}
+
+using Vector3f = geo::Vector3<float>;
+using Vector3d = geo::Vector3<double>;
 
 #endif // VECTOR3_H_
