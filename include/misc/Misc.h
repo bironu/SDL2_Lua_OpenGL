@@ -4,12 +4,6 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-#define UNCOPYABLE(className)\
-	className(const className &) = delete;\
-    className(className &&) = delete;\
-    const className& operator =(const className &) = delete;\
-    const className& operator =(className &&) = delete
-
 inline double radian2degrees(double radian)
 {
 	return radian * 180.0 / M_PI;

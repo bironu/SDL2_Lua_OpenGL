@@ -1,7 +1,7 @@
 #ifndef RESOURCES_H_
 #define RESOURCES_H_
 
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 #include "ImageId.h"
 #include "StringId.h"
 #include <memory>

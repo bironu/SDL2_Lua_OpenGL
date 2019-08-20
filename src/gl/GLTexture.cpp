@@ -1,5 +1,6 @@
 #include "gl/GLTexture.h"
 #include "sdl/SDLImage.h"
+#include "misc/Misc.h"
 #include <SDL2/SDL_opengl.h>
 
 namespace GL_

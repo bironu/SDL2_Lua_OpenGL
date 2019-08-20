@@ -1,7 +1,7 @@
 #ifndef SCENE_DATASTORE_H_
 #define SCENE_DATASTORE_H_
 
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 #include <memory>
 #include <string>
 #include <vector>

@@ -1,12 +1,14 @@
 #ifndef GLSPRITE_H_
 #define GLSPRITE_H_
 
-#include "misc/Misc.h"
-#include "geo/Vector3.h"
+#include "misc/Uncopyable.h"
+#include "math/Math.h"
 #include "geo/Geometry.h"
 #include "task/Interpolator.h"
 #include <memory>
 #include <array>
+
+class Shader;
 
 namespace SDL_
 {
@@ -45,7 +47,7 @@ public:
 
 	void draw();
 
-	const Vector3d &getPos() const { return pos_; }
+	const Vector3 &getPos() const { return pos_; }
 	const double getXPos() const { return pos_.getX(); }
 	const double getYPos() const { return pos_.getY(); }
 	const double getZPos() const { return pos_.getZ(); }
@@ -54,12 +56,12 @@ public:
 	const double getWidth() const { return size_.getWidth(); }
 	const double getHeight() const { return size_.getHeight(); }
 
-	const Vector3d &getOffset() const { return offset_; }
+	const Vector3 &getOffset() const { return offset_; }
 	const double getXOffset() const { return offset_.getX(); }
 	const double getYOffset() const { return offset_.getY(); }
 	const double getZOffset() const { return offset_.getZ(); }
 
-	void setPos(const Vector3d &pos) { pos_ = pos; }
+	void setPos(const Vector3 &pos) { pos_ = pos; }
 	void setXPos(const double x) { pos_.setX(x); }
 	void setYPos(const double y) { pos_.setY(y); }
 	void setZPos(const double z) { pos_.setZ(z); }
@@ -68,7 +70,7 @@ public:
 	void setWidth(const double w) { size_.setWidth(w); }
 	void setHeight(const double h) { size_.setHeight(h); }
 
-	void setOffset(const Vector3d &offset) { offset_ = offset; }
+	void setOffset(const Vector3 &offset) { offset_ = offset; }
 	void setXOffset(const double x) { offset_.setX(x); }
 	void setYOffset(const double y) { offset_.setY(y); }
 	void setZOffset(const double z) { offset_.setZ(z); }
@@ -92,8 +94,8 @@ private:
 	virtual void positioning();
 
 	std::shared_ptr<Texture> texture_;
-	Vector3d pos_;
-	Vector3d offset_;
+	Vector3 pos_;
+	Vector3 offset_;
 	Sized size_;
 	uint8_t alpha_;
 	double scale_;

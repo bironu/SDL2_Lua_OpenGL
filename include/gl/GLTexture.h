@@ -1,7 +1,7 @@
 #ifndef GLTEXTURE_H_
 #define GLTEXTURE_H_
 
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 #include <memory>
 #include <array>
 
@@ -15,8 +15,8 @@ namespace GL_
 
 class Texture
 {
-	UNCOPYABLE(Texture);
 public:
+	UNCOPYABLE(Texture);
 	Texture(std::shared_ptr<SDL_::Image>);
 	~Texture();
 

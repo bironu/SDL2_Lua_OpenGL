@@ -33,10 +33,10 @@ void Presenter::quit()
 
 void Presenter::exposed()
 {
-	::glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	Scene::Enter2DMode();
-	glTranslatef(0.0f, 0.0f, -1.0f);
-	root_->draw();
-	Scene::Leave2DMode();
-	scene_.swap();
+	// ::glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// Scene::Enter2DMode();
+	// glTranslatef(0.0f, 0.0f, -1.0f);
+	// root_->draw();
+	// Scene::Leave2DMode();
+	// scene_.swap();
 }

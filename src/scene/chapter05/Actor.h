@@ -8,7 +8,7 @@
 
 #pragma once
 #include <vector>
-#include "Math.h"
+#include "math/Math.h"
 #include <cstdint>
 
 class Chapter05Scene;

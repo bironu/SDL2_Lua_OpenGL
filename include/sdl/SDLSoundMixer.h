@@ -1,7 +1,7 @@
 #ifndef SDLSOUNDMIXER_H_
 #define SDLSOUNDMIXER_H_
 
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 
 namespace SDL_ {
 

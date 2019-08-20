@@ -2,7 +2,6 @@
 #define GRAPHICS_QUATERNION_H_
 
 #include "Vector3.h"
-//#include "../Misc.h"
 
 class Quaternion
 {

@@ -1,7 +1,7 @@
 #ifndef WIDGET_ROTATEMENU_H_
 #define WIDGET_ROTATEMENU_H_
 
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 #include "gl/GLSprite3D.h"
 #include <memory>
 #include <vector>

@@ -2,8 +2,8 @@
 #define GLVIEW_H_
 
 #include "geo/Geometry.h"
-#include "geo/Vector3.h"
-#include "misc/Misc.h"
+#include "math/Math.h"
+#include "misc/Uncopyable.h"
 #include <memory>
 
 namespace GL_
@@ -23,12 +23,12 @@ public:
 	std::shared_ptr<GroupView> getParent() const { return parent_.lock(); }
 	void clearParent() { parent_.reset(); }
 
-	const Vector3d &getPos() const { return pos_; }
+	const Vector3 &getPos() const { return pos_; }
 	double getXPos() const { return pos_.getX(); }
 	double getYPos() const { return pos_.getY(); }
 	double getZPos() const { return pos_.getZ(); }
 
-	void setPos(const Vector3d &pos) { pos_ = pos; }
+	void setPos(const Vector3 &pos) { pos_ = pos; }
 	void setXPos(const double x) { pos_.setX(x); }
 	void setYPos(const double y) { pos_.setY(y); }
 	void setZPos(const double z) { pos_.setZ(z); }
@@ -62,7 +62,7 @@ protected:
 
 private:
 	std::weak_ptr<GroupView> parent_;
-	Vector3d pos_;
+	Vector3 pos_;
 	Sized size_;
 	bool visible_;
 };

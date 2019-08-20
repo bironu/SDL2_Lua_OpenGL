@@ -1,6 +1,6 @@
 #include "../src/scene/chapter05/Shader.h" // TODO
 #include "../src/scene/chapter05/VertexArray.h" // TODO
-#include "../src/scene/chapter05/Math.h" // TODO
+#include "math/Math.h"
 #include "scene/opening/OpeningPresenter.h"
 #include "scene/opening/OpeningDataStore.h"
 #include "scene/opening/OpeningScene.h"

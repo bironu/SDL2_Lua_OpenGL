@@ -1,7 +1,7 @@
 #ifndef TASK_TASK_H_
 #define TASK_TASK_H_
 
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 #include <cstdint>
 
 class Task

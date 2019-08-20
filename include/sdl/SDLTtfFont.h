@@ -1,7 +1,7 @@
 #ifndef SDLTTFFONT_H_
 #define SDLTTFFONT_H_
 
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 #include <SDL2/SDL_ttf.h>
 #include <memory>
 

@@ -1,7 +1,7 @@
 #ifndef TASK_TASKMANAGER_H_
 #define TASK_TASKMANAGER_H_
 
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 #include <memory>
 #include <unordered_map>
 

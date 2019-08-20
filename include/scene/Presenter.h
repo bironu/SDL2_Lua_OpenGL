@@ -1,7 +1,7 @@
 #ifndef SCENE_PRESENTER_H_
 #define SCENE_PRESENTER_H_
 
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 #include <memory>
 
 namespace GL_
