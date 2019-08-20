@@ -1,7 +1,7 @@
 #ifndef RESOURCES_MENUINFO_H_
 #define RESOURCES_MENUINFO_H_
 
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 #include <string>
 
 class MenuInfo

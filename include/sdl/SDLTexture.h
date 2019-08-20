@@ -1,7 +1,7 @@
 #ifndef SDLTEXTURE_H_
 #define SDLTEXTURE_H_
 
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 #include "SDLColor.h"
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_blendmode.h>

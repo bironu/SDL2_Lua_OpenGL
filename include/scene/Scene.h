@@ -1,7 +1,7 @@
 #if !defined(SCENE_H_)
 #define SCENE_H_
 
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 #include <memory>
 
 namespace SDL_
@@ -54,11 +54,11 @@ public:
 	void swap();
 	void quit();
 
-	static void calcViewPort(int, int, int, int);
-	static void Enter2DMode();
-	static void Leave2DMode();
-	static void Enter3DMode();
-	static void Leave3DMode();
+	// static void calcViewPort(int, int, int, int);
+	// static void Enter2DMode();
+	// static void Leave2DMode();
+	// static void Enter3DMode();
+	// static void Leave3DMode();
 
 private:
 	std::shared_ptr<Scene> nextScene_;

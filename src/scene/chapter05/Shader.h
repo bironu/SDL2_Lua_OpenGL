@@ -7,7 +7,7 @@
 // ----------------------------------------------------------------
 
 #pragma once
-#include "Math.h"
+#include "math/Math.h"
 #include <string>
 #include <SDL2/SDL_opengl.h>
 

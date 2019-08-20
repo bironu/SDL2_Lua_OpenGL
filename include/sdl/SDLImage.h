@@ -3,7 +3,7 @@
 
 #include "geo/Geometry.h"
 #include "sdl/SDLColor.h"
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 #include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_image.h>
 #include <memory>

@@ -11,6 +11,7 @@
 #include "Ship.h"
 #include "Asteroid.h"
 #include "Random.h"
+#include "resource/Resources.h"
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_opengl.h>
 #include <algorithm>
@@ -98,6 +99,8 @@ bool Chapter05Scene::onIdle(uint32_t tick)
 		delete actor;
 	}
 
+	GenerateOutput();
+
 	bool result = Scene::onIdle(tick);
 	return true;
 }
@@ -177,7 +180,11 @@ bool Chapter05Scene::LoadShaders()
 
 	mSpriteShader->SetActive();
 	// Set the view-projection matrix
-	Matrix4 viewProj = Matrix4::CreateSimpleViewProj(1024.f, 768.f);
+	auto &res = Resources::instance();
+	const auto sw = res.getScreenWidth();
+	const auto sh = res.getScreenHeight();
+
+	Matrix4 viewProj = Matrix4::CreateSimpleViewProj(sw, sh);
 	mSpriteShader->SetMatrixUniform("uViewProj", viewProj);
 	return true;
 }

@@ -1,7 +1,7 @@
 #if !defined(APPLICATION_H_)
 #define APPLICATION_H_
 
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 #include "scene/Scene.h"
 #include "task/TaskManager.h"
 #include <SDL2/SDL.h>

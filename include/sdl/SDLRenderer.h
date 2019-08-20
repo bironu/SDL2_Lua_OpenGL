@@ -3,7 +3,7 @@
 
 #include "sdl/SDLColor.h"
 #include "geo/Geometry.h"
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_blendmode.h>

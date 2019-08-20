@@ -8,17 +8,20 @@
 
 #pragma once
 
+#if !defined(MATH_MATH_H_)
+#define MATH_MATH_H_
+
 #include <cmath>
 #include <memory.h>
 #include <limits>
 
 namespace Math
 {
-	const float Pi = 3.14159265358979f;
-	const float TwoPi = Pi * 2.0f;
-	const float PiOver2 = Pi / 2.0f;
-	const float Infinity = std::numeric_limits<float>::infinity();
-	const float NegInfinity = -std::numeric_limits<float>::infinity();
+	static const float Pi = 3.14159265358979f;
+	static const float TwoPi = Pi * 2.0f;
+	static const float PiOver2 = Pi / 2.0f;
+	static const float Infinity = std::numeric_limits<float>::infinity();
+	static const float NegInfinity = -std::numeric_limits<float>::infinity();
 
 	inline float ToRadians(float degrees)
 	{
@@ -265,6 +268,14 @@ public:
 		,y(inY)
 		,z(inZ)
 	{}
+
+	float getX() const { return x; }
+	float getY() const { return y; }
+	float getZ() const { return z; }
+
+	void setX(float xv) { x = xv; }
+	void setY(float yv) { y = yv; }
+	void setZ(float zv) { z = zv; }
 
 	// Cast to a const float pointer
 	const float* GetAsFloatPtr() const
@@ -1031,3 +1042,5 @@ namespace Color
 	static const Vector3 LightPink(1.0f, 0.71f, 0.76f);
 	static const Vector3 LightGreen(0.56f, 0.93f, 0.56f);
 }
+
+#endif // MATH_MATH_H_

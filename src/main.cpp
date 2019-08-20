@@ -1,7 +1,8 @@
 #include "app/Application.h"
 #include "sdl/SDLWindow.h"
 #include "resource/Resources.h"
-#include "scene/opening/OpeningScene.h"
+//#include "scene/opening/OpeningScene.h"
+#include "scene/chapter05/Chapter05Scene.h"
 #include <SDL2/SDL_log.h>
 #include <SDL2/SDL_opengl.h>
 #include <memory>
@@ -121,5 +122,5 @@ int main(int argc, char *argv[])
 	std::cout << "GL_VERSION: " << glGetString(GL_VERSION) << std::endl;
 	std::cout << "GL_SHADING_LANGUAGE_VERSION: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
 
-	return app.run(std::make_shared<OpeningScene>(mainWindow->getWindowId()));
+	return app.run(std::make_shared<Chapter05Scene>(mainWindow->getWindowId()));
 }

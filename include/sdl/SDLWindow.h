@@ -1,7 +1,7 @@
 #if !defined(SDLWINDOW_H_)
 #define SDLWINDOW_H_
 
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 #include "sdl/SDLRenderer.h"
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_messagebox.h>

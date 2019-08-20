@@ -1,7 +1,7 @@
 #ifndef SCENE_USECASE_H_
 #define SCENE_USECASE_H_
 
-#include "misc/Misc.h"
+#include "misc/Uncopyable.h"
 
 class Presenter;
 class UseCase
