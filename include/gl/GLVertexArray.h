@@ -7,8 +7,10 @@
 // ----------------------------------------------------------------
 
 #pragma once
+#if !defined(GL_VERTEXARRAY_H_)
+#define GL_VERTEXARRAY_H_
 
-namespace chapter05
+namespace GL_
 {
 
 class VertexArray
@@ -36,4 +38,6 @@ private:
 	unsigned int mVertexArray;
 };
 
-}
+} // namespace GL_
+
+#endif // GL_VERTEXARRAY_H_

@@ -15,6 +15,9 @@ namespace GL_ {
 	class Texture;
 }
 
+namespace chapter05
+{
+
 class SpriteComponent : public Component
 {
 public:
@@ -34,3 +37,5 @@ protected:
 	int mTexWidth;
 	int mTexHeight;
 };
+
+}

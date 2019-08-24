@@ -9,6 +9,9 @@
 #include "CircleComponent.h"
 #include "Actor.h"
 
+namespace chapter05
+{
+
 CircleComponent::CircleComponent(class Actor* owner)
 :Component(owner)
 ,mRadius(0.0f)
@@ -37,4 +40,6 @@ bool Intersect(const CircleComponent& a, const CircleComponent& b)
 	radiiSq *= radiiSq;
 
 	return distSq <= radiiSq;
+}
+
 }

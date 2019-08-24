@@ -5,7 +5,6 @@
 #include "gl/GLTexture.h"
 #include "VertexArray.h"
 #include "Shader.h"
-#include "Actor.h"
 #include "SpriteComponent.h"
 #include "Actor.h"
 #include "Ship.h"
@@ -15,6 +14,9 @@
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_opengl.h>
 #include <algorithm>
+
+namespace chapter05
+{
 
 Chapter05Scene::Chapter05Scene(uint32_t windowId)
 	: Scene(windowId)
@@ -334,4 +336,6 @@ std::shared_ptr<Scene> Chapter05SceneResumeCommand::resume() {
 Chapter05SceneResumeCommand::Chapter05SceneResumeCommand(uint32_t windowId)
 	: windowId_(windowId)
 {
+}
+
 }

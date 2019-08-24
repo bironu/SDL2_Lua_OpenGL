@@ -9,6 +9,9 @@
 #include "InputComponent.h"
 #include "Actor.h"
 
+namespace chapter05
+{
+
 InputComponent::InputComponent(class Actor* owner)
 :MoveComponent(owner)
 ,mForwardKey(0)
@@ -44,4 +47,6 @@ void InputComponent::ProcessInput(const uint8_t* keyState)
 		angularSpeed -= mMaxAngularSpeed;
 	}
 	SetAngularSpeed(angularSpeed);
+}
+
 }

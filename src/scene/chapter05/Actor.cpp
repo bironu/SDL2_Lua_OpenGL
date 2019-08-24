@@ -11,6 +11,9 @@
 #include "Component.h"
 #include <algorithm>
 
+namespace chapter05
+{
+
 Actor::Actor(Chapter05Scene* game)
 	:mState(EActive)
 	,mPosition(Vector2::Zero)
@@ -121,4 +124,6 @@ void Actor::RemoveComponent(Component* component)
 	{
 		mComponents.erase(iter);
 	}
+}
+
 }

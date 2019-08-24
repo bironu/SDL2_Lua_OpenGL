@@ -13,6 +13,9 @@
 #include "Random.h"
 #include "CircleComponent.h"
 
+namespace chapter05
+{
+
 Asteroid::Asteroid(Chapter05Scene* game)
 	:Actor(game)
 	,mCircle(nullptr)
@@ -43,4 +46,6 @@ Asteroid::Asteroid(Chapter05Scene* game)
 Asteroid::~Asteroid()
 {
 	GetGame()->RemoveAsteroid(this);
+}
+
 }

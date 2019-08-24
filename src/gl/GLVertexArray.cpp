@@ -6,11 +6,11 @@
 // See LICENSE in root directory for full details.
 // ----------------------------------------------------------------
 
-#include "VertexArray.h"
+#include "gl/GLVertexArray.h"
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL_opengl_glext.h>
 
-namespace chapter05
+namespace GL_
 {
 
 VertexArray::VertexArray(const float* verts, unsigned int numVerts,

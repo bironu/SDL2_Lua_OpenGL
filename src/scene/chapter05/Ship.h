@@ -8,6 +8,10 @@
 
 #pragma once
 #include "Actor.h"
+
+namespace chapter05
+{
+
 class Ship : public Actor
 {
 public:
@@ -18,3 +22,5 @@ public:
 private:
 	float mLaserCooldown;
 };
+
+}

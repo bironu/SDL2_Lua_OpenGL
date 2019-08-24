@@ -12,6 +12,9 @@
 #include "Actor.h"
 #include "scene/chapter05/Chapter05Scene.h"
 
+namespace chapter05
+{
+
 SpriteComponent::SpriteComponent(Actor* owner, int drawOrder)
 	:Component(owner)
 	,mTexture()
@@ -57,4 +60,6 @@ void SpriteComponent::SetTexture(std::shared_ptr<GL_::Texture> texture)
 	// Set width/height
 	mTexWidth = texture->getWidth();
 	mTexHeight = texture->getHeight();
+}
+
 }

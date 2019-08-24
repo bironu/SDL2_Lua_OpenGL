@@ -8,6 +8,10 @@
 
 #pragma once
 #include "Actor.h"
+
+namespace chapter05
+{
+
 class Laser : public Actor
 {
 public:
@@ -18,3 +22,5 @@ private:
 	class CircleComponent* mCircle;
 	float mDeathTimer;
 };
+
+}

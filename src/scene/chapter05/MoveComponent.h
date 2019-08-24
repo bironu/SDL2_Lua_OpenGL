@@ -9,6 +9,9 @@
 #pragma once
 #include "Component.h"
 
+namespace chapter05
+{
+
 class MoveComponent : public Component
 {
 public:
@@ -24,3 +27,5 @@ private:
 	float mAngularSpeed;
 	float mForwardSpeed;
 };
+
+}

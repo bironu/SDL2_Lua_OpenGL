@@ -13,6 +13,9 @@
 #include <fstream>
 #include <sstream>
 
+namespace chapter05
+{
+
 Shader::Shader()
 	: mShaderProgram(0)
 	, mVertexShader(0)
@@ -146,4 +149,6 @@ bool Shader::IsValidProgram()
 	}
 	
 	return true;
+}
+
 }

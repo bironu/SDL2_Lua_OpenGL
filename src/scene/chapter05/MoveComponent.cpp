@@ -9,6 +9,9 @@
 #include "MoveComponent.h"
 #include "Actor.h"
 
+namespace chapter05
+{
+
 MoveComponent::MoveComponent(class Actor* owner, int updateOrder)
 :Component(owner, updateOrder)
 ,mAngularSpeed(0.0f)
@@ -38,4 +41,6 @@ void MoveComponent::Update(float deltaTime)
 		else if (pos.y > 384.0f) { pos.y = -382.0f; }
 		mOwner->SetPosition(pos);
 	}
+}
+
 }

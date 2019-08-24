@@ -11,6 +11,9 @@
 #include <string>
 #include <SDL2/SDL_opengl.h>
 
+namespace chapter05
+{
+
 class Shader
 {
 public:
@@ -39,3 +42,5 @@ private:
 	GLuint mFragShader;
 	GLuint mShaderProgram;
 };
+
+}

@@ -12,6 +12,9 @@
 #include "scene/chapter05/Chapter05Scene.h"
 #include "Laser.h"
 
+namespace chapter05
+{
+
 Ship::Ship(Chapter05Scene* game)
 	:Actor(game)
 	,mLaserCooldown(0.0f)
@@ -47,4 +50,6 @@ void Ship::ActorInput(const uint8_t* keyState)
 		// Reset laser cooldown (half second)
 		mLaserCooldown = 0.5f;
 	}
+}
+
 }

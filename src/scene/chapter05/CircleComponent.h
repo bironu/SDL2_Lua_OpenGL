@@ -10,6 +10,9 @@
 #include "Component.h"
 #include "math/Math.h"
 
+namespace chapter05
+{
+
 class CircleComponent : public Component
 {
 public:
@@ -24,3 +27,5 @@ private:
 };
 
 bool Intersect(const CircleComponent& a, const CircleComponent& b);
+
+}

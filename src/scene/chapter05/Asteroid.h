@@ -9,6 +9,9 @@
 #pragma once
 #include "Actor.h"
 
+namespace chapter05
+{
+
 class Asteroid : public Actor
 {
 public:
@@ -19,3 +22,5 @@ public:
 private:
 	class CircleComponent* mCircle;
 };
+
+}

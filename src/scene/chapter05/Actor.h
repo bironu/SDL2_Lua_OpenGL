@@ -11,6 +11,9 @@
 #include "math/Math.h"
 #include <cstdint>
 
+namespace chapter05
+{
+
 class Chapter05Scene;
 class Actor
 {
@@ -73,3 +76,5 @@ private:
 	std::vector<class Component*> mComponents;
 	Chapter05Scene* mGame;
 };
+
+}

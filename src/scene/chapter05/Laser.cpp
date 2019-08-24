@@ -13,6 +13,9 @@
 #include "CircleComponent.h"
 #include "Asteroid.h"
 
+namespace chapter05
+{
+
 Laser::Laser(Chapter05Scene* game)
 	:Actor(game)
 	,mDeathTimer(1.0f)
@@ -53,4 +56,6 @@ void Laser::UpdateActor(float deltaTime)
 			}
 		}
 	}
+}
+
 }

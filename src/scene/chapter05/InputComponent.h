@@ -10,6 +10,9 @@
 #include "MoveComponent.h"
 #include <cstdint>
 
+namespace chapter05
+{
+
 class InputComponent : public MoveComponent
 {
 public:
@@ -43,3 +46,5 @@ private:
 	int mClockwiseKey;
 	int mCounterClockwiseKey;
 };
+
+}

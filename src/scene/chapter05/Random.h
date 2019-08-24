@@ -10,6 +10,9 @@
 #include <random>
 #include "math/Math.h"
 
+namespace chapter05
+{
+
 class Random
 {
 public:
@@ -34,3 +37,5 @@ public:
 private:
 	static std::mt19937 sGenerator;
 };
+
+}

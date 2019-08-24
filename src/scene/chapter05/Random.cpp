@@ -8,6 +8,9 @@
 
 #include "Random.h"
 
+namespace chapter05
+{
+
 void Random::Init()
 {
 	std::random_device rd;
@@ -49,3 +52,5 @@ Vector3 Random::GetVector(const Vector3& min, const Vector3& max)
 }
 
 std::mt19937 Random::sGenerator;
+
+}

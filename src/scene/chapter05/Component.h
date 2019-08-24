@@ -9,6 +9,9 @@
 #pragma once
 #include <cstdint>
 
+namespace chapter05
+{
+
 class Component
 {
 public:
@@ -31,3 +34,5 @@ protected:
 	// Update order of component
 	int mUpdateOrder;
 };
+
+}

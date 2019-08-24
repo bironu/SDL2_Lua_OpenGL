@@ -1,6 +1,5 @@
 #include "scene/Scene.h"
 #include "sdl/SDLWindow.h"
-#include "gl/GLUCompatible.h"
 #include "app/Application.h"
 #include "resource/Resources.h"
 #include "task/TaskManager.h"

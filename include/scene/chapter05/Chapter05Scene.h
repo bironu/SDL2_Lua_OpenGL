@@ -8,18 +8,21 @@
 #include <vector>
 #include <unordered_map>
 
-class Actor;
-class SpriteComponent;
-class Asteroid;
-class Shader;
-class VertexArray;
-class Ship;
 
 namespace GL_
 {
 class Texture;
 }
 
+namespace chapter05
+{
+
+class Actor;
+class SpriteComponent;
+class Asteroid;
+class Shader;
+class VertexArray;
+class Ship;
 class Chapter05Scene: public Scene
 {
 public:
@@ -93,5 +96,6 @@ private:
 	const uint32_t windowId_;
 };
 
+}
 
 #endif // SCENE_CHAPTER05_CHAPTER05SCENE_H_
