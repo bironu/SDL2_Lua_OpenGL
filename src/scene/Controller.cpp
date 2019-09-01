@@ -3,8 +3,9 @@
 #include "app/Application.h"
 #include <SDL2/SDL_events.h>
 
-Controller::Controller()
-	: idling_(false)
+Controller::Controller(Scene &scene)
+	: scene_(scene)
+	, idling_(false)
 {
 }
 
@@ -123,13 +124,5 @@ void Controller::onJoyButtonDown(const SDL_JoyButtonEvent &jbutton)
 }
 
 void Controller::onJoyButtonUp(const SDL_JoyButtonEvent &jbutton)
-{
-}
-
-void Controller::setJoystickOption()
-{
-}
-
-void Controller::clearJoystickOption()
 {
 }

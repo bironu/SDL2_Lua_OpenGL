@@ -18,9 +18,11 @@ enum class InterpolatorType;
 struct SDL_JoyDeviceEvent;
 class Joystick;
 class MenuInfo;
-class Resources {
+class Resources final
+{
 public:
 	UNCOPYABLE(Resources);
+	Resources();
 	~Resources();
 
 	void setWindowWidth(int width) { windowWidth_ = width; }
@@ -32,8 +34,8 @@ public:
 	int getEnterButton() const { return codeEnterButton_; }
 	int getCancelButton() const { return codeCancelButton_; }
 	int getDuration() const { return duration_; }
-	int getRepeatDelay() const { return delay_; }
-	int getRepeatInterval() const { return interval_; }
+	int getRepeatDelay() const { return keyRepeatDelay_; }
+	int getRepeatInterval() const { return keyRepeatInterval_; }
 	InterpolatorType getInterpolatorType() const { return interpolatorType_; }
 
 	float getViewAngle() const { return viewAngle_; }
@@ -56,11 +58,7 @@ public:
 	void clearImage();
 	void reload();
 
-	static Resources &instance();
-
 private:
-	Resources();
-
 	int windowWidth_;
 	int windowHeight_;
 	int screenWidth_;
@@ -70,8 +68,6 @@ private:
 	int codeEnterButton_;
 	int codeCancelButton_;
 	int duration_;
-	int delay_;
-	int interval_;
 	InterpolatorType interpolatorType_;
 	std::map<ImageId, std::shared_ptr<SDL_::Image>> mapImage_;
 	std::map<StringId, std::string> mapString_;

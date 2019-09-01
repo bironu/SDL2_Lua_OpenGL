@@ -36,8 +36,6 @@ file(GLOB root_files ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 #add_library(project OBJECT ${project_files})
 #add_library(root OBJECT ${root_files})
  
-# Mac依存
-#link_directories(/usr/local/lib)
 # clang依存?
 #set(CMAKE_CXX_FLAGS "-std=c++14 -stdlib=libc++")
 #set(CMAKE_CXX_FLAGS "-std=c++14")
@@ -61,10 +59,18 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/math)
 # リンクするライブラリを指定
 target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} ${SDL2_TTF_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} ${SDL2_IMAGE_LIBRARIES})
-target_link_libraries(${PROJECT_NAME} ${SDL2_MIXER_LIBRARIES})
+#target_link_libraries(${PROJECT_NAME} ${SDL2_TTF_LIBRARIES})
+#target_link_libraries(${PROJECT_NAME} ${SDL2_IMAGE_LIBRARIES})
+#target_link_libraries(${PROJECT_NAME} ${SDL2_MIXER_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} "-L/usr/local/lib -lSDL2_image")
+target_link_libraries(${PROJECT_NAME} "-L/usr/local/lib -lSDL2_mixer")
+target_link_libraries(${PROJECT_NAME} "-L/usr/local/lib -lSDL2_ttf")
 target_link_libraries(${PROJECT_NAME} ${LUA_LIBRARIES})
+
+#libSDL2.a
+#libSDL2_image.a
+#libSDL2_mixer.a
+#libSDL2_ttf.a
 
 target_link_libraries(${PROJECT_NAME} app)
 target_link_libraries(${PROJECT_NAME} gl)
@@ -89,4 +95,5 @@ link_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/scene/chapter05)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/sdl)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/task)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/math)
+link_directories(/usr/local/lib)
 

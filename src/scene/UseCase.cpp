@@ -1,26 +1,11 @@
 #include "scene/UseCase.h"
-#include "scene/Presenter.h"
+#include "scene/Scene.h"
 
-UseCase::UseCase(Presenter &presenter)
-	: presenter_(presenter)
+UseCase::UseCase(Scene &scene)
+	: scene_(scene)
 {
 }
 
 UseCase::~UseCase()
 {
-}
-
-void UseCase::exposed()
-{
-	presenter_.exposed();
-}
-
-void UseCase::finish()
-{
-	presenter_.finish();
-}
-
-void UseCase::quit()
-{
-	presenter_.quit();
 }

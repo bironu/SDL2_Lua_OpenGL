@@ -3,6 +3,7 @@
 
 #include "misc/Uncopyable.h"
 #include <memory>
+#include <functional>
 
 namespace SDL_
 {
@@ -10,49 +11,39 @@ class Window;
 }
 
 class Scene;
-class SceneResumeCommand
-{
-public:
-	UNCOPYABLE(SceneResumeCommand);
-	SceneResumeCommand() = default;
-	virtual ~SceneResumeCommand() = default;
-	virtual std::shared_ptr<Scene> resume() = 0;
-};
-
-union SDL_Event;
+class Application;
+class Resources;
 class TaskManager;
+using FuncCreateScene = std::function<std::shared_ptr<Scene>(Application&, Resources&, TaskManager&)>;
+union SDL_Event;
 class Task;
 class Scene
 {
 public:
 	UNCOPYABLE(Scene);
-	explicit Scene(uint32_t);
+	explicit Scene(Application&, Resources&, TaskManager&);
 	virtual ~Scene() = default;
 
-	void setNextScene(std::shared_ptr<Scene>);
 	void finish() { isFinished_ = true; }
-
-	bool isChangeScene() const { return isFinished_ || nextScene_; }
 	bool isFinished() const { return isFinished_; }
-	std::shared_ptr<Scene> getNextScene() const { return nextScene_; }
-	TaskManager &getTaskManager() const { return *manager_; }
-	void setTaskManager(TaskManager &manager);
-	void unsetTaskManager();
-	void registerTask(int, std::shared_ptr<Task>&&);
+	void registerTask(int, std::shared_ptr<Task>);
 	void unregisterTask(int, bool);
 
 	virtual void dispatch(const SDL_Event &) = 0;
-	virtual std::shared_ptr<SceneResumeCommand> onSuspend() = 0;
+	virtual FuncCreateScene onSuspend() = 0;
 	virtual void onAddJoystick(int);
 	virtual bool onIdle(uint32_t);
 	virtual void onCreate();
 	virtual void onDestroy();
+	virtual void onResume();
 
-	std::shared_ptr<SDL_::Window> getWindow() { return window_; }
-	void update();
 	void clear();
 	void swap();
 	void quit();
+
+	Application &getApplication() { return app_; }
+	Resources &getResources() { return res_; }
+	TaskManager &getManager() { return manager_; }
 
 	// static void calcViewPort(int, int, int, int);
 	// static void Enter2DMode();
@@ -61,9 +52,9 @@ public:
 	// static void Leave3DMode();
 
 private:
-	std::shared_ptr<Scene> nextScene_;
-	std::shared_ptr<SDL_::Window> window_;
-	TaskManager *manager_;
+	Application &app_;
+	Resources &res_;
+	TaskManager &manager_;
 	bool isFinished_;
 };
 

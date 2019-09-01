@@ -74,34 +74,12 @@ public:
 	//int updateSurfaceRects(const SDL_Rect* rects, int numrects) { ::SDL_UpdateWindowSurfaceRects(window_, rects, numrects); }
 	SDL_::Renderer &getRenderer() { return renderer_; }
 
-	void update();
 	void swap();
 
-	static void registWindow(std::shared_ptr<Window> window)
-	{
-		mapWindow_.insert(std::make_pair(window->getWindowId(), window));
-	}
-	static void unregistWindow(Uint32 id){
-		mapWindow_.erase(id);
-	}
-	static void clearWindowMap() {
-		mapWindow_.clear();
-	}
-	static std::shared_ptr<Window> getWindow(Uint32 id) {
-		auto i = mapWindow_.find(id);
-		if(i != mapWindow_.end()){
-			return i->second;
-		}
-		else{
-			return std::shared_ptr<Window>();
-		}
-	}
 private:
 	SDL_Window * const window_;
 	SDL_GLContext const context_;
 	SDL_::Renderer renderer_;
-
-	static std::map<Uint32, std::shared_ptr<Window>> mapWindow_;
 };
 
 } // SDL_

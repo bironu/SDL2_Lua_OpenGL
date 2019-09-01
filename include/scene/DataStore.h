@@ -25,10 +25,8 @@ class DataStore
 {
 public:
 	UNCOPYABLE(DataStore);
-	DataStore();
+	DataStore(Resources &res);
 	virtual ~DataStore();
-
-	std::shared_ptr<GL_::Texture> getTextureScreenBack() const { return textureScreenBack_; }
 
 	int getWindowWidth() const;
 	int getWindowHeight() const;
@@ -51,7 +49,7 @@ public:
 
 private:
 	Resources &res_;
-	std::shared_ptr<GL_::Texture> textureScreenBack_;
+	//std::shared_ptr<GL_::Texture> textureScreenBack_;
 };
 
 #endif // SCENE_DATASTORE_H_

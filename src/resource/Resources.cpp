@@ -15,8 +15,6 @@ Resources::Resources()
 	, codeEnterButton_()
 	, codeCancelButton_()
 	, duration_()
-	, delay_()
-	, interval_()
 	, interpolatorType_()
 	, mapImage_()
 	, mapString_()
@@ -25,7 +23,6 @@ Resources::Resources()
 	, empty_()
 	, viewAngle_(45.0f)
 {
-	reload();
 }
 
 Resources::~Resources()
@@ -58,12 +55,6 @@ const char *Resources::getFontFileName() const
 {
 	return "res/font/ShipporiMincho-Regular.otf";
 	//return "res/font/mouhitu.ttf";
-}
-
-Resources &Resources::instance()
-{
-	static Resources res;
-	return res;
 }
 
 void Resources::addJoyDevice(const SDL_JoyDeviceEvent &jdevice)
@@ -142,17 +133,6 @@ void Resources::reload()
 
 	interpolatorType_ = static_cast<InterpolatorType>(lua["animation"]["interpolator"].get<int>());
 	duration_ = lua["animation"]["duration"].get<int>();
-
-//	posCameraX_ = lua["camera"]["x"].get<float>();
-//	posCameraY_ = lua["camera"]["y"].get<float>();
-//	posCameraZ_ = lua["camera"]["z"].get<float>();
-//	translateCameraX_ = lua["camera"]["translateX"].get<float>();
-//	translateCameraY_ = lua["camera"]["translateY"].get<float>();
-//	translateCameraZ_ = lua["camera"]["translateZ"].get<float>();
-//	radius_ = lua["camera"]["radius"].get<float>();
-
-	delay_ = lua["keyRepeat"]["delay"].get_or(300);
-	interval_ = lua["keyRepeat"]["interval"].get_or(50);
 
 	lua.script_file("res/lua/data/top_menu.lua");
 	listMenuInfo_.clear();

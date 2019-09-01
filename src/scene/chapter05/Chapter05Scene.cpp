@@ -18,8 +18,8 @@
 namespace chapter05
 {
 
-Chapter05Scene::Chapter05Scene(uint32_t windowId)
-	: Scene(windowId)
+Chapter05Scene::Chapter05Scene(Application &app, Resources &res, TaskManager &manager)
+	: Scene(app, res, manager)
 {
 }
 
@@ -115,7 +115,7 @@ void Chapter05Scene::onCreate()
 	if (!LoadShaders())
 	{
 		SDL_Log("Failed to load shaders.");
-		Application::quit(1);
+		getApplication().quit(1);
 	}
 
 	// Create quad for drawing sprites
@@ -143,9 +143,11 @@ void Chapter05Scene::onResume(int pos)
 {
 }
 
-std::shared_ptr<SceneResumeCommand> Chapter05Scene::onSuspend()
+FuncCreateScene Chapter05Scene::onSuspend()
 {
-	return std::make_shared<Chapter05SceneResumeCommand>(getWindow()->getWindowId());
+	return [](Application &app, Resources &res, TaskManager &manager){
+		return std::make_shared<Chapter05Scene>(app, res, manager);
+	};
 }
 
 void Chapter05Scene::GenerateOutput()
@@ -182,9 +184,8 @@ bool Chapter05Scene::LoadShaders()
 
 	mSpriteShader->SetActive();
 	// Set the view-projection matrix
-	auto &res = Resources::instance();
-	const auto sw = res.getScreenWidth();
-	const auto sh = res.getScreenHeight();
+	const auto sw = getResources().getScreenWidth();
+	const auto sh = getResources().getScreenHeight();
 
 	Matrix4 viewProj = Matrix4::CreateSimpleViewProj(sw, sh);
 	mSpriteShader->SetMatrixUniform("uViewProj", viewProj);
@@ -324,18 +325,6 @@ void Chapter05Scene::RemoveSprite(SpriteComponent* sprite)
 {
 	auto iter = std::find(mSprites.begin(), mSprites.end(), sprite);
 	mSprites.erase(iter);
-}
-
-
-
-std::shared_ptr<Scene> Chapter05SceneResumeCommand::resume() {
-	auto result = std::make_shared<Chapter05Scene>(windowId_);
-	return result;
-}
-
-Chapter05SceneResumeCommand::Chapter05SceneResumeCommand(uint32_t windowId)
-	: windowId_(windowId)
-{
 }
 
 }

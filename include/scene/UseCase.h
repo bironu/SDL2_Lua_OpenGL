@@ -3,20 +3,16 @@
 
 #include "misc/Uncopyable.h"
 
-class Presenter;
+class Scene;
 class UseCase
 {
 public:
 	UNCOPYABLE(UseCase);
-	UseCase(Presenter &);
+	UseCase(Scene &);
 	virtual ~UseCase();
 
-	void exposed();
-	void finish();
-	void quit();
-
 private:
-	Presenter &presenter_;
+	Scene &scene_;
 };
 
 #endif // SCENE_USECASE_H_

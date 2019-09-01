@@ -6,22 +6,12 @@
 #include <SDL2/SDL_log.h>
 #include <SDL2/SDL_opengl.h>
 
-Scene::Scene(uint32_t windowId)
-	: nextScene_()
-	, window_(SDL_::Window::getWindow(windowId))
-	, manager_(nullptr)
+Scene::Scene(Application &app, Resources &res, TaskManager &manager)
+	: app_(app)
+	, res_(res)
+	, manager_(manager)
 	, isFinished_(false)
 {
-}
-
-void Scene::setNextScene(std::shared_ptr<Scene> scene)
-{
-	if (!scene) {
-		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "next scene is null!");
-	}
-	else {
-		nextScene_ = scene;
-	}
 }
 
 void Scene::onAddJoystick(int index)
@@ -29,56 +19,46 @@ void Scene::onAddJoystick(int index)
 	// nop
 }
 
-void Scene::update()
-{
-	window_->update();
-}
-
 void Scene::clear()
 {
-	::glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Scene::swap()
 {
-	window_->swap();
+	app_.getMainWindow()->swap();
 }
 
 bool Scene::onIdle(uint32_t tick)
 {
-	return !manager_->compute(tick);
+	return !manager_.compute(tick);
 }
 
 void Scene::onCreate()
 {
 }
 
-void Scene::setTaskManager(TaskManager &manager) {
-	manager_ = &manager;
-}
-
-void Scene::unsetTaskManager() {
-	manager_->clear();
-	manager_ = nullptr;
-}
-
-void Scene::registerTask(int id, std::shared_ptr<Task> &&task)
+void Scene::registerTask(int id, std::shared_ptr<Task> task)
 {
-	manager_->registerTask(id, std::move(task));
+	manager_.registerTask(id, std::move(task));
 }
 
 void Scene::unregisterTask(int id, bool isFinishAction)
 {
-	manager_->unregisterTask(id, isFinishAction);
+	manager_.unregisterTask(id, isFinishAction);
 }
 
 void Scene::onDestroy()
 {
 }
 
+void Scene::onResume()
+{
+}
+
 void Scene::quit()
 {
-	Application::quit();
+	app_.quit();
 }
 
 // void Scene::calcViewPort(int ww, int wh, int sw, int sh)

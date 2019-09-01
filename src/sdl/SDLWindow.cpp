@@ -5,8 +5,6 @@
 namespace SDL_
 {
 
-std::map<Uint32, std::shared_ptr<Window>> Window::mapWindow_;
-
 Window::Window(const char* title, int x, int y, int w, int h, Uint32 flags)
 	: window_(::SDL_CreateWindow(title, x, y, w, h, flags))
 	, context_(::SDL_GL_CreateContext(window_))
@@ -24,11 +22,6 @@ Window::~Window()
 	if(isWindow()){
 		::SDL_DestroyWindow(window_);
 	}
-}
-
-void Window::update()
-{
-	Application::updateWindow(getWindowId());
 }
 
 void Window::swap()

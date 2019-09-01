@@ -1,86 +1,12 @@
 #include "app/Application.h"
 #include "sdl/SDLWindow.h"
 #include "resource/Resources.h"
+#include "task/TaskManager.h"
 //#include "scene/opening/OpeningScene.h"
 #include "scene/chapter05/Chapter05Scene.h"
 #include <SDL2/SDL_log.h>
 #include <SDL2/SDL_opengl.h>
 #include <memory>
-#include <iostream>
-
-namespace
-{
-void setup_opengl()
-{
-	// ::SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	// ::SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
-	// ::SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	// ::SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-	// ::SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-	// ::SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
-	// ::SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-	// ::SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
-	// ::SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	// ::SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
-    // ::SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-    // ::SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-	// ::SDL_GL_SetSwapInterval(1);
-
-	::glShadeModel(GL_SMOOTH);
-	::glEnable(GL_TEXTURE_2D);
-	::glEnable(GL_BLEND);
-	::glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	::glClearColor(0.0, 0.0, 0.0, 0.0);
-
-	::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	::glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	::glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
-	::glCullFace(GL_BACK);
-	::glFrontFace(GL_CCW);
-	::glEnable(GL_CULL_FACE);
-
-	::glEnable(GL_DEPTH_TEST);
-	::glClearDepth(1.0);
-
-   ::glMatrixMode(GL_PROJECTION);
-   ::glLoadIdentity();
-	// resize(width, height, width, height, 45.0, 1.0, 100000.0);
-
-	// const GLfloat lightPos[] = {0.0, 0.0, 1000, 1.0};
-	// const GLfloat lightDirection[] = {0.0, 0.0, -1.0};
-	// const GLfloat lightDeffuse[] = {0.8, 0.8, 0.8, 0.9};
-	// const GLfloat lightAmbient[] = {1, 1, 1, 0.2};
-	// const GLfloat lightSpecular[] = {1, 1, 1, 0.1};
-
-	// ::glEnable(GL_LIGHTING);
-	// ::glEnable(GL_LIGHT0);
-	// ::glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
-	// ::glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, lightDirection);
-	// ::glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDeffuse);
-	// ::glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmbient);
-	// ::glLightfv(GL_LIGHT0, GL_SPECULAR, lightSpecular);
-
-	// GL_AMBIENT(0.2 , 0.2 , 0.2 , 1)
-	// const GLfloat MaterialAmbient[] = {0.5, 0.5, 0.5, 0.2};
-	// GL_DIFFUSE(0.8 , 0.8 , 0.8 , 1)
-	// const GLfloat MaterialDeffuse[] = {0.5, 0.5, 0.5, 0.8};
-	// GL_SPECULAR(0 , 0 , 0, 1)
-	// const GLfloat MaterialSpecular[] = {0.3, 0.3, 0.3, 0.1};
-	// GL_EMISSION(0 , 0 , 0 , 1)
-	// const GLfloat MaterialEmission[] = {1.0, 1.0, 1.0, 0.1};
-	// GL_SHININESS(0)
-	// const GLfloat MaterialShininess = 1.0;
-	// ::glMaterialfv(GL_FRONT, GL_AMBIENT, MaterialAmbient);
-	// ::glMaterialfv(GL_FRONT, GL_DIFFUSE, MaterialDeffuse);
-	// ::glMaterialfv(GL_FRONT, GL_SPECULAR, MaterialSpecular);
-	// ::glMaterialfv(GL_FRONT, GL_EMISSION, MaterialEmission;
-	// ::glMaterialf(GL_FRONT, GL_SHININESS, MaterialShininess);
-}
-
-} // nameless namespace
 
 int main(int argc, char *argv[])
 {
@@ -92,35 +18,26 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	Resources &res = Resources::instance();
+	app.initGL();
 
+	Resources res;
+	res.reload();
 	const int width = res.getWindowWidth();
 	const int height = res.getWindowHeight();
 
-	//::SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-	//::SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-	::SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	::SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
-	::SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-	::SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
-	::SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-	::SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
-	::SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	::SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
-    ::SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-    ::SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-	::SDL_GL_SetSwapInterval(1);
-
 	auto mainWindow = std::make_shared<SDL_::Window>("main", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
-	SDL_::Window::registWindow(mainWindow);
+	app.registerMainWindow(mainWindow);
 	auto size = mainWindow->getSize();
 	res.setWindowWidth(size.get_width());
 	res.setWindowHeight(size.get_height());
 
-	//setup_opengl();
+	app.registerNextSceneFunc([](Application &app, Resources &res, TaskManager &manager){
+		return std::make_shared<chapter05::Chapter05Scene>(app, res, manager);
+	});
 
-	std::cout << "GL_VERSION: " << glGetString(GL_VERSION) << std::endl;
-	std::cout << "GL_SHADING_LANGUAGE_VERSION: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+	SDL_Log("GL_VERSION: %s\n", glGetString(GL_VERSION));
+	SDL_Log("GL_SHADING_LANGUAGE_VERSION: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
 
-	return app.run(std::make_shared<chapter05::Chapter05Scene>(mainWindow->getWindowId()));
+	TaskManager manager;
+	return app.run(res, manager);
 }

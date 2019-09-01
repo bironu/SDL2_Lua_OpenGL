@@ -2,9 +2,9 @@
 #include "resource/Resources.h"
 #include "gl/GLTexture.h"
 
-DataStore::DataStore()
-	: res_(Resources::instance())
-	, textureScreenBack_(std::make_shared<GL_::Texture>(res_.getImage(ImageId::ScreenBack)))
+DataStore::DataStore(Resources &res)
+	: res_(res)
+	//, textureScreenBack_(std::make_shared<GL_::Texture>(res_.getImage(ImageId::ScreenBack)))
 {
 }
 

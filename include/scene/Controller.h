@@ -11,18 +11,17 @@ struct SDL_KeyboardEvent;
 struct SDL_WindowEvent;
 struct SDL_JoyHatEvent;
 struct SDL_JoyButtonEvent;
+class Scene;
 class Joystick;
 class Controller
 {
 public:
 	UNCOPYABLE(Controller);
-	Controller();
+	Controller(Scene &scene);
 	virtual ~Controller();
 
 	virtual void dispatch(const SDL_Event &);
 	virtual void onIdle(uint32_t);
-	virtual void setJoystickOption();
-	virtual void clearJoystickOption();
 	bool isIdling() const { return idling_; }
 
 protected:
@@ -38,6 +37,7 @@ private:
 	virtual void onJoyButtonDown(const SDL_JoyButtonEvent &);
 	virtual void onJoyButtonUp(const SDL_JoyButtonEvent &);
 
+	Scene &scene_;
 	bool idling_;
 };
 

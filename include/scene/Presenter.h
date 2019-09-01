@@ -4,17 +4,6 @@
 #include "misc/Uncopyable.h"
 #include <memory>
 
-namespace GL_
-{
-class Sprite;
-class BillBoard;
-class Sprite2D;
-class Sprite3D;
-class TextView;
-class GroupView;
-class ScreenView;
-}
-
 class Scene;
 class Presenter
 {
@@ -22,22 +11,14 @@ public:
 	UNCOPYABLE(Presenter);
 	Presenter(Scene &);
 	virtual ~Presenter();
-
-	void update();
-	void finish();
-	void quit();
-
-	virtual void exposed();
-
+	virtual void exposed() = 0;
 	bool isIdling() const { return idling_; }
-	std::shared_ptr<GL_::ScreenView> getRootView() { return root_; }
 
 protected:
 	void setIdling(bool idling) { idling_ = idling; }
 
 private:
 	Scene &scene_;
-	std::shared_ptr<GL_::ScreenView> root_;
 	bool idling_;
 };
 

@@ -26,12 +26,12 @@ class Ship;
 class Chapter05Scene: public Scene
 {
 public:
-	explicit Chapter05Scene(uint32_t windowId);
+	explicit Chapter05Scene(Application &app, Resources &res, TaskManager &manager);
 	virtual ~Chapter05Scene() override = default;
 
 	virtual void dispatch(const SDL_Event &) override;
 	virtual bool onIdle(uint32_t) override;
-	virtual std::shared_ptr<SceneResumeCommand> onSuspend() override;
+	virtual FuncCreateScene onSuspend() override;
 	virtual void onCreate() override;
 	virtual void onDestroy() override;
 	virtual void onAddJoystick(int) override;
@@ -83,17 +83,6 @@ private:
 	// Game-specific
 	Ship* mShip;
 	std::vector<Asteroid*> mAsteroids;
-};
-
-class Chapter05SceneResumeCommand : public SceneResumeCommand
-{
-public:
-	explicit Chapter05SceneResumeCommand(uint32_t windowId);
-	virtual ~Chapter05SceneResumeCommand() override = default;
-	virtual std::shared_ptr<Scene> resume() override;
-
-private:
-	const uint32_t windowId_;
 };
 
 }
