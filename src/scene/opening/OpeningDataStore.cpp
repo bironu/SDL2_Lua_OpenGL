@@ -1,6 +1,6 @@
 #include "scene/opening/OpeningDataStore.h"
-#include "resource/Resources.h"
-#include "resource/StringId.h"
+#include "resources/Resources.h"
+#include "resources/StringId.h"
 
 OpeningDataStore::OpeningDataStore(Resources &res)
 	: DataStore(res)

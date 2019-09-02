@@ -10,7 +10,7 @@
 #include "Ship.h"
 #include "Asteroid.h"
 #include "Random.h"
-#include "resource/Resources.h"
+#include "resources/Resources.h"
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_opengl.h>
 #include <algorithm>

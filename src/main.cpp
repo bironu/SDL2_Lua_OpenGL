@@ -1,6 +1,6 @@
 #include "app/Application.h"
 #include "sdl/SDLWindow.h"
-#include "resource/Resources.h"
+#include "resources/Resources.h"
 #include "task/TaskManager.h"
 //#include "scene/opening/OpeningScene.h"
 #include "scene/chapter05/Chapter05Scene.h"

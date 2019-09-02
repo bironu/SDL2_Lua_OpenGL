@@ -1,7 +1,7 @@
 #include "scene/Scene.h"
 #include "sdl/SDLWindow.h"
 #include "app/Application.h"
-#include "resource/Resources.h"
+#include "resources/Resources.h"
 #include "task/TaskManager.h"
 #include <SDL2/SDL_log.h>
 #include <SDL2/SDL_opengl.h>

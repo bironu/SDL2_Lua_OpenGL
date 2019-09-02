@@ -1,5 +1,5 @@
-#include "resource/Resources.h"
-#include "resource/MenuInfo.h"
+#include "resources/Resources.h"
+#include "resources/MenuInfo.h"
 #include "sdl/SDLImage.h"
 #include "lua/sol.hpp"
 #include "sdl/SDLJoystick.h"

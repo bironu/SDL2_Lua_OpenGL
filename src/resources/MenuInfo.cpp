@@ -1,4 +1,4 @@
-#include "resource/MenuInfo.h"
+#include "resources/MenuInfo.h"
 
 MenuInfo::MenuInfo(const char *title, const char *path)
 	: menuTitle_(title)

@@ -1,5 +1,5 @@
 #include "scene/DataStore.h"
-#include "resource/Resources.h"
+#include "resources/Resources.h"
 #include "gl/GLTexture.h"
 
 DataStore::DataStore(Resources &res)
