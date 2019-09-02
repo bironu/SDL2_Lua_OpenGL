@@ -6,7 +6,7 @@
 class OpeningDataStore : public DataStore
 {
 public:
-	OpeningDataStore();
+	OpeningDataStore(Resources &res);
 	virtual ~OpeningDataStore() override;
 
 	int getMenuFontSize() const { return 48; }

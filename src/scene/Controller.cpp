@@ -1,11 +1,8 @@
 #include "scene/Controller.h"
-#include "sdl/SDLJoystick.h"
-#include "app/Application.h"
 #include <SDL2/SDL_events.h>
 
-Controller::Controller(Scene &scene)
-	: scene_(scene)
-	, idling_(false)
+Controller::Controller()
+	: idling_(false)
 {
 }
 
@@ -15,7 +12,8 @@ Controller::~Controller()
 
 void Controller::dispatch(const SDL_Event &event)
 {
-	switch(event.type){
+	switch(event.type)
+	{
 	case SDL_MOUSEBUTTONDOWN:
 		onMouseButtonDown(event.button);
 		break;

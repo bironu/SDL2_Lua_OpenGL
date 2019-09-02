@@ -5,12 +5,10 @@
 #include <vector>
 #include <string>
 
-class OpeningPresenter;
-class OpeningDataStore;
 class OpeningUseCase : public UseCase
 {
 public:
-	OpeningUseCase(OpeningPresenter &, OpeningDataStore &);
+	OpeningUseCase();
 	virtual ~OpeningUseCase() override;
 
 	void onCreate();
@@ -27,9 +25,6 @@ public:
 	void setPos(int pos) { pos_ = pos; }
 
 private:
-	OpeningPresenter &presenter_;
-	OpeningDataStore &dataStore_;
-	const std::vector<const char *> &listMenuItem_;
 	int pos_;
 };
 

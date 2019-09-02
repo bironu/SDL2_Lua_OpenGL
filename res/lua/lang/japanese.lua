@@ -1,6 +1,8 @@
 print("japanese.lua load.")
 
+font_name = "res/font/mouhitu.ttf"
 string = {
-	title="SDL2 動作確認",
-	cursor="○",
+	TitleOpning="SDL2 動作確認",
+	MenuItem3DMenuDemo="3Dメニュー デモ",
+	MenuItemChapter05="Chanpter05 デモ",
 }

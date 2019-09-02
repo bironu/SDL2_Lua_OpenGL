@@ -4,24 +4,18 @@
 #include "lua/sol.hpp"
 #include "sdl/SDLJoystick.h"
 #include <SDL2/SDL_events.h>
+#include <cstring>
 
 Resources::Resources()
 	: windowWidth_()
 	, windowHeight_()
 	, screenWidth_()
 	, screenHeight_()
-	, keyRepeatDelay_()
-	, keyRepeatInterval_()
-	, codeEnterButton_()
-	, codeCancelButton_()
-	, duration_()
-	, interpolatorType_()
+	, lang_()
+	, luaString_()
+	, luaImage_()
 	, mapImage_()
-	, mapString_()
 	, mapJoystick_()
-	, listMenuInfo_()
-	, empty_()
-	, viewAngle_(45.0f)
 {
 }
 
@@ -29,32 +23,37 @@ Resources::~Resources()
 {
 }
 
-std::shared_ptr<SDL_::Image> Resources::getImage(ImageId id) const
+std::shared_ptr<SDL_::Image> Resources::getImage(const std::string &id) const
 {
 	auto i = mapImage_.find(id);
 	if (i != mapImage_.end()) {
 		return i->second;
 	}
 	else {
-		return nullptr;
+		const char *imagePath = (*luaImage_)[id.c_str()].get<const char *>();
+		std::shared_ptr<SDL_::Image> image = std::make_shared<SDL_::Image>(imagePath);
+		if (image) {
+			mapImage_.insert(std::make_pair(id, image));
+		}
+		else {
+			SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Image ID not found. %s\n", id.c_str());
+		}
+		return image;
 	}
 }
 
-const std::string &Resources::getString(StringId id) const
+const char *Resources::getString(const std::string &id) const
 {
-	auto i = mapString_.find(id);
-	if (i != mapString_.end()) {
-		return i->second;
+	const char *result = (*luaString_)[id.c_str()].get_or<const char *>(nullptr);
+	if (!result) {
+		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "String ID not found. %s\n", id.c_str());
 	}
-	else {
-		return empty_;
-	}
+	return result;
 }
 
 const char *Resources::getFontFileName() const
 {
-	return "res/font/ShipporiMincho-Regular.otf";
-	//return "res/font/mouhitu.ttf";
+	return (*luaString_)["font_name"].get<const char *>();
 }
 
 void Resources::addJoyDevice(const SDL_JoyDeviceEvent &jdevice)
@@ -83,25 +82,21 @@ std::shared_ptr<Joystick> Resources::getJoystick(int index) const
 	}
 }
 
-void Resources::loadString()
+void Resources::loadString(const std::string &lang)
 {
-	mapString_.insert(std::make_pair(StringId::TitleOpeningScene, "SDL2&OpenGL動作デモ"));
-	mapString_.insert(std::make_pair(StringId::TitleMenuScene, "最初の画面"));
-	mapString_.insert(std::make_pair(StringId::MenuItem3DMenuDemo, "3Dメニュー　動作デモ"));
-	mapString_.insert(std::make_pair(StringId::MenuItemChapter05, "Chapter 05"));
+	const std::string langPath = "res/lua/lang/" + lang + ".lua";
+	luaString_ = std::make_unique<sol::state>();
+	luaString_->open_libraries(sol::lib::base, sol::lib::package);
+	luaString_->script_file(langPath);
 }
 
-void Resources::clearString()
+void Resources::loadImage(const std::string &lang)
 {
-	mapString_.clear();
-}
-
-void Resources::loadImage()
-{
-	mapImage_.insert(std::make_pair(ImageId::ScreenBack, std::make_shared<SDL_::Image>("res/image/wallpaper_logo.png")));
-	mapImage_.insert(std::make_pair(ImageId::TextBack, std::make_shared<SDL_::Image>("res/image/TextBack.png")));
-	mapImage_.insert(std::make_pair(ImageId::ButtonNormalBack, std::make_shared<SDL_::Image>("res/image/ButtonNormalBack.png")));
-	mapImage_.insert(std::make_pair(ImageId::ButtonSelectBack, std::make_shared<SDL_::Image>("res/image/ButtonSelectBack.png")));
+	mapImage_.clear();
+	const std::string imagePath = "res/lua/image/image.lua";
+	luaImage_ = std::make_unique<sol::state>();
+	luaImage_->open_libraries(sol::lib::base, sol::lib::package);
+	luaImage_->script_file(imagePath);
 }
 
 void Resources::clearImage()
@@ -111,11 +106,6 @@ void Resources::clearImage()
 
 void Resources::reload()
 {
-	clearString();
-	loadString();
-	clearImage();
-	loadImage();
-
 	sol::state lua;
 	lua.open_libraries(sol::lib::base, sol::lib::package);
 	lua.script_file("res/lua/system.lua");
@@ -124,20 +114,24 @@ void Resources::reload()
 	windowHeight_ = lua["window"]["height"].get<int>();
 	screenWidth_ = lua["screen"]["width"].get<int>();
 	screenHeight_ = lua["screen"]["height"].get<int>();
+	lang_ = lua["system"]["lang"].get<const char *>();
 
-	keyRepeatDelay_ = lua["keyRepeat"]["delay"].get_or(300);
-	keyRepeatInterval_ = lua["keyRepeat"]["interval"].get_or(50);
+	loadString(lang_);
+	loadImage(lang_);
 
-	codeEnterButton_ = lua["keyAssing"]["delay"].get_or(0);
-	codeCancelButton_ = lua["keyAssing"]["delay"].get_or(1);
+	// keyRepeatDelay_ = lua["keyRepeat"]["delay"].get_or(300);
+	// keyRepeatInterval_ = lua["keyRepeat"]["interval"].get_or(50);
 
-	interpolatorType_ = static_cast<InterpolatorType>(lua["animation"]["interpolator"].get<int>());
-	duration_ = lua["animation"]["duration"].get<int>();
+	// codeEnterButton_ = lua["keyAssing"]["delay"].get_or(0);
+	// codeCancelButton_ = lua["keyAssing"]["delay"].get_or(1);
 
-	lua.script_file("res/lua/data/top_menu.lua");
-	listMenuInfo_.clear();
-	for (int i = 1; lua["topMenu"][i].valid(); ++i) {
-		listMenuInfo_.push_back(std::make_shared<MenuInfo>(lua["topMenu"][i]["title"].get<const char *>(), lua["topMenu"][i]["path"].get<const char *>()));
-	}
+	// interpolatorType_ = static_cast<InterpolatorType>(lua["animation"]["interpolator"].get<int>());
+	// duration_ = lua["animation"]["duration"].get<int>();
+
+	// lua.script_file("res/lua/data/top_menu.lua");
+	// listMenuInfo_.clear();
+	// for (int i = 1; lua["topMenu"][i].valid(); ++i) {
+	// 	listMenuInfo_.push_back(std::make_shared<MenuInfo>(lua["topMenu"][i]["title"].get<const char *>(), lua["topMenu"][i]["path"].get<const char *>()));
+	// }
 
 }

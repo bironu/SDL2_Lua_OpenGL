@@ -1,8 +1,9 @@
 #include "scene/opening/OpeningDataStore.h"
 #include "resource/Resources.h"
+#include "resource/StringId.h"
 
-OpeningDataStore::OpeningDataStore()
-	: DataStore()
+OpeningDataStore::OpeningDataStore(Resources &res)
+	: DataStore(res)
 	, listMenuItem_{
 		getString(StringId::MenuItem3DMenuDemo),
 		getString(StringId::MenuItemChapter05),
@@ -16,7 +17,7 @@ OpeningDataStore::~OpeningDataStore()
 
 const char *OpeningDataStore::getStringTitle() const
 {
-	return getString(StringId::TitleOpeningScene);
+	return getString(StringId::TitleOpning);
 }
 
 const std::vector<const char *> &OpeningDataStore::getOpeningMenuItemList() const

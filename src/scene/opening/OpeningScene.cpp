@@ -6,12 +6,12 @@
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_opengl.h>
 
-OpeningScene::OpeningScene(uint32_t windowId)
-	: Scene(windowId)
-	, dataStore_()
-	, presenter_(*this, dataStore_)
-	, useCase_(presenter_, dataStore_)
-	, controller_(useCase_, dataStore_)
+OpeningScene::OpeningScene(Application &app, Resources &res, TaskManager &manager)
+	: Scene(app, res, manager)
+	, dataStore_(res)
+	, presenter_()
+	, useCase_()
+	, controller_()
 {
 }
 
@@ -33,40 +33,27 @@ bool OpeningScene::onIdle(uint32_t tick)
 void OpeningScene::onCreate()
 {
 	Scene::onCreate();
-	controller_.setJoystickOption();
-	useCase_.onCreate();
 }
 
 void OpeningScene::onDestroy()
 {
-	controller_.clearJoystickOption();
 	Scene::onDestroy();
 }
 
 void OpeningScene::onAddJoystick(int index)
 {
-	controller_.setJoystickOption();
 }
 
-void OpeningScene::onResume(int pos)
+void OpeningScene::onResume()
 {
-	controller_.setJoystickOption();
-	useCase_.onResume(pos);
 }
 
-std::shared_ptr<SceneResumeCommand> OpeningScene::onSuspend()
+FuncCreateScene OpeningScene::onSuspend()
 {
-	return std::make_shared<OpeningSceneResumeCommand>(getWindow()->getWindowId(), useCase_.getPos());
-}
-
-std::shared_ptr<Scene> OpeningSceneResumeCommand::resume() {
-	auto result = std::make_shared<OpeningScene>(windowId_);
-	result->onResume(pos_);
-	return result;
-}
-
-OpeningSceneResumeCommand::OpeningSceneResumeCommand(uint32_t windowId, int pos)
-	: windowId_(windowId)
-	, pos_(pos)
-{
+	const int pos = useCase_.getPos();
+	return [pos](Application &app, Resources &res, TaskManager &manager){
+		auto result = std::make_shared<OpeningScene>(app, res, manager);
+		result->getUseCase().setPos(pos);
+		return result;
+	};
 }

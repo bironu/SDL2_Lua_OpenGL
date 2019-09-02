@@ -17,7 +17,7 @@ class Controller
 {
 public:
 	UNCOPYABLE(Controller);
-	Controller(Scene &scene);
+	Controller();
 	virtual ~Controller();
 
 	virtual void dispatch(const SDL_Event &);
@@ -37,7 +37,6 @@ private:
 	virtual void onJoyButtonDown(const SDL_JoyButtonEvent &);
 	virtual void onJoyButtonUp(const SDL_JoyButtonEvent &);
 
-	Scene &scene_;
 	bool idling_;
 };
 

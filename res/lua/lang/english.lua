@@ -1,6 +1,8 @@
 print("english.lua load.")
 
+font_name = "res/font/mouhitu.ttf"
 string = {
-	title="SDL2 Run Test",
-	cursor="□",
+	TitleOpning="SDL2 run test",
+	MenuItem3DMenuDemo="3D Menu Demo",
+	MenuItemChapter05="Chanpter05 Demo",
 }

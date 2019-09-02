@@ -16,9 +16,6 @@ namespace GL_
 class Texture;
 }
 
-enum class ImageId;
-enum class StringId;
-enum class InterpolatorType;
 class Joystick;
 class Resources;
 class DataStore
@@ -34,22 +31,14 @@ public:
 	int getScreenHeight() const;
 
 	const char *getFontFileName() const;
-	std::shared_ptr<SDL_::Image> getImage(ImageId) const;
-	const char *getString(StringId) const;
-
-	int getRepeatDelay() const;
-	int getRepeatInterval() const;
-	int getDuration() const;
-	InterpolatorType getInterpolatorType() const;
+	std::shared_ptr<SDL_::Image> getImage(const std::string &) const;
+	const char *getString(const std::string &) const;
 	std::shared_ptr<Joystick> getJoystick(int) const;
-	int getEnterButton() const;
-	int getCancelButton() const;
 
 	void reload();
 
 private:
 	Resources &res_;
-	//std::shared_ptr<GL_::Texture> textureScreenBack_;
 };
 
 #endif // SCENE_DATASTORE_H_

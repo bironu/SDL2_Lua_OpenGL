@@ -2,22 +2,25 @@
 #define RESOURCES_H_
 
 #include "misc/Uncopyable.h"
-#include "ImageId.h"
-#include "StringId.h"
 #include <memory>
 #include <map>
+#include <unordered_map>
 #include <string>
 #include <vector>
+#include <functional>
 
 namespace SDL_
 {
 class Image;
 }
 
-enum class InterpolatorType;
+namespace sol
+{
+class state;
+}
+
 struct SDL_JoyDeviceEvent;
 class Joystick;
-class MenuInfo;
 class Resources final
 {
 public:
@@ -31,30 +34,18 @@ public:
 	int getWindowHeight() const { return windowHeight_; }
 	int getScreenWidth() const { return screenWidth_; }
 	int getScreenHeight() const { return screenHeight_; }
-	int getEnterButton() const { return codeEnterButton_; }
-	int getCancelButton() const { return codeCancelButton_; }
-	int getDuration() const { return duration_; }
-	int getRepeatDelay() const { return keyRepeatDelay_; }
-	int getRepeatInterval() const { return keyRepeatInterval_; }
-	InterpolatorType getInterpolatorType() const { return interpolatorType_; }
-
-	float getViewAngle() const { return viewAngle_; }
-	void setViewAngle(float viewAngle) { viewAngle_ = viewAngle; }
-
-	const std::vector<std::shared_ptr<MenuInfo>> &getMenuInfoList() const { return listMenuInfo_; }
 
 	const char *getFontFileName() const;
 
 	void addJoyDevice(const SDL_JoyDeviceEvent &);
 	void removeJoyDevice(const SDL_JoyDeviceEvent &);
 
-	std::shared_ptr<SDL_::Image> getImage(ImageId) const;
-	const std::string &getString(StringId) const;
+	std::shared_ptr<SDL_::Image> getImage(const std::string &) const;
+	const char *getString(const std::string &) const;
 	std::shared_ptr<Joystick> getJoystick(int) const;
 
-	void loadString();
-	void clearString();
-	void loadImage();
+	void loadString(const std::string &lang);
+	void loadImage(const std::string &lang);
 	void clearImage();
 	void reload();
 
@@ -63,20 +54,11 @@ private:
 	int windowHeight_;
 	int screenWidth_;
 	int screenHeight_;
-	int keyRepeatDelay_;
-	int keyRepeatInterval_;
-	int codeEnterButton_;
-	int codeCancelButton_;
-	int duration_;
-	InterpolatorType interpolatorType_;
-	std::map<ImageId, std::shared_ptr<SDL_::Image>> mapImage_;
-	std::map<StringId, std::string> mapString_;
-	std::map<int32_t, std::shared_ptr<Joystick>> mapJoystick_;
-
-	std::vector<std::shared_ptr<MenuInfo>> listMenuInfo_;
-	std::string empty_;
-
-	float viewAngle_;
+	std::string lang_;
+	std::unique_ptr<sol::state> luaString_;
+	std::unique_ptr<sol::state> luaImage_;
+	mutable std::unordered_map<std::string, std::shared_ptr<SDL_::Image>> mapImage_;
+	std::unordered_map<int32_t, std::shared_ptr<Joystick>> mapJoystick_;
 };
 
 #endif // RESOURCES_H_

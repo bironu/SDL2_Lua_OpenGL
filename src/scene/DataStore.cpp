@@ -4,7 +4,6 @@
 
 DataStore::DataStore(Resources &res)
 	: res_(res)
-	//, textureScreenBack_(std::make_shared<GL_::Texture>(res_.getImage(ImageId::ScreenBack)))
 {
 }
 
@@ -37,49 +36,19 @@ const char *DataStore::getFontFileName() const
 	return res_.getFontFileName();
 }
 
-std::shared_ptr<SDL_::Image> DataStore::getImage(ImageId id) const
+std::shared_ptr<SDL_::Image> DataStore::getImage(const std::string &id) const
 {
 	return res_.getImage(id);
 }
 
-const char *DataStore::getString(StringId id) const
+const char *DataStore::getString(const std::string &id) const
 {
-	return res_.getString(id).c_str();
-}
-
-int DataStore::getRepeatDelay() const
-{
-	return res_.getRepeatDelay();
-}
-
-int DataStore::getRepeatInterval() const
-{
-	return res_.getRepeatInterval();
-}
-
-int DataStore::getDuration() const
-{
-	return res_.getDuration();
-}
-
-InterpolatorType DataStore::getInterpolatorType() const
-{
-	return res_.getInterpolatorType();
+	return res_.getString(id);
 }
 
 std::shared_ptr<Joystick> DataStore::getJoystick(int index) const
 {
 	return res_.getJoystick(index);
-}
-
-int DataStore::getEnterButton() const
-{
-	return res_.getEnterButton();
-}
-
-int DataStore::getCancelButton() const
-{
-	return res_.getCancelButton();
 }
 
 void DataStore::reload()
