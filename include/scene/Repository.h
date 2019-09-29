@@ -1,5 +1,5 @@
-#ifndef SCENE_DATASTORE_H_
-#define SCENE_DATASTORE_H_
+#ifndef SCENE_REPOSITORY_H_
+#define SCENE_REPOSITORY_H_
 
 #include "misc/Uncopyable.h"
 #include <memory>
@@ -18,12 +18,12 @@ class Texture;
 
 class Joystick;
 class Resources;
-class DataStore
+class Repository
 {
 public:
-	UNCOPYABLE(DataStore);
-	DataStore(Resources &res);
-	virtual ~DataStore();
+	UNCOPYABLE(Repository);
+	explicit Repository(Resources &res);
+	virtual ~Repository();
 
 	int getWindowWidth() const;
 	int getWindowHeight() const;
@@ -41,4 +41,4 @@ private:
 	Resources &res_;
 };
 
-#endif // SCENE_DATASTORE_H_
+#endif // SCENE_REPOSITORY_H_

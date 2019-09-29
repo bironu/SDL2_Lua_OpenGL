@@ -31,7 +31,6 @@ public:
 
 	virtual void dispatch(const SDL_Event &) = 0;
 	virtual FuncCreateScene onSuspend() = 0;
-	virtual void onAddJoystick(int);
 	virtual bool onIdle(uint32_t);
 	virtual void onCreate();
 	virtual void onDestroy();

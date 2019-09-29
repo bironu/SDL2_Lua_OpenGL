@@ -1,167 +1,160 @@
-#if !defined(MATH_QUATERNION_H_)
-#define MATH_QUATERNION_H_
+#ifndef GRAPHICS_QUATERNION_H_
+#define GRAPHICS_QUATERNION_H_
 
-#include "Math.h"
 #include "Vector3.h"
 
-// (Unit) Quaternion
+namespace geo
+{
+
+template<typename T>
 class Quaternion
 {
 public:
-	float x;
-	float y;
-	float z;
-	float w;
-
 	Quaternion()
+		: w_(static_cast<T>(1.0))
+		, v_()
 	{
-		*this = Quaternion::Identity;
 	}
 
-	// This directly sets the quaternion components --
-	// don't use for axis/angle
-	explicit Quaternion(float inX, float inY, float inZ, float inW)
+	Quaternion(const T &w, const T &x, const T &y, const T &z)
+		: w_(w)
+		, v_(x, y, z)
 	{
-		Set(inX, inY, inZ, inW);
 	}
 
-	// Construct the quaternion from an axis and angle
-	// It is assumed that axis is already normalized,
-	// and the angle is in radians
-	explicit Quaternion(const Vector3& axis, float angle)
+	Quaternion(const T &w, const Vector3<T> &v)
+		: w_(w)
+		, v_(v)
 	{
-		float scalar = Math::Sin(angle / 2.0f);
-		x = axis.x * scalar;
-		y = axis.y * scalar;
-		z = axis.z * scalar;
-		w = Math::Cos(angle / 2.0f);
 	}
 
-	// Directly set the internal components
-	void Set(float inX, float inY, float inZ, float inW)
+	~Quaternion()
 	{
-		x = inX;
-		y = inY;
-		z = inZ;
-		w = inW;
 	}
 
-	void Conjugate()
+	T getW() const { return w_; }
+	T getX() const { return v_.getX(); }
+	T getY() const { return v_.getY(); }
+	T getZ() const { return v_.getZ(); }
+	const Vector3<T> &getV() const { return v_; }
+
+	void setW(const T &w) { w_ = w; }
+	void setX(const T &x) { v_.setX(x); }
+	void setY(const T &y) { v_.setY(y); }
+	void setZ(const T &z) { v_.setZ(z); }
+	void setV(const Vector3<T> &v) { v_ = v; }
+
+	void setIdentity()
 	{
-		x *= -1.0f;
-		y *= -1.0f;
-		z *= -1.0f;
+		setW(static_cast<T>(1.0));
+		setV(Vector3<T>());
 	}
 
-	float LengthSq() const
+	static Quaternion createIdentity() { return {static_cast<T>(1.0), Vector3<T>()}; }
+
+	// 共役Quaternion
+	//void conjugate() { setV(-getV()); }
+	static Quaternion createConjugate(const Quaternion &q) { return {q.getW(), -q.getV()}; }
+
+	T lengthSquared() const { return getW() * getW() + getV().lengthSquared(); }
+	T getLength() const { return std::pow(lengthSquared(), static_cast<T>(0.5)); }
+
+	void normalizeSelf()
 	{
-		return (x*x + y*y + z*z + w*w);
+		const T invLength = static_cast<T>(1.0) / getLength();
+		setW(getW() * invLength);
+		setV(getV() * invLength);
 	}
 
-	float Length() const
+	static Quaternion normalize(const Quaternion &q)
 	{
-		return Math::Sqrt(LengthSq());
+		auto r = q;
+		r.normlizeSelf();
+		return r;
 	}
 
-	void Normalize()
+	static T dot(const Quaternion &a, const Quaternion &b)
 	{
-		float length = Length();
-		x /= length;
-		y /= length;
-		z /= length;
-		w /= length;
+		return a.getX() * b.getX() + a.getY() * b.getY() + a.getZ() * b.getZ() + a.getW() * b.getW();
 	}
 
-	// Normalize the provided quaternion
-	static Quaternion Normalize(const Quaternion& q)
+
+	static Quaternion createRotater(const T &radian, const Vector3d &axis)
 	{
-		Quaternion retVal = q;
-		retVal.Normalize();
-		return retVal;
+		//原点を中心とした軸ベクトル = (x, y, z)
+		//回転する角度 = th
+		//Q = (cos(th / 2); x * sin(th / 2), y * sin(th / 2), z * sin(th / 2))
+		const double th2 = radian * static_cast<T>(0.5);
+		return {std::cos(th2), axis * std::sin(th2)};
 	}
 
 	// Linear interpolation
-	static Quaternion Lerp(const Quaternion& a, const Quaternion& b, float f)
+	static Quaternion lerp(const Quaternion &a, const Quaternion &b, const T &f)
 	{
-		Quaternion retVal;
-		retVal.x = Math::Lerp(a.x, b.x, f);
-		retVal.y = Math::Lerp(a.y, b.y, f);
-		retVal.z = Math::Lerp(a.z, b.z, f);
-		retVal.w = Math::Lerp(a.w, b.w, f);
-		retVal.Normalize();
+		Quaternion retVal{
+			lerp(a.getW(), b.getW(), f),
+			lerp(a.getX(), b.getX(), f),
+			lerp(a.getY(), b.getY(), f),
+			lerp(a.getZ(), b.getZ(), f)
+		};
+		retVal.normalizeSelf();
 		return retVal;
 	}
 
-	static float Dot(const Quaternion& a, const Quaternion& b)
-	{
-		return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
-	}
-
 	// Spherical Linear Interpolation
-	static Quaternion Slerp(const Quaternion& a, const Quaternion& b, float f)
+	static Quaternion slerp(const Quaternion& a, const Quaternion& b, const T &f)
 	{
-		float rawCosm = Quaternion::Dot(a, b);
+		const T threshold = static_cast<T>(0.99999);
+		const T zero = static_cast<T>(0.0);
+		const T one = static_cast<T>(1.0);
+		const T rawCosm = Quaternion::dot(a, b);
+		const T cosom = std::abs(rawCosm);
 
-		float cosom = -rawCosm;
-		if (rawCosm >= 0.0f)
-		{
-			cosom = rawCosm;
+		T scale0, scale1;
+		if (cosom < threshold) {
+			const T omega = std::acos(cosom);
+			const T invSin = one / std::sin(omega);
+			scale0 = std::sin((one - f) * omega) * invSin;
+			scale1 = std::sin(f * omega) * invSin;
 		}
-
-		float scale0, scale1;
-
-		if (cosom < 0.9999f)
-		{
-			const float omega = Math::Acos(cosom);
-			const float invSin = 1.f / Math::Sin(omega);
-			scale0 = Math::Sin((1.f - f) * omega) * invSin;
-			scale1 = Math::Sin(f * omega) * invSin;
-		}
-		else
-		{
+		else {
 			// Use linear interpolation if the quaternions
 			// are collinear
-			scale0 = 1.0f - f;
+			scale0 = one - f;
 			scale1 = f;
 		}
 
-		if (rawCosm < 0.0f)
+		if (rawCosm < zero)
 		{
 			scale1 = -scale1;
 		}
 
-		Quaternion retVal;
-		retVal.x = scale0 * a.x + scale1 * b.x;
-		retVal.y = scale0 * a.y + scale1 * b.y;
-		retVal.z = scale0 * a.z + scale1 * b.z;
-		retVal.w = scale0 * a.w + scale1 * b.w;
-		retVal.Normalize();
+		Quaternion retVal {
+			scale0 * a.getW() + scale1 * b.getW(),
+			scale0 * a.getX() + scale1 * b.getX(),
+			scale0 * a.getY() + scale1 * b.getY(),
+			scale0 * a.getZ() + scale1 * b.getZ(),
+		};
+		retVal.normalizeSelf();
 		return retVal;
 	}
 
-	// Concatenate
-	// Rotate by q FOLLOWED BY p
-	static Quaternion Concatenate(const Quaternion& q, const Quaternion& p)
-	{
-		Quaternion retVal;
-
-		// Vector component is:
-		// ps * qv + qs * pv + pv x qv
-		Vector3 qv(q.x, q.y, q.z);
-		Vector3 pv(p.x, p.y, p.z);
-		Vector3 newVec = p.w * qv + q.w * pv + Vector3::Cross(pv, qv);
-		retVal.x = newVec.x;
-		retVal.y = newVec.y;
-		retVal.z = newVec.z;
-
-		// Scalar component is:
-		// ps * qs - pv . qv
-		retVal.w = p.w * q.w - Vector3::Dot(pv, qv);
-
-		return retVal;
-	}
-
-	static const Quaternion Identity;
+private:
+	T w_;
+	Vector3<T> v_;
 };
 
-#endif // MATH_QUATERNION_H_
+template <typename T>
+inline Quaternion<T> operator*(const Quaternion<T> &lh, const Quaternion<T> &rh)
+{
+	// Q = (q; V)
+	// R = (r; W)
+	// QR = (qr - V・W; qW + rV + V × W)
+	return {lh.getW() * rh.getW() - Vector3<T>::dot(lh.getV(), rh.getV()),
+		lh.getW() * rh.getV() + rh.getW() * lh.getV() + Vector3<T>::cross(lh.getV(), rh.getV())
+	};
+}
+
+} // namespace geo
+
+#endif // GRAPHICS_QUATERNION_H_

@@ -3,6 +3,7 @@
 
 #include "sdl/SDLColor.h"
 #include "geo/Geometry.h"
+#include "geo/Vector2.h"
 #include "misc/Uncopyable.h"
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_stdinc.h>
@@ -40,11 +41,11 @@ public:
 	}
 	//SDL_Texture* SDL_GetRenderTarget(SDL_Renderer* renderer);
 	//int SDL_GetRendererInfo(SDL_Renderer* renderer, SDL_RendererInfo* info);
-	const Size getOutputSize()
+	const geo::Sizei getOutputSize()
 	{
 		int w, h;
 		::SDL_GetRendererOutputSize(get(),&w, &h);
-		return Size(w, h);
+		return {w, h};
 	}
 	void clear() { ::SDL_RenderClear(renderer_); }
 	void copy(std::shared_ptr<Texture> texture, const Rect *srcrect, const Rect *dstrect);
@@ -63,15 +64,15 @@ public:
 		::SDL_RenderGetClipRect(get(), &clip);
 		return clip;
 	}
-	const Size getLogicalSize()
+	const geo::Sizei getLogicalSize()
 	{
 		int w, h;
 		::SDL_RenderGetLogicalSize(get(), &w, &h);
 		return {w, h};
 	}
-	const Sizef getScale()
+	const geo::Vector2f getScale()
 	{
-		Sizef::type w, h;
+		float w, h;
 		::SDL_RenderGetScale(get(), &w, &h);
 		return {w, h};
 	}
@@ -97,9 +98,9 @@ public:
 		clip_enable_ = false;
 	}
 	void setLogicalSize(int w, int h) { ::SDL_RenderSetLogicalSize(get(), w, h); }
-	void setLogicalSize(const Size &size) { ::SDL_RenderSetLogicalSize(get(), size.get_width(), size.get_height()); }
+	void setLogicalSize(const geo::Sizei &size) { ::SDL_RenderSetLogicalSize(get(), size.getWidth(), size.getHeight()); }
 	void setScale(float scaleX, float scaleY) { ::SDL_RenderSetScale(get(), scaleX, scaleY); }
-	void setScale(const Sizef &scale) { ::SDL_RenderSetScale(get(), scale.getWidth(), scale.getHeight()); }
+	void setScale(const geo::Vector2f &scale) { ::SDL_RenderSetScale(get(), scale.getWidth(), scale.getHeight()); }
 	void setViewport(const SDL_Rect &rect) { ::SDL_RenderSetViewport(get(), &rect); }
 	bool isTargetSupported() { return ::SDL_RenderTargetSupported(get()); }
 	void setDrawBlendMode(SDL_BlendMode blendMode) { ::SDL_SetRenderDrawBlendMode(get(), blendMode); }

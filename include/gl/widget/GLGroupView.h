@@ -9,7 +9,7 @@ namespace GL_
 {
 
 class Texture;
-class Sprite2D;
+class Sprite;
 class GroupView: public View
 {
 public:
@@ -30,7 +30,7 @@ private:
 	void addChild(std::shared_ptr<View> child);
 
 	std::list<std::shared_ptr<View>> children_;
-	std::shared_ptr<Sprite2D> back_;
+	std::shared_ptr<Sprite> back_;
 };
 
 } // GL_

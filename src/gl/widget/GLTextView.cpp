@@ -1,5 +1,5 @@
 #include "gl/widget/GLTextView.h"
-#include "sdl//SDLTtfFont.h"
+#include "sdl/SDLTtfFont.h"
 #include "sdl/SDLImage.h"
 #include "gl/GLTexture.h"
 

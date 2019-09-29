@@ -34,7 +34,6 @@ public:
 	virtual FuncCreateScene onSuspend() override;
 	virtual void onCreate() override;
 	virtual void onDestroy() override;
-	virtual void onAddJoystick(int) override;
 	void onResume(int);
 
 	void AddActor(Actor* actor);

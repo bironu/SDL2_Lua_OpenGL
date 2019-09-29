@@ -1,5 +1,5 @@
 #include "gl/widget/GLGroupView.h"
-#include "gl/GLSprite2D.h"
+#include "gl/GLSprite.h"
 #include <SDL2/SDL_opengl.h>
 
 namespace GL_
@@ -8,7 +8,7 @@ namespace GL_
 GroupView::GroupView()
 	: View()
 	, children_()
-	, back_(std::make_shared<GL_::Sprite2D>())
+	, back_()
 {
 }
 
@@ -19,20 +19,20 @@ GroupView::~GroupView()
 
 void GroupView::onDraw()
 {
-	::glPushMatrix();
-	::glTranslated(getXPos(), getYPos(), getZPos());
-	if (back_) {
-		back_->setXPos(0.0);
-		back_->setYPos(0.0);
-		back_->setZPos(0.0);
-		back_->setWidth(getWidth());
-		back_->setHeight(getHeight());
-		back_->draw();
-	}
-	for(auto view : children_){
-		view->draw();
-	}
-	::glPopMatrix();
+	// ::glPushMatrix();
+	// ::glTranslated(getXPos(), getYPos(), getZPos());
+	// if (back_) {
+	// 	back_->setXPos(0.0);
+	// 	back_->setYPos(0.0);
+	// 	back_->setZPos(0.0);
+	// 	back_->setWidth(getWidth());
+	// 	back_->setHeight(getHeight());
+	// 	back_->draw();
+	// }
+	// for(auto view : children_){
+	// 	view->draw();
+	// }
+	// ::glPopMatrix();
 }
 
 void GroupView::addChild(std::shared_ptr<View> child)

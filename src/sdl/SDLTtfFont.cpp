@@ -1,18 +1,19 @@
 #include "sdl/SDLTtfFont.h"
 #include "sdl/SDLColor.h"
 #include "sdl/SDLImage.h"
+#include "geo/Vector2.h"
 
 namespace SDL_
 {
 
-bool TtfFont::getTextSize(const char* text, Size *size) {
+bool TtfFont::getTextSize(const char* text, geo::Sizei *size) {
 	bool result = false;
 	if(size){
 		int w, h;
 		result = (::TTF_SizeUTF8(font_, text, &w, &h) == 0);
 		if(result){
-			size->set_width(w);
-			size->set_height(h);
+			size->setWidth(w);
+			size->setHeight(h);
 		}
 	}
 	return result;

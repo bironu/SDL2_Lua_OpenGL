@@ -1,68 +1,32 @@
 #include "gl/GLSprite.h"
 #include "gl/GLTexture.h"
+#include "gl/GLVertexArray.h"
+#include "gl/GLShader.h"
+#include "geo/Matrix.h"
+#include "geo/Calculator.h"
 #include "sdl/SDLImage.h"
 #include <SDL2/SDL_opengl.h>
 
 namespace GL_
 {
 
-Sprite::Sprite(XOrigin xorigin, YOrigin yorigin)
-	: texture_()
+Sprite::Sprite(std::shared_ptr<Texture> texture, XOrigin xorigin, YOrigin yorigin)
+	: texture_(texture)
+	, vertexArray_(createSpriteVerts(xorigin, yorigin, texture->getTexRange()))
 	, pos_()
 	, offset_()
 	, size_()
 	, alpha_(255)
 	, scale_(1.0)
-	, left_()
-	, right_()
-	, top_()
-	, bottom_()
+	, xorig_(xorigin)
+	, yorig_(yorigin)
 {
-	switch(xorigin)
-	{
-	default:
-	case XOrigin::Left:
-		left_ = 0.0f;
-		right_ = 1.0f;
-		break;
-	case XOrigin::Center:
-		left_ = -0.5f;
-		right_ = 0.5f;
-		break;
-	case XOrigin::Right:
-		left_ = -1.0f;
-		right_ = 0.0f;
-		break;
-	}
 
-	switch(yorigin)
-	{
-	default:
-	case YOrigin::Top:
-		top_ = 0.0f;
-		bottom_ = 1.0f;
-		break;
-	case YOrigin::Center:
-		top_ = -0.5f;
-		bottom_ = 0.5f;
-		break;
-	case YOrigin::Bottom:
-		top_ = -1.0f;
-		bottom_ = 0.0f;
-		break;
-	}
-}
-
-Sprite::Sprite(std::shared_ptr<Texture> texture, XOrigin xorigin, YOrigin yorigin)
-	: Sprite(xorigin, yorigin)
-{
-	setTexture(texture);
 }
 
 Sprite::Sprite(std::shared_ptr<SDL_::Image> image, XOrigin xorigin, YOrigin yorigin)
-	: Sprite(xorigin, yorigin)
+	: Sprite(std::make_shared<Texture>(image), xorigin, yorigin)
 {
-	setTexture(image);
 }
 
 Sprite::~Sprite()
@@ -72,11 +36,12 @@ Sprite::~Sprite()
 void Sprite::setTexture(std::shared_ptr<Texture> texture)
 {
 	texture_ = texture;
+	vertexArray_ = createSpriteVerts(xorig_, yorig_, texture->getTexRange());
 }
 
 void Sprite::setTexture(std::shared_ptr<SDL_::Image> surface)
 {
-	texture_ = std::make_shared<Texture>(surface);
+	setTexture(std::make_shared<Texture>(surface));
 }
 
 void Sprite::clearTexture()
@@ -84,14 +49,11 @@ void Sprite::clearTexture()
 	texture_.reset();
 }
 
-void Sprite::draw()
+void Sprite::draw(std::shared_ptr<Shader> shader)
 {
 	if (!texture_) {
 		return;
 	}
-
-	const std::array<float, 12> vertex = getVertexPointer();
-	const std::array<float, 8> texCoord = getTexCoord();
 
 	const auto alpha = getAlpha();
 	const GLubyte colors[] = {
@@ -101,79 +63,77 @@ void Sprite::draw()
 		255, 255, 255, alpha,
 	};
 
+	const geo::Matrix4x4f scale = geo::createScale<float>(
+		getScale() * static_cast<float>(texture_->getWidth()),
+		getScale() * static_cast<float>(texture_->getHeight()),
+		1.0f);
+	
+	//const Matrix4x4f rotation = geo::createRotationZ<float>(getRotation());
+	const geo::Matrix4x4f translation = geo::createTranslation<float>(getPos());
+	const geo::Matrix4x4f world = scale * translation;
+	
+	shader->setMatrixUniform("uWorldTransform", world);
 	texture_->bind();
-	::glPushMatrix();
-	positioning();
-	::glEnableClientState(GL_VERTEX_ARRAY);
-	::glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	::glEnableClientState(GL_COLOR_ARRAY);
-	::glVertexPointer(3, GL_FLOAT, 0, vertex.data());
-	::glTexCoordPointer(2, GL_FLOAT, 0, texCoord.data());
-	::glColorPointer(4, GL_UNSIGNED_BYTE, 0, colors);
-	::glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	::glEnable(GL_TEXTURE_2D);
-	::glDrawArrays(GL_QUADS, 0, 4);
-//	::glBegin(GL_QUADS);
-//	::glTexCoord2f(0, 0); glVertex3f(-1.0f, -1.0f, 0);
-//	::glTexCoord2f(0, 1); glVertex3f(-1.0f, 1.0f, 0);
-//	::glTexCoord2f(1, 1); glVertex3f(1.0f, 1.0f, 0);
-//	::glTexCoord2f(1, 0); glVertex3f(1.0f, -1.0f, 0);
-//	::glEnd();
-	::glDisable(GL_TEXTURE_2D);
-	::glEnableClientState(GL_COLOR_ARRAY);
-	::glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	::glDisableClientState(GL_VERTEX_ARRAY);
-	::glPopMatrix();
+	vertexArray_->SetActive();
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 }
 
-std::array<float, 12> Sprite::getVertexPointer()
+std::shared_ptr<VertexArray> Sprite::createSpriteVerts(const XOrigin xorigin, const YOrigin yorigin, const std::array<float, 4> &texRange)
 {
-	return {{
-#if 0
-		getLeft(), getTop(), 0.0f,
-		getLeft(), getBottom(), 0.0f,
-		getRight(), getBottom(), 0.0f,
-		getRight(), getTop(), 0.0f,
-#elif 1
-		getRight(), getTop(), 0.0f,
-		getRight(), getBottom(), 0.0f,
-		getLeft(), getBottom(), 0.0f,
-		getLeft(), getTop(), 0.0f,
-#else
-		getRight(), getBottom(), 0.0f,
-		getRight(), getTop(), 0.0f,
-		getLeft(), getTop(), 0.0f,
-		getLeft(), getBottom(), 0.0f,
-#endif
-	}};
-}
+	float vtop, vbottom, vleft, vright;
+	const float tleft = texRange[0];
+	const float ttop = texRange[1];
+	const float tright = texRange[2];
+	const float tbottom = texRange[3];
 
-std::array<float, 8> Sprite::getTexCoord()
-{
-	if (!texture_) {
-		return {{0, 0, 0, 0, 0, 0, 0, 0}};
+	switch(xorigin)
+	{
+	case XOrigin::Left:
+		vleft = 0.0f;
+		vright = 1.0f;
+		break;
+	case XOrigin::Right:
+		vleft = -1.0f;
+		vright = 0.0f;
+		break;
+	case XOrigin::Center:
+	default:
+		vleft = -0.5f;
+		vright = 0.5f;
+		break;
 	}
 
-	const auto texRange = texture_->getTexRange();
-	return {{
-#if 0
-			texRange[0], texRange[1],
-			texRange[0], texRange[3],
-			texRange[2], texRange[3],
-			texRange[2], texRange[1],
-#else // こっちにするとテクスチャの上下が逆になるよ
-			texRange[2], texRange[3],
-			texRange[2], texRange[1],
-			texRange[0], texRange[1],
-			texRange[0], texRange[3],
-#endif
-	}};
+	switch(yorigin)
+	{
+	case YOrigin::Top:
+		vtop = 0.0f;
+		vbottom = -1.0f;
+		break;
+	case YOrigin::Bottom:
+		vtop = 1.0f;
+		vbottom = 0.0f;
+		break;
+	default:
+	case YOrigin::Center:
+		vtop = 0.5f;
+		vbottom = -0.5f;
+		break;
+	}
+
+	const float vertices[] = {
+		vleft,  vtop, 0.f, tleft, ttop, // top left
+		vright,  vtop, 0.f, tright, ttop, // top right
+		vright, vbottom, 0.f, tright, tbottom, // bottom right
+		vleft, vbottom, 0.f, tleft, tbottom  // bottom left
+	};
+
+	const unsigned int indices[] = {
+		0, 1, 2,
+		2, 3, 0
+	};
+
+	return std::make_shared<VertexArray>(vertices, 4, indices, 6);
 }
 
-void Sprite::positioning()
-{
-	::glTranslated(getXPos() + getXOffset(), getYPos() + getYOffset(), getZPos() + getZOffset());
-	::glScaled(getWidth() * getScale(), getHeight() * getScale(), 1.0);
-}
 
 } // GL_

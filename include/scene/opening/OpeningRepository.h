@@ -1,13 +1,13 @@
-#ifndef SCENE_OPENING_OPENINGDATASTORE_H_
-#define SCENE_OPENING_OPENINGDATASTORE_H_
+#ifndef SCENE_OPENING_OPENINGREPOSITORY_H_
+#define SCENE_OPENING_OPENINGREPOSITORY_H_
 
-#include "../DataStore.h"
+#include "../Repository.h"
 
-class OpeningDataStore : public DataStore
+class OpeningRepository : public Repository
 {
 public:
-	OpeningDataStore(Resources &res);
-	virtual ~OpeningDataStore() override;
+	OpeningRepository(Resources &res);
+	virtual ~OpeningRepository() override;
 
 	int getMenuFontSize() const { return 48; }
 	int getTitleFontSize() const { return 96; }
@@ -21,4 +21,4 @@ private:
 	std::vector<const char *> listMenuItem_;
 };
 
-#endif // SCENE_OPENING_OPENINGDATASTORE_H_
+#endif // SCENE_OPENING_OPENINGREPOSITORY_H_

@@ -14,11 +14,6 @@ Scene::Scene(Application &app, Resources &res, TaskManager &manager)
 {
 }
 
-void Scene::onAddJoystick(int index)
-{
-	// nop
-}
-
 void Scene::clear()
 {
 	::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

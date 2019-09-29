@@ -135,10 +135,6 @@ void Chapter05Scene::onDestroy()
 	Scene::onDestroy();
 }
 
-void Chapter05Scene::onAddJoystick(int index)
-{
-}
-
 void Chapter05Scene::onResume(int pos)
 {
 }

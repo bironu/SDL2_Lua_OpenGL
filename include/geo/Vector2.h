@@ -1,139 +1,170 @@
-#if !defined(MATH_VECTOR2_H_)
-#define MATH_VECTOR2_H_
+#if !defined(GEO_VECTOR2_H_)
+#define GEO_VECTOR2_H_
 
-// 2D Vector
+#include <cmath>
+
+namespace geo
+{
+template <typename T>
 class Vector2
 {
 public:
-	float x;
-	float y;
+	using type = T;
 
 	Vector2()
-		:x(0.0f)
-		,y(0.0f)
+		: x_()
+		, y_()
 	{}
 
-	explicit Vector2(float inX, float inY)
-		:x(inX)
-		,y(inY)
+	Vector2(const T &x, const T &y)
+		: x_(x)
+		, y_(y)
 	{}
 
-	// Set both components in one line
-	void Set(float inX, float inY)
+	void setX(const T &x) { x_ = x; }
+	void setY(const T &y) { y_ = y; }
+	void setWidth(const T &w) { setX(w); }
+	void setHeight(const T &h) { setY(h); }
+	void set(const T &x, const T &y)
 	{
-		x = inX;
-		y = inY;
+		setX(x);
+		setY(y);
 	}
 
-	// Vector addition (a + b)
-	friend Vector2 operator+(const Vector2& a, const Vector2& b)
-	{
-		return Vector2(a.x + b.x, a.y + b.y);
-	}
-
-	// Vector subtraction (a - b)
-	friend Vector2 operator-(const Vector2& a, const Vector2& b)
-	{
-		return Vector2(a.x - b.x, a.y - b.y);
-	}
-
-	// Component-wise multiplication
-	// (a.x * b.x, ...)
-	friend Vector2 operator*(const Vector2& a, const Vector2& b)
-	{
-		return Vector2(a.x * b.x, a.y * b.y);
-	}
-
-	// Scalar multiplication
-	friend Vector2 operator*(const Vector2& vec, float scalar)
-	{
-		return Vector2(vec.x * scalar, vec.y * scalar);
-	}
-
-	// Scalar multiplication
-	friend Vector2 operator*(float scalar, const Vector2& vec)
-	{
-		return Vector2(vec.x * scalar, vec.y * scalar);
-	}
+	const T &getX() const { return x_; }
+	const T &getY() const { return y_; }
+	const T &getWidth() const { return getX(); }
+	const T &getHeight() const { return getY(); }
 
 	// Scalar *=
-	Vector2& operator*=(float scalar)
+	Vector2 &operator*=(const T &scalar)
 	{
-		x *= scalar;
-		y *= scalar;
+		setX(getX() * scalar);
+		setY(getY() * scalar);
 		return *this;
 	}
 
 	// Vector +=
-	Vector2& operator+=(const Vector2& right)
+	Vector2 &operator+=(const Vector2 &right)
 	{
-		x += right.x;
-		y += right.y;
+		setX(getX() + right.getX());
+		setY(getY() + right.getY());
 		return *this;
 	}
 
 	// Vector -=
-	Vector2& operator-=(const Vector2& right)
+	Vector2 &operator-=(const Vector2 &right)
 	{
-		x -= right.x;
-		y -= right.y;
+		setX(getX() - right.getX());
+		setY(getY() - right.getY());
 		return *this;
 	}
 
 	// Length squared of vector
-	float LengthSq() const
+	T lengthSquared() const
 	{
-		return (x*x + y*y);
+		return (getX() * getX() + getY() * getY());
 	}
 
 	// Length of vector
-	float Length() const
+	T getLength() const
 	{
-		return (Math::Sqrt(LengthSq()));
+		return std::pow(lengthSquared(), static_cast<T>(0.5));
 	}
 
 	// Normalize this vector
-	void Normalize()
+	void normalize()
 	{
-		float length = Length();
-		x /= length;
-		y /= length;
+		const T length = length();
+		setX(getX() / length);
+		setY(getY() / length);
 	}
 
 	// Normalize the provided vector
-	static Vector2 Normalize(const Vector2& vec)
+	static Vector2 normalize(const Vector2 &vec)
 	{
-		Vector2 temp = vec;
+		auto temp = vec;
 		temp.Normalize();
 		return temp;
 	}
 
 	// Dot product between two vectors (a dot b)
-	static float Dot(const Vector2& a, const Vector2& b)
+	static T dot(const Vector2 &a, const Vector2 &b)
 	{
 		return (a.x * b.x + a.y * b.y);
 	}
 
 	// Lerp from A to B by f
-	static Vector2 Lerp(const Vector2& a, const Vector2& b, float f)
+	static Vector2 lerp(const Vector2 &a, const Vector2 &b, const T &f)
 	{
 		return Vector2(a + f * (b - a));
 	}
 	
-	// Reflect V about (normalized) N
-	static Vector2 Reflect(const Vector2& v, const Vector2& n)
-	{
-		return v - 2.0f * Vector2::Dot(v, n) * n;
-	}
+	// // Reflect V about (normalized) N
+	// template <typename T>
+	// static Vector2<T> reflect(const Vector2<T> &v, const Vector2<T> &n)
+	// {
+	// 	return v - static_cast<T>(2.0) * Vector2<T>::dot(v, n) * n;
+	// }
 
-	// Transform vector by matrix
-	static Vector2 Transform(const Vector2& vec, const class Matrix3& mat, float w = 1.0f);
+	// // Transform vector by matrix
+	// template <typename T>
+	// static Vector2<T> transform(const Vector2<T> &vec, const class Matrix3<T>& mat, float w = 1.0f);
 
-	static const Vector2 Zero;
-	static const Vector2 UnitX;
-	static const Vector2 UnitY;
-	static const Vector2 NegUnitX;
-	static const Vector2 NegUnitY;
+	// static const Vector2 Zero;
+	// static const Vector2 UnitX;
+	// static const Vector2 UnitY;
+	// static const Vector2 NegUnitX;
+	// static const Vector2 NegUnitY;
+
+private:
+	T x_;
+	T y_;
 };
 
-#endif // MATH_VECTOR2_H_
+// Vector addition (a + b)
+template <typename T>
+inline Vector2<T> operator+(const Vector2<T> &a, const Vector2<T> &b)
+{
+	return Vector2<T>(a.x + b.x, a.y + b.y);
+}
+
+// Vector subtraction (a - b)
+template <typename T>
+inline Vector2<T> operator-(const Vector2<T> &a, const Vector2<T> &b)
+{
+	return Vector2<T>(a.x - b.x, a.y - b.y);
+}
+
+// Component-wise multiplication
+// (a.x * b.x, ...)
+template <typename T>
+inline Vector2<T> operator*(const Vector2<T> &a, const Vector2<T> &b)
+{
+	return Vector2<T>(a.x * b.x, a.y * b.y);
+}
+
+// Scalar multiplication
+template <typename T>
+inline Vector2<T> operator*(const Vector2<T> &vec, const T &scalar)
+{
+	return Vector2<T>(vec.x * scalar, vec.y * scalar);
+}
+
+// Scalar multiplication
+template <typename T>
+inline Vector2<T> operator*(const T &scalar, const Vector2<T> &vec)
+{
+	return Vector2<T>(vec.x * scalar, vec.y * scalar);
+}
+
+using Vector2f = Vector2<float>;
+using Vector2d = Vector2<double>;
+using Vector2i = Vector2<int>;
+using Sized = Vector2d;
+using Sizef = Vector2f;
+using Sizei = Vector2i;
+
+}
+
+#endif // GEO_VECTOR2_H_

@@ -2,7 +2,7 @@
 #define WIDGET_ROTATEMENU_H_
 
 #include "misc/Uncopyable.h"
-#include "gl/GLSprite3D.h"
+#include "gl/GLSprite.h"
 #include <memory>
 #include <vector>
 
@@ -92,7 +92,7 @@ public:
 		return {endDegrees, newDuration};
 	}
 
-	void addMenuItem(std::shared_ptr<Sprite3D> item) { listMenuItem_.push_back(item); }
+	void addMenuItem(std::shared_ptr<Sprite> item) { listMenuItem_.push_back(item); }
 	void clearMenuItem() { listMenuItem_.clear(); }
 	const std::vector<std::shared_ptr<T>> &getMenuItemList() const { return listMenuItem_; }
 	const auto getMenuItemListSize() const { return listMenuItem_.size(); }

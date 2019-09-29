@@ -2,11 +2,13 @@
 #define SCENE_OPENING_OPENINGSCENE_H_
 
 #include "../Scene.h"
-#include "OpeningController.h"
-#include "OpeningDataStore.h"
-#include "OpeningPresenter.h"
-#include "OpeningUseCase.h"
 #include <memory>
+
+namespace GL_
+{
+class Sprite;
+class Shader;
+}
 
 class OpeningScene : public Scene
 {
@@ -19,19 +21,23 @@ public:
 	virtual FuncCreateScene onSuspend() override;
 	virtual void onCreate() override;
 	virtual void onDestroy() override;
-	virtual void onAddJoystick(int) override;
 	virtual void onResume() override;
 
-	OpeningDataStore &getDataStore() { return dataStore_; }
-	OpeningPresenter &getPresenter() { return presenter_; }
-	OpeningUseCase &getUseCase() { return useCase_; }
-	OpeningController &getContoller() { return controller_; }
+	// OpeningRepository &getRepository() { return repository_; }
+	// OpeningPresenter &getPresenter() { return presenter_; }
+	// OpeningUseCase &getUseCase() { return useCase_; }
+	// OpeningController &getContoller() { return controller_; }
+
+	bool loadShaders();
 
 private:
-	OpeningDataStore dataStore_;
-	OpeningPresenter presenter_;
-	OpeningUseCase useCase_;
-	OpeningController controller_;
+	// OpeningRepository repository_;
+	// OpeningPresenter presenter_;
+	// OpeningUseCase useCase_;
+	// OpeningController controller_;
+
+	std::shared_ptr<GL_::Shader> spriteShader_;
+	std::shared_ptr<GL_::Sprite> back_;
 };
 
 #endif // SCENE_OPENING_OPENINGSCENE_H_

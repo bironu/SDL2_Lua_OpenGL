@@ -5,8 +5,8 @@
 
 namespace GL_ {
 
-class Sprite3D;
-class VerticalRotateMenu : public RotateMenu<Sprite3D>
+class Sprite;
+class VerticalRotateMenu : public RotateMenu<Sprite>
 {
 public:
 	VerticalRotateMenu();

@@ -1,14 +1,14 @@
-#ifndef GLVIEW_H_
+#if !defined(GLVIEW_H_)
 #define GLVIEW_H_
 
-#include "geo/Geometry.h"
+#include "geo/Vector2.h"
+#include "geo/Vector3.h"
 #include "math/Math.h"
 #include "misc/Uncopyable.h"
 #include <memory>
 
 namespace GL_
 {
-class Sprite2D;
 class GroupView;
 class View
 {
@@ -23,23 +23,23 @@ public:
 	std::shared_ptr<GroupView> getParent() const { return parent_.lock(); }
 	void clearParent() { parent_.reset(); }
 
-	const Vector3 &getPos() const { return pos_; }
-	double getXPos() const { return pos_.getX(); }
-	double getYPos() const { return pos_.getY(); }
-	double getZPos() const { return pos_.getZ(); }
+	const geo::Vector3f &getPos() const { return pos_; }
+	float getXPos() const { return pos_.getX(); }
+	float getYPos() const { return pos_.getY(); }
+	float getZPos() const { return pos_.getZ(); }
 
-	void setPos(const Vector3 &pos) { pos_ = pos; }
-	void setXPos(const double x) { pos_.setX(x); }
-	void setYPos(const double y) { pos_.setY(y); }
-	void setZPos(const double z) { pos_.setZ(z); }
+	void setPos(const geo::Vector3f &pos) { pos_ = pos; }
+	void setXPos(const float x) { pos_.setX(x); }
+	void setYPos(const float y) { pos_.setY(y); }
+	void setZPos(const float z) { pos_.setZ(z); }
 
-	const Sized &getSize() const { return size_; }
-	double getWidth() const { return size_.getWidth(); }
-	double getHeight() const { return size_.getHeight(); }
+	const geo::Sizef &getSize() const { return size_; }
+	float getWidth() const { return size_.getWidth(); }
+	float getHeight() const { return size_.getHeight(); }
 
-	void setSize(const Sized &size) { size_ = size; }
-	void setWidth(const double w) { size_.setWidth(w); }
-	void setHeight(const double h) { size_.setHeight(h); }
+	void setSize(const geo::Sizef &size) { size_ = size; }
+	void setWidth(const float w) { size_.setWidth(w); }
+	void setHeight(const float h) { size_.setHeight(h); }
 
 	void alignLeft();
 	void alignRight();
@@ -62,8 +62,8 @@ protected:
 
 private:
 	std::weak_ptr<GroupView> parent_;
-	Vector3 pos_;
-	Sized size_;
+	geo::Vector3f pos_;
+	geo::Sizef size_;
 	bool visible_;
 };
 

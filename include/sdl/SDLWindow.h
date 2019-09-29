@@ -3,6 +3,7 @@
 
 #include "misc/Uncopyable.h"
 #include "sdl/SDLRenderer.h"
+#include "geo/Vector2.h"
 #include <SDL2/SDL_video.h>
 #include <SDL2/SDL_messagebox.h>
 #include <map>
@@ -39,7 +40,7 @@ public:
 		::SDL_GetWindowPosition(window_, &x, &y);
 		return {x, y};
 	}
-	const Size getSize() const
+	const geo::Sizei getSize() const
 	{
 		int w, h;
 		::SDL_GetWindowSize(window_, &w, &h);

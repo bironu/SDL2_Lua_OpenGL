@@ -2,6 +2,7 @@
 #define SDLIMAGE_H_
 
 #include "geo/Geometry.h"
+#include "geo/Vector2.h"
 #include "sdl/SDLColor.h"
 #include "misc/Uncopyable.h"
 #include <SDL2/SDL_surface.h>
@@ -119,7 +120,7 @@ public:
 	bool isLocked() const { return SDL_MUSTLOCK(get()) == 0;}
 	int getHeight() const { assert(isEnabled()); return get()->h;}
 	int getWidth() const { assert(isEnabled()); return get()->w;}
-	const Size getSize() const { return {getWidth(), getHeight()}; }
+	const geo::Sizei getSize() const { return {getWidth(), getHeight()}; }
 	const SDL_PixelFormat *GetPixelFormat() const { assert(isEnabled()); return get()->format;}
 	const Uint32 getFlags() const { assert(isEnabled()); return get()->flags;}
 	const void *getPixels() const { return get()->pixels;}

@@ -1,8 +1,4 @@
-#include "scene/opening/OpeningScene.h"
 #include "scene/opening/OpeningController.h"
-#include "scene/opening/OpeningDataStore.h"
-#include "scene/opening/OpeningUseCase.h"
-#include "sdl/SDLJoystick.h"
 #include <SDL2/SDL_events.h>
 
 OpeningController::OpeningController()

@@ -11,7 +11,7 @@ class Image;
 namespace GL_
 {
 
-class Sprite2D;
+class Sprite;
 class Texture;
 class ImageView: public View
 {
@@ -55,7 +55,7 @@ protected:
 private:
 	std::shared_ptr<Texture> src_;
 	std::shared_ptr<Texture> back_;
-	std::shared_ptr<Sprite2D> drawer_;
+	std::shared_ptr<Sprite> drawer_;
 	int paddingLeft_;
 	int paddingRight_;
 	int paddingTop_;

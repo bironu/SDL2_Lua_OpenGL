@@ -2,10 +2,9 @@
 #define SDLTTFFONT_H_
 
 #include "misc/Uncopyable.h"
+#include "geo/Vector2.h"
 #include <SDL2/SDL_ttf.h>
 #include <memory>
-
-class Size;
 
 namespace SDL_
 {
@@ -30,7 +29,7 @@ public:
 	TTF_Font *get() const { return font_; }
 	bool is_font() const { return font_; }
 
-	bool getTextSize(const char *text, Size *size);
+	bool getTextSize(const char *text, geo::Sizei *size);
 	std::shared_ptr<SDL_::Image> renderSolidText(const char *text, const SDL_::Color &fg);
 	std::shared_ptr<SDL_::Image> renderShadedText(const char *text, const SDL_::Color &fg, const SDL_::Color &bg);
 	std::shared_ptr<SDL_::Image> renderBlendedText(const char *text, const SDL_::Color &fg);
