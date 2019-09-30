@@ -5,6 +5,7 @@
 #include "geo/Calculator.h"
 #include "app/Application.h"
 #include "resources/Resources.h"
+#include "resources/ImageId.h"
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL_log.h>
@@ -47,24 +48,19 @@ void OpeningScene::dispatch(const SDL_Event &event)
 bool OpeningScene::onIdle(uint32_t tick)
 {
 	bool result = Scene::onIdle(tick);
-
 	clear();
-	
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
 	spriteShader_->setActive();
 	back_->draw(spriteShader_);
-
 	swap();
-
 	return true;
 }
 
 void OpeningScene::onCreate()
 {
 	Scene::onCreate();
-
+	back_ = std::make_shared<GL_::Sprite>(getResources().getImage(ImageId::BackGround1));
 	if (!loadShaders())
 	{
 		SDL_Log("Failed to load shaders.");

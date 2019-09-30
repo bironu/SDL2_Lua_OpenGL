@@ -1,6 +1,6 @@
 print("image.lua load.")
 
-string = {
+images = {
     BackGround1="res/image/wallpaper_logo.png",
     BackGround2="res/image/ScreenBack.png",
 	TextBack="res/image/TextBack.png",

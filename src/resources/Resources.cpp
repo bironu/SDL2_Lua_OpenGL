@@ -30,7 +30,7 @@ std::shared_ptr<SDL_::Image> Resources::getImage(const std::string &id) const
 		return i->second;
 	}
 	else {
-		const char *imagePath = (*luaImage_)[id.c_str()].get<const char *>();
+		const char *imagePath = (*luaImage_)["images"][id.c_str()].get<const char *>();
 		std::shared_ptr<SDL_::Image> image = std::make_shared<SDL_::Image>(imagePath);
 		if (image) {
 			mapImage_.insert(std::make_pair(id, image));
@@ -44,7 +44,7 @@ std::shared_ptr<SDL_::Image> Resources::getImage(const std::string &id) const
 
 const char *Resources::getString(const std::string &id) const
 {
-	const char *result = (*luaString_)[id.c_str()].get_or<const char *>(nullptr);
+	const char *result = (*luaString_)["strings"][id.c_str()].get_or<const char *>(nullptr);
 	if (!result) {
 		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "String ID not found. %s\n", id.c_str());
 	}
@@ -118,20 +118,4 @@ void Resources::reload()
 
 	loadString(lang_);
 	loadImage(lang_);
-
-	// keyRepeatDelay_ = lua["keyRepeat"]["delay"].get_or(300);
-	// keyRepeatInterval_ = lua["keyRepeat"]["interval"].get_or(50);
-
-	// codeEnterButton_ = lua["keyAssing"]["delay"].get_or(0);
-	// codeCancelButton_ = lua["keyAssing"]["delay"].get_or(1);
-
-	// interpolatorType_ = static_cast<InterpolatorType>(lua["animation"]["interpolator"].get<int>());
-	// duration_ = lua["animation"]["duration"].get<int>();
-
-	// lua.script_file("res/lua/data/top_menu.lua");
-	// listMenuInfo_.clear();
-	// for (int i = 1; lua["topMenu"][i].valid(); ++i) {
-	// 	listMenuInfo_.push_back(std::make_shared<MenuInfo>(lua["topMenu"][i]["title"].get<const char *>(), lua["topMenu"][i]["path"].get<const char *>()));
-	// }
-
 }

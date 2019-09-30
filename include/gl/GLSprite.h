@@ -36,8 +36,8 @@ public:
 		Bottom,
 	};
 
-	Sprite(std::shared_ptr<Texture>, XOrigin, YOrigin);
-	Sprite(std::shared_ptr<SDL_::Image>, XOrigin, YOrigin);
+	Sprite(std::shared_ptr<Texture>, XOrigin = XOrigin::Center, YOrigin = YOrigin::Center);
+	Sprite(std::shared_ptr<SDL_::Image>, XOrigin = XOrigin::Center, YOrigin = YOrigin::Center);
 	~Sprite();
 
 	void setTexture(std::shared_ptr<Texture>);
