@@ -1,23 +1,23 @@
-#include "gl/widget/GLGroupView.h"
+#include "gl/widget/GLViewGroup.h"
 #include "gl/GLSprite.h"
 #include <SDL2/SDL_opengl.h>
 
 namespace GL_
 {
 
-GroupView::GroupView()
+ViewGroup::ViewGroup()
 	: View()
 	, children_()
 	, back_()
 {
 }
 
-GroupView::~GroupView()
+ViewGroup::~ViewGroup()
 {
 	clearChild();
 }
 
-void GroupView::onDraw()
+void ViewGroup::onDraw()
 {
 	// ::glPushMatrix();
 	// ::glTranslated(getXPos(), getYPos(), getZPos());
@@ -35,18 +35,18 @@ void GroupView::onDraw()
 	// ::glPopMatrix();
 }
 
-void GroupView::addChild(std::shared_ptr<View> child)
+void ViewGroup::addChild(std::shared_ptr<View> child)
 {
 	children_.push_back(child);
 }
 
-void GroupView::removeChild(std::shared_ptr<View> child)
+void ViewGroup::removeChild(std::shared_ptr<View> child)
 {
 	child->clearParent();
 	children_.remove(child);
 }
 
-void GroupView::clearChild()
+void ViewGroup::clearChild()
 {
 	for (auto child : children_) {
 		child->clearParent();
@@ -54,13 +54,13 @@ void GroupView::clearChild()
 	children_.clear();
 }
 
-void GroupView::addChild(std::shared_ptr<GroupView> parent, std::shared_ptr<View> child)
+void ViewGroup::addChild(std::shared_ptr<ViewGroup> parent, std::shared_ptr<View> child)
 {
 	parent->addChild(child);
 	child->setParent(parent);
 }
 
-void GroupView::setBack(std::shared_ptr<Texture> texture)
+void ViewGroup::setBack(std::shared_ptr<Texture> texture)
 {
 	back_->setTexture(texture);
 }

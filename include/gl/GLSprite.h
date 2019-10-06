@@ -75,8 +75,8 @@ public:
 	void setYOffset(const float y) { offset_.setY(y); }
 	void setZOffset(const float z) { offset_.setZ(z); }
 
-	void setAlpha(uint8_t alpha) { alpha_ = alpha; }
-	uint8_t getAlpha() const { return alpha_; }
+	void setAlpha(float alpha) { alpha_ = alpha; }
+	float getAlpha() const { return alpha_; }
 
 	void setScale(double scale) { scale_ = scale; }
 	double getScale() const { return scale_; }
@@ -90,7 +90,7 @@ private:
 	geo::Vector3f pos_;
 	geo::Vector3f offset_;
 	geo::Sizef size_;
-	uint8_t alpha_;
+	float alpha_;
 	float scale_;
 	const XOrigin xorig_;
 	const YOrigin yorig_;

@@ -37,6 +37,14 @@ void OpeningScene::dispatch(const SDL_Event &event)
 		case SDLK_ESCAPE:
 			quit();
 			break;
+
+		case SDLK_RIGHT:
+			back_->setXPos(back_->getXPos() + 1.0f);
+			break;
+
+		case SDLK_LEFT:
+			back_->setXPos(back_->getXPos() - 1.0f);
+			break;
 		}
 		break;
 
@@ -60,7 +68,7 @@ bool OpeningScene::onIdle(uint32_t tick)
 void OpeningScene::onCreate()
 {
 	Scene::onCreate();
-	back_ = std::make_shared<GL_::Sprite>(getResources().getImage(ImageId::BackGround1));
+	back_ = std::make_shared<GL_::Sprite>(getResources().getImage(ImageId::BackGround2));
 	if (!loadShaders())
 	{
 		SDL_Log("Failed to load shaders.");

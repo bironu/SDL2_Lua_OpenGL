@@ -25,6 +25,11 @@ public:
 	void setActive();
 	// Sets a Matrix uniform
 	void setMatrixUniform(const char* name, const geo::Matrix4x4f &matrix);
+
+	void setFloatUniform(const char* name, const float &v0);
+	void setFloatUniform(const char* name, const float &v0, const float &v1);
+	void setFloatUniform(const char* name, const float &v0, const float &v1, const float &v2);
+	void setFloatUniform(const char* name, const float &v0, const float &v1, const float &v2, const float &v3);
 private:
 	// Tries to compile the specified shader
 	bool compileShader(const std::string& fileName,

@@ -55,13 +55,13 @@ void Sprite::draw(std::shared_ptr<Shader> shader)
 		return;
 	}
 
-	const auto alpha = getAlpha();
-	const GLubyte colors[] = {
-		255, 255, 255, alpha,
-		255, 255, 255, alpha,
-		255, 255, 255, alpha,
-		255, 255, 255, alpha,
-	};
+	// const auto alpha = getAlpha();
+	// const GLubyte colors[] = {
+	// 	255, 255, 255, alpha,
+	// 	255, 255, 255, alpha,
+	// 	255, 255, 255, alpha,
+	// 	255, 255, 255, alpha,
+	// };
 
 	const geo::Matrix4x4f scale = geo::createScale<float>(
 		getScale() * static_cast<float>(texture_->getWidth()),
@@ -70,7 +70,7 @@ void Sprite::draw(std::shared_ptr<Shader> shader)
 	
 	//const Matrix4x4f rotation = geo::createRotationZ<float>(getRotation());
 	const geo::Matrix4x4f translation = geo::createTranslation<float>(getPos());
-	const geo::Matrix4x4f world = scale * translation;
+	const geo::Matrix4x4f world = translation * /*rotation * */ scale;
 	
 	shader->setMatrixUniform("uWorldTransform", world);
 	texture_->bind();

@@ -1,5 +1,5 @@
 #include "gl/widget/GLView.h"
-#include "gl/widget/GLGroupView.h"
+#include "gl/widget/GLViewGroup.h"
 #include "task/Interpolator.h"
 
 namespace GL_ {

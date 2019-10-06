@@ -1,5 +1,5 @@
-#ifndef GLGROUPVIEW_H_
-#define GLGROUPVIEW_H_
+#ifndef GLVIEWGROUP_H_
+#define GLVIEWGROUP_H_
 
 #include "GLView.h"
 #include "sdl/SDLColor.h"
@@ -10,18 +10,18 @@ namespace GL_
 
 class Texture;
 class Sprite;
-class GroupView: public View
+class ViewGroup: public View
 {
 public:
-	GroupView();
-	virtual ~GroupView() override;
+	ViewGroup();
+	virtual ~ViewGroup() override;
 
 	void removeChild(std::shared_ptr<View> child);
 	void clearChild();
 	std::list<std::shared_ptr<View>> &getChildren() { return children_; }
 	void setBack(std::shared_ptr<Texture> back) ;
 
-	static void addChild(std::shared_ptr<GroupView> parent, std::shared_ptr<View> child);
+	static void addChild(std::shared_ptr<ViewGroup> parent, std::shared_ptr<View> child);
 
 protected:
 	virtual void onDraw() override;
@@ -35,4 +35,4 @@ private:
 
 } // GL_
 
-#endif // GLGROUPVIEW_H_
+#endif // GLVIEWGROUP_H_

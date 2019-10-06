@@ -77,7 +77,39 @@ void Shader::setMatrixUniform(const char* name, const geo::Matrix4x4f& matrix)
 	// Find the uniform by this name
 	GLuint loc = glGetUniformLocation(mShaderProgram, name);
 	// Send the matrix data to the uniform
-	glUniformMatrix4fv(loc, 1, GL_TRUE, matrix.data());
+	glUniformMatrix4fv(loc, 1, GL_FALSE, matrix.data());
+}
+
+void Shader::setFloatUniform(const char* name, const float &v0)
+{
+	// Find the uniform by this name
+	GLuint loc = glGetUniformLocation(mShaderProgram, name);
+	// Send the matrix data to the uniform
+	glUniform1f(loc, v0);
+}
+
+void Shader::setFloatUniform(const char* name, const float &v0, const float &v1)
+{
+	// Find the uniform by this name
+	GLuint loc = glGetUniformLocation(mShaderProgram, name);
+	// Send the matrix data to the uniform
+	glUniform2f(loc, v0, v1);
+}
+
+void Shader::setFloatUniform(const char* name, const float &v0, const float &v1, const float &v2)
+{
+	// Find the uniform by this name
+	GLuint loc = glGetUniformLocation(mShaderProgram, name);
+	// Send the matrix data to the uniform
+	glUniform3f(loc, v0, v1, v2);
+}
+
+void Shader::setFloatUniform(const char* name, const float &v0, const float &v1, const float &v2, const float &v3)
+{
+	// Find the uniform by this name
+	GLuint loc = glGetUniformLocation(mShaderProgram, name);
+	// Send the matrix data to the uniform
+	glUniform4f(loc, v0, v1, v2, v3);
 }
 
 bool Shader::compileShader(const std::string& fileName,

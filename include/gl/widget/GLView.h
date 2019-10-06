@@ -9,7 +9,7 @@
 
 namespace GL_
 {
-class GroupView;
+class ViewGroup;
 class View
 {
 public:
@@ -19,8 +19,8 @@ public:
 
 	void draw();
 
-	void setParent(std::shared_ptr<GroupView> parent)	{ parent_ = parent; }
-	std::shared_ptr<GroupView> getParent() const { return parent_.lock(); }
+	void setParent(std::shared_ptr<ViewGroup> parent)	{ parent_ = parent; }
+	std::shared_ptr<ViewGroup> getParent() const { return parent_.lock(); }
 	void clearParent() { parent_.reset(); }
 
 	const geo::Vector3f &getPos() const { return pos_; }
@@ -61,7 +61,7 @@ protected:
 	virtual void onDraw() = 0;
 
 private:
-	std::weak_ptr<GroupView> parent_;
+	std::weak_ptr<ViewGroup> parent_;
 	geo::Vector3f pos_;
 	geo::Sizef size_;
 	bool visible_;

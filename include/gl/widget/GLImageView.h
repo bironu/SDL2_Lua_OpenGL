@@ -1,4 +1,4 @@
-#ifndef GLIMAGEVIEW_H_
+#if !defined(GLIMAGEVIEW_H_)
 #define GLIMAGEVIEW_H_
 
 #include "GLView.h"
