@@ -9,7 +9,7 @@
 #include "MoveComponent.h"
 #include "Actor.h"
 
-namespace chapter05
+namespace Chapter05
 {
 
 MoveComponent::MoveComponent(class Actor* owner, int updateOrder)

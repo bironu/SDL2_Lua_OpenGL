@@ -10,7 +10,7 @@
 #include "MoveComponent.h"
 #include <cstdint>
 
-namespace chapter05
+namespace Chapter05
 {
 
 class InputComponent : public MoveComponent

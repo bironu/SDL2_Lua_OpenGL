@@ -9,7 +9,7 @@
 #pragma once
 #include "Component.h"
 
-namespace chapter05
+namespace Chapter05
 {
 
 class MoveComponent : public Component

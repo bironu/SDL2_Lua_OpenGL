@@ -9,7 +9,7 @@
 #pragma once
 #include <cstdint>
 
-namespace chapter05
+namespace Chapter05
 {
 
 class Component

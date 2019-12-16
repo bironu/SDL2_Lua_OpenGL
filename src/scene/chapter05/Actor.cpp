@@ -7,14 +7,14 @@
 // ----------------------------------------------------------------
 
 #include "Actor.h"
-#include "scene/chapter05/Chapter05Scene.h"
+#include "Game.h"
 #include "Component.h"
 #include <algorithm>
 
-namespace chapter05
+namespace Chapter05
 {
 
-Actor::Actor(Chapter05Scene* game)
+Actor::Actor(Game* game)
 	:mState(EActive)
 	,mPosition(Vector2::Zero)
 	,mScale(1.0f)

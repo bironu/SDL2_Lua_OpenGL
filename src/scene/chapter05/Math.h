@@ -12,7 +12,7 @@
 #include <memory.h>
 #include <limits>
 
-namespace chapter05
+namespace Chapter05
 {
 
 namespace Math

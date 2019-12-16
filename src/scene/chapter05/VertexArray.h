@@ -7,8 +7,10 @@
 // ----------------------------------------------------------------
 
 #pragma once
+#if !defined(GL_VERTEXARRAY_H_)
+#define GL_VERTEXARRAY_H_
 
-namespace chapter05
+namespace Chapter05
 {
 
 class VertexArray

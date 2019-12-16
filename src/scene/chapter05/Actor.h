@@ -8,13 +8,12 @@
 
 #pragma once
 #include <vector>
-#include "math/Math.h"
+#include "Math.h"
 #include <cstdint>
 
-namespace chapter05
+namespace Chapter05
 {
 
-class Chapter05Scene;
 class Actor
 {
 public:
@@ -25,7 +24,7 @@ public:
 		EDead
 	};
 
-	Actor(Chapter05Scene* game);
+	Actor(class Game* game);
 	virtual ~Actor();
 
 	// Update function called from Game (not overridable)
@@ -56,7 +55,7 @@ public:
 	State GetState() const { return mState; }
 	void SetState(State state) { mState = state; }
 
-	class Chapter05Scene* GetGame() { return mGame; }
+	class Game* GetGame() { return mGame; }
 
 
 	// Add/remove components
@@ -74,7 +73,7 @@ private:
 	bool mRecomputeWorldTransform;
 
 	std::vector<class Component*> mComponents;
-	Chapter05Scene* mGame;
+	class Game* mGame;
 };
 
 }

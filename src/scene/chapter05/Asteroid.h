@@ -9,13 +9,13 @@
 #pragma once
 #include "Actor.h"
 
-namespace chapter05
+namespace Chapter05
 {
 
 class Asteroid : public Actor
 {
 public:
-	Asteroid(Chapter05Scene* game);
+	Asteroid(class Game* game);
 	~Asteroid();
 	
 	class CircleComponent* GetCircle() { return mCircle; }

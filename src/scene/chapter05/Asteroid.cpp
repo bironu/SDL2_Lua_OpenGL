@@ -9,14 +9,14 @@
 #include "Asteroid.h"
 #include "SpriteComponent.h"
 #include "MoveComponent.h"
-#include "scene/chapter05/Chapter05Scene.h"
+#include "Game.h"
 #include "Random.h"
 #include "CircleComponent.h"
 
-namespace chapter05
+namespace Chapter05
 {
 
-Asteroid::Asteroid(Chapter05Scene* game)
+Asteroid::Asteroid(Game* game)
 	:Actor(game)
 	,mCircle(nullptr)
 {
@@ -29,7 +29,7 @@ Asteroid::Asteroid(Chapter05Scene* game)
 
 	// Create a sprite component
 	SpriteComponent* sc = new SpriteComponent(this);
-	sc->SetTexture(game->GetTexture("Assets/chapter05/Asteroid.png"));
+	sc->SetTexture(game->GetTexture("Assets/Asteroid.png"));
 
 	// Create a move component, and set a forward speed
 	MoveComponent* mc = new MoveComponent(this);

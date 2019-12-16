@@ -51,17 +51,9 @@ void Sprite::clearTexture()
 
 void Sprite::draw(std::shared_ptr<Shader> shader)
 {
-	if (!texture_) {
+	if (!texture_ || !shader) {
 		return;
 	}
-
-	// const auto alpha = getAlpha();
-	// const GLubyte colors[] = {
-	// 	255, 255, 255, alpha,
-	// 	255, 255, 255, alpha,
-	// 	255, 255, 255, alpha,
-	// 	255, 255, 255, alpha,
-	// };
 
 	const geo::Matrix4x4f scale = geo::createScale<float>(
 		getScale() * static_cast<float>(texture_->getWidth()),

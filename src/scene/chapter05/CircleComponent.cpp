@@ -9,7 +9,7 @@
 #include "CircleComponent.h"
 #include "Actor.h"
 
-namespace chapter05
+namespace Chapter05
 {
 
 CircleComponent::CircleComponent(class Actor* owner)

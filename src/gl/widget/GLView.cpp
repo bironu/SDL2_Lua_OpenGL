@@ -10,25 +10,44 @@ View::View()
 {
 }
 
-//int View::getAbsoluteXPos() const
-//{
-//	int x = getXPos();// + getMarginLeft();
-//	auto parent = getParent();
-//	if (parent) {
-//		x += parent->getAbsoluteXPos();
-//	}
-//	return x;
-//}
+const geo::Vector3f View::getAbsolutePos() const
+{
+	return geo::Vector3f{
+		getAbsoluteXPos(),
+		getAbsoluteYPos(),
+		getAbsoluteZPos()
+	};
+}
 
-//int View::getAbsoluteYPos() const
-//{
-//	int y = getYPos();// + getMarginTop();
-//	auto parent = getParent();
-//	if (parent) {
-//		y += parent->getAbsoluteYPos();
-//	}
-//	return y;
-//}
+float View::getAbsoluteXPos() const
+{
+	auto x = getXPos();// + getMarginLeft();
+	auto parent = getParent();
+	if (parent) {
+		x += parent->getAbsoluteXPos();
+	}
+	return x;
+}
+
+float View::getAbsoluteYPos() const
+{
+	auto y = getYPos();// + getMarginTop();
+	auto parent = getParent();
+	if (parent) {
+		y += parent->getAbsoluteYPos();
+	}
+	return y;
+}
+
+float View::getAbsoluteZPos() const
+{
+	auto z = getYPos();// + getMarginTop();
+	auto parent = getParent();
+	if (parent) {
+		z += parent->getAbsoluteYPos();
+	}
+	return z;
+}
 
 void View::alignLeft()
 {

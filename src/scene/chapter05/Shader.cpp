@@ -7,13 +7,12 @@
 // ----------------------------------------------------------------
 
 #include "Shader.h"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_opengl.h>
-#include <SDL2/SDL_opengl_glext.h>
+#include "Texture.h"
+#include <SDL/SDL.h>
 #include <fstream>
 #include <sstream>
 
-namespace chapter05
+namespace Chapter05
 {
 
 Shader::Shader()

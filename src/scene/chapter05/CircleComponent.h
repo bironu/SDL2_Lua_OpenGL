@@ -8,9 +8,9 @@
 
 #pragma once
 #include "Component.h"
-#include "math/Math.h"
+#include "Math.h"
 
-namespace chapter05
+namespace Chapter05
 {
 
 class CircleComponent : public Component

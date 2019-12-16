@@ -8,14 +8,9 @@
 
 #pragma once
 #include "Component.h"
-#include "SDL2/SDL.h"
-#include <memory>
+#include "SDL/SDL.h"
 
-namespace GL_ {
-	class Texture;
-}
-
-namespace chapter05
+namespace Chapter05
 {
 
 class SpriteComponent : public Component
@@ -26,13 +21,13 @@ public:
 	~SpriteComponent();
 
 	virtual void Draw(class Shader* shader);
-	virtual void SetTexture(std::shared_ptr<GL_::Texture> texture);
+	virtual void SetTexture(class Texture* texture);
 
 	int GetDrawOrder() const { return mDrawOrder; }
 	int GetTexHeight() const { return mTexHeight; }
 	int GetTexWidth() const { return mTexWidth; }
 protected:
-	std::shared_ptr<GL_::Texture> mTexture;
+	class Texture* mTexture;
 	int mDrawOrder;
 	int mTexWidth;
 	int mTexHeight;

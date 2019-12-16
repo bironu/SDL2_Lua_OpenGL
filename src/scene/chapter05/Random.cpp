@@ -8,7 +8,7 @@
 
 #include "Random.h"
 
-namespace chapter05
+namespace Chapter05
 {
 
 void Random::Init()

@@ -9,7 +9,7 @@
 #include "InputComponent.h"
 #include "Actor.h"
 
-namespace chapter05
+namespace Chapter05
 {
 
 InputComponent::InputComponent(class Actor* owner)

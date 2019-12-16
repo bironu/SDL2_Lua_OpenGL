@@ -9,20 +9,20 @@
 #include "Laser.h"
 #include "SpriteComponent.h"
 #include "MoveComponent.h"
-#include "scene/chapter05/Chapter05Scene.h"
+#include "Game.h"
 #include "CircleComponent.h"
 #include "Asteroid.h"
 
-namespace chapter05
+namespace Chapter05
 {
 
-Laser::Laser(Chapter05Scene* game)
+Laser::Laser(Game* game)
 	:Actor(game)
 	,mDeathTimer(1.0f)
 {
 	// Create a sprite component
 	SpriteComponent* sc = new SpriteComponent(this);
-	sc->SetTexture(game->GetTexture("Assets/chapter05/Laser.png"));
+	sc->SetTexture(game->GetTexture("Assets/Laser.png"));
 
 	// Create a move component, and set a forward speed
 	MoveComponent* mc = new MoveComponent(this);

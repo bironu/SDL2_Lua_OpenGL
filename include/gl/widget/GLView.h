@@ -3,7 +3,6 @@
 
 #include "geo/Vector2.h"
 #include "geo/Vector3.h"
-#include "math/Math.h"
 #include "misc/Uncopyable.h"
 #include <memory>
 
@@ -27,6 +26,11 @@ public:
 	float getXPos() const { return pos_.getX(); }
 	float getYPos() const { return pos_.getY(); }
 	float getZPos() const { return pos_.getZ(); }
+
+	const geo::Vector3f getAbsolutePos() const;
+	float getAbsoluteXPos() const;
+	float getAbsoluteYPos() const;
+	float getAbsoluteZPos() const;
 
 	void setPos(const geo::Vector3f &pos) { pos_ = pos; }
 	void setXPos(const float x) { pos_.setX(x); }

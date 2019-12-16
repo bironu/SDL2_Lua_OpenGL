@@ -7,17 +7,17 @@
 // ----------------------------------------------------------------
 
 #include "SpriteComponent.h"
-#include "gl/GLTexture.h"
+#include "Texture.h"
 #include "Shader.h"
 #include "Actor.h"
-#include "scene/chapter05/Chapter05Scene.h"
+#include "Game.h"
 
-namespace chapter05
+namespace Chapter05
 {
 
 SpriteComponent::SpriteComponent(Actor* owner, int drawOrder)
 	:Component(owner)
-	,mTexture()
+	,mTexture(nullptr)
 	,mDrawOrder(drawOrder)
 	,mTexWidth(0)
 	,mTexHeight(0)
@@ -48,18 +48,18 @@ void SpriteComponent::Draw(Shader* shader)
 		// Set world transform
 		shader->SetMatrixUniform("uWorldTransform", world);
 		// Set current texture
-		mTexture->bind();
+		mTexture->SetActive();
 		// Draw quad
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 	}
 }
 
-void SpriteComponent::SetTexture(std::shared_ptr<GL_::Texture> texture)
+void SpriteComponent::SetTexture(Texture* texture)
 {
 	mTexture = texture;
 	// Set width/height
-	mTexWidth = texture->getWidth();
-	mTexHeight = texture->getHeight();
+	mTexWidth = texture->GetWidth();
+	mTexHeight = texture->GetHeight();
 }
 
 }

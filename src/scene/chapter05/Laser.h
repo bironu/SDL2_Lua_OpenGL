@@ -9,13 +9,13 @@
 #pragma once
 #include "Actor.h"
 
-namespace chapter05
+namespace Chapter05
 {
 
 class Laser : public Actor
 {
 public:
-	Laser(Chapter05Scene* game);
+	Laser(class Game* game);
 
 	void UpdateActor(float deltaTime) override;
 private:

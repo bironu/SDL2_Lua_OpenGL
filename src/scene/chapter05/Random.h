@@ -8,9 +8,9 @@
 
 #pragma  once
 #include <random>
-#include "math/Math.h"
+#include "Math.h"
 
-namespace chapter05
+namespace Chapter05
 {
 
 class Random

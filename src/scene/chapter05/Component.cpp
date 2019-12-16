@@ -9,7 +9,7 @@
 #include "Component.h"
 #include "Actor.h"
 
-namespace chapter05
+namespace Chapter05
 {
 
 Component::Component(Actor* owner, int updateOrder)

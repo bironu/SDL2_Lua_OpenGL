@@ -7,11 +7,11 @@
 // ----------------------------------------------------------------
 
 #pragma once
-#include "math/Math.h"
+#include <GL/glew.h>
 #include <string>
-#include <SDL2/SDL_opengl.h>
+#include "Math.h"
 
-namespace chapter05
+namespace Chapter05
 {
 
 class Shader

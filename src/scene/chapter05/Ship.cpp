@@ -9,19 +9,19 @@
 #include "Ship.h"
 #include "SpriteComponent.h"
 #include "InputComponent.h"
-#include "scene/chapter05/Chapter05Scene.h"
+#include "Game.h"
 #include "Laser.h"
 
-namespace chapter05
+namespace Chapter05
 {
 
-Ship::Ship(Chapter05Scene* game)
+Ship::Ship(Game* game)
 	:Actor(game)
 	,mLaserCooldown(0.0f)
 {
 	// Create a sprite component
 	SpriteComponent* sc = new SpriteComponent(this, 150);
-	sc->SetTexture(game->GetTexture("Assets/chapter05/Ship.png"));
+	sc->SetTexture(game->GetTexture("Assets/Ship.png"));
 
 	// Create an input component and set keys/speed
 	InputComponent* ic = new InputComponent(this);
