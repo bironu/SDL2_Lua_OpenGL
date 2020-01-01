@@ -1,6 +1,8 @@
+#pragma once
 #if !defined(GEO_MATRIX_H_)
 #define GEO_MATRIX_H_
 
+#include "MatrixDef.h"
 #include <algorithm>
 #include <array>
 
@@ -42,6 +44,17 @@ public:
 		: val_{data}
 	{
 		//std::copy(data.begin(), data.end(), val_.begin());
+	}
+
+	Matrix(const Matrix &matrix)
+		: val_{matrix.val_}
+	{
+	}
+
+	const Matrix &operator=(const Matrix &matrix)
+	{
+		std::copy(matrix.val_.begin(), matrix.val_.end(), val_.begin());
+		return *this;
 	}
 
 	// Cast to a const float pointer
@@ -112,11 +125,6 @@ inline Matrix<T, LHROW, RHCOL, Mejor> operator*(const Matrix<T, LHROW, M, Mejor>
 
 	return result;
 }
-
-template <typename T>
-using Matrix4x4 = Matrix<T, 4, 4, ColumnMejor>;
-using Matrix4x4f = Matrix4x4<float>;
-using Matrix4x4d = Matrix4x4<double>;
 
 } // namespace geo
 

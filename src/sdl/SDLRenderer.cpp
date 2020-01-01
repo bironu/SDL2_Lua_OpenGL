@@ -1,5 +1,5 @@
 #include "sdl/SDLRenderer.h"
-#include "geo/Geometry.h"
+#include "geo/Rect.h"
 #include "sdl/SDLImage.h"
 #include "sdl/SDLTexture.h"
 #include "sdl/SDLWindow.h"

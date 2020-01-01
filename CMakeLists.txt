@@ -45,6 +45,7 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(${PROJECT_NAME} ${root_files})
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/app)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/geo)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/gl)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/gl/widget)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/resources)
@@ -73,6 +74,7 @@ target_link_libraries(${PROJECT_NAME} ${LUA_LIBRARIES})
 #libSDL2_ttf.a
 
 target_link_libraries(${PROJECT_NAME} app)
+target_link_libraries(${PROJECT_NAME} geo)
 target_link_libraries(${PROJECT_NAME} gl)
 target_link_libraries(${PROJECT_NAME} gl_widget)
 target_link_libraries(${PROJECT_NAME} resources)

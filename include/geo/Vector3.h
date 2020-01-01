@@ -17,11 +17,11 @@ public:
 		: val_{}
 	{}
 
-	explicit Vector3(const T &x, const T &y, const T &z)
+	Vector3(const T &x, const T &y, const T &z)
 		: val_{x, y, z}
 	{}
 
-	explicit Vector3(const Vector2<T> &vec2, const T &z)
+	Vector3(const Vector2<T> &vec2, const T &z)
 		:val_{vec2.getX(), vec2.getY() ,z}
 	{}
 

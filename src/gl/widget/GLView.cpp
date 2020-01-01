@@ -6,47 +6,9 @@ namespace GL_ {
 
 View::View()
 	: parent_()
+	, affine_()
 	, visible_(true)
 {
-}
-
-const geo::Vector3f View::getAbsolutePos() const
-{
-	return geo::Vector3f{
-		getAbsoluteXPos(),
-		getAbsoluteYPos(),
-		getAbsoluteZPos()
-	};
-}
-
-float View::getAbsoluteXPos() const
-{
-	auto x = getXPos();// + getMarginLeft();
-	auto parent = getParent();
-	if (parent) {
-		x += parent->getAbsoluteXPos();
-	}
-	return x;
-}
-
-float View::getAbsoluteYPos() const
-{
-	auto y = getYPos();// + getMarginTop();
-	auto parent = getParent();
-	if (parent) {
-		y += parent->getAbsoluteYPos();
-	}
-	return y;
-}
-
-float View::getAbsoluteZPos() const
-{
-	auto z = getYPos();// + getMarginTop();
-	auto parent = getParent();
-	if (parent) {
-		z += parent->getAbsoluteYPos();
-	}
-	return z;
 }
 
 void View::alignLeft()
@@ -120,6 +82,26 @@ void View::matchParentSize()
 	if (parent) {
 		setSize(parent->getSize());
 	}
+}
+
+bool View::isChange() const
+{
+	bool result = affine_.isChange();
+	auto parent = getParent();
+	if (parent) {
+		result |= parent->isChange();
+	}
+	return result;
+}
+
+const geo::Matrix4x4f View::getMatrix()
+{
+	auto result = affine_.getMatrix();
+	auto parent = getParent();
+	if (parent) {
+		result = parent->getMatrix() * result;
+	}
+	return result;
 }
 
 } // GL_

@@ -2,7 +2,7 @@
 #define SDLRENDERER_H_
 
 #include "sdl/SDLColor.h"
-#include "geo/Geometry.h"
+#include "geo/Rect.h"
 #include "geo/Vector2.h"
 #include "misc/Uncopyable.h"
 #include <SDL2/SDL_render.h>

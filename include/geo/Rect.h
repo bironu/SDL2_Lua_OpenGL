@@ -1,51 +1,14 @@
-#if !defined(GEOMETRY_H_)
-#define GEOMETRY_H_
+#pragma once
+#if !defined(RECT_H_)
+#define RECT_H_
 
-#include "geo/Vector2.h"
+#include "Point.h"
+#include "Vector2.h"
 #include <SDL2/SDL_rect.h>
 
-class RectTest;
-
-class Point final : public SDL_Point
-{
-public:
-	Point(decltype(x) x_pos, decltype(y) y_pos)
-		: SDL_Point{x_pos, y_pos}
-	{
-	}
-	Point()
-		: Point(0, 0)
-	{
-	}
-	~Point() = default;
-	decltype(x) get_x_pos() const { return x;}
-	decltype(y) get_y_pos() const { return y;}
-	void set_x_pos(decltype(x) x_pos){ x = x_pos;}
-	void set_y_pos(decltype(y) y_pos){ y = y_pos;}
-	void set_point(decltype(x) x_pos, decltype(y) y_pos)
-	{
-		set_x_pos(x_pos);
-		set_y_pos(y_pos);
-	}
-
-	const Point &operator+=(const Point &pos)
-	{
-		set_x_pos(get_x_pos()+pos.get_x_pos());
-		set_y_pos(get_y_pos()+pos.get_y_pos());
-		return *this;
-	}
-};
-
-inline const Point operator+(const Point &l, const Point &r)
-{
-	return {l.get_x_pos()+r.get_x_pos(), l.get_y_pos()+r.get_y_pos()};
-}
-
-//=============================================================================
-//
 class Rect final : public SDL_Rect
 {
-	friend class RectTest;
+//	friend class RectTest;
 public:
 	Rect()
 		: SDL_Rect{0, 0, 0, 0}
@@ -126,4 +89,4 @@ public:
 	}
 };
 
-#endif // GEOMETRY_H_
+#endif // RECT_H_

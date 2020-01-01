@@ -50,7 +50,7 @@ public:
 		setV(Vector3<T>());
 	}
 
-	static Quaternion createIdentity() { return {static_cast<T>(1.0), Vector3<T>()}; }
+	static Quaternion createIdentity() { return Quaternion<T>(); }
 
 	// 共役Quaternion
 	//void conjugate() { setV(-getV()); }
@@ -154,6 +154,9 @@ inline Quaternion<T> operator*(const Quaternion<T> &lh, const Quaternion<T> &rh)
 		lh.getW() * rh.getV() + rh.getW() * lh.getV() + Vector3<T>::cross(lh.getV(), rh.getV())
 	};
 }
+
+using Quaternionf = Quaternion<float>;
+using Quaterniond = Quaternion<double>;
 
 } // namespace geo
 

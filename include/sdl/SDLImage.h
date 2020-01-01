@@ -1,7 +1,8 @@
 #if !defined(SDLIMAGE_H_)
 #define SDLIMAGE_H_
 
-#include "geo/Geometry.h"
+#include "geo/Rect.h"
+#include "geo/Point.h"
 #include "geo/Vector2.h"
 #include "sdl/SDLColor.h"
 #include "misc/Uncopyable.h"

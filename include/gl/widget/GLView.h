@@ -1,8 +1,7 @@
 #if !defined(GLVIEW_H_)
 #define GLVIEW_H_
 
-#include "geo/Vector2.h"
-#include "geo/Vector3.h"
+#include "geo/AffineMap.h"
 #include "misc/Uncopyable.h"
 #include <memory>
 
@@ -22,28 +21,36 @@ public:
 	std::shared_ptr<ViewGroup> getParent() const { return parent_.lock(); }
 	void clearParent() { parent_.reset(); }
 
-	const geo::Vector3f &getPos() const { return pos_; }
-	float getXPos() const { return pos_.getX(); }
-	float getYPos() const { return pos_.getY(); }
-	float getZPos() const { return pos_.getZ(); }
+	const auto &getPos() const { return affine_.getPos(); }
+	auto getXPos() const { return getPos().getX(); }
+	auto getYPos() const { return getPos().getY(); }
+	auto getZPos() const { return getPos().getZ(); }
 
-	const geo::Vector3f getAbsolutePos() const;
-	float getAbsoluteXPos() const;
-	float getAbsoluteYPos() const;
-	float getAbsoluteZPos() const;
+	void setPos(const geo::Vector3f &pos) { affine_.setPos(pos); }
+	void setXPos(const float x) { affine_.setXPos(x); }
+	void setYPos(const float y) { affine_.setYPos(y); }
+	void setZPos(const float z) { affine_.setZPos(z); }
 
-	void setPos(const geo::Vector3f &pos) { pos_ = pos; }
-	void setXPos(const float x) { pos_.setX(x); }
-	void setYPos(const float y) { pos_.setY(y); }
-	void setZPos(const float z) { pos_.setZ(z); }
+	const geo::Sizef getSize() const
+	{
+		return geo::Sizef{
+			affine_.getWidth(),
+			affine_.getHeight(),
+		 };
+	}
+	float getWidth() const { return affine_.getWidth(); }
+	float getHeight() const { return affine_.getHeight(); }
 
-	const geo::Sizef &getSize() const { return size_; }
-	float getWidth() const { return size_.getWidth(); }
-	float getHeight() const { return size_.getHeight(); }
+	void setSize(const geo::Sizef &size)
+	{
+		setWidth(size.getWidth());
+		setHeight(size.getHeight());
+	}
+	void setWidth(const float w) { affine_.setWidth(w); }
+	void setHeight(const float h) { affine_.setHeight(h); }
 
-	void setSize(const geo::Sizef &size) { size_ = size; }
-	void setWidth(const float w) { size_.setWidth(w); }
-	void setHeight(const float h) { size_.setHeight(h); }
+	bool isChange() const;
+	const geo::Matrix4x4f getMatrix();
 
 	void alignLeft();
 	void alignRight();
@@ -66,8 +73,7 @@ protected:
 
 private:
 	std::weak_ptr<ViewGroup> parent_;
-	geo::Vector3f pos_;
-	geo::Sizef size_;
+	geo::AffineMap affine_;
 	bool visible_;
 };
 

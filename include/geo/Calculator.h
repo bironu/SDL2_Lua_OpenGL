@@ -18,6 +18,20 @@ namespace geo
     //     };
     // }
 
+	template<typename T>
+	inline Matrix4x4<T> createIdentityMatrix4x4()
+	{
+        const T zero = static_cast<T>(0.0);
+        const T one = static_cast<T>(1.0);
+		const std::array<T, 16> data = {
+			one,  zero, zero, zero,
+			zero, one,  zero, zero,
+			zero, zero, one,  zero,
+			zero, zero, zero, one,
+		};
+		return Matrix4x4<T>(data);
+	}
+
 	// Create a scale matrix with x, y, and z scales
     template<typename T>
 	inline Matrix4x4<T> createScale(const T &xScale, const T &yScale, const T &zScale)
