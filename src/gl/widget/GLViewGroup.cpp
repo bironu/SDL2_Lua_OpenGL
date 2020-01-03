@@ -5,8 +5,8 @@
 namespace GL_
 {
 
-ViewGroup::ViewGroup()
-	: View()
+ViewGroup::ViewGroup(XOrigin &xorigin, YOrigin &yorigin)
+	: View(xorigin, yorigin)
 	, children_()
 	, back_()
 {
@@ -17,22 +17,13 @@ ViewGroup::~ViewGroup()
 	clearChild();
 }
 
-void ViewGroup::onDraw()
+void ViewGroup::draw(std::shared_ptr<Shader> shader)
 {
-	// ::glPushMatrix();
-	// ::glTranslated(getXPos(), getYPos(), getZPos());
-	// if (back_) {
-	// 	back_->setXPos(0.0);
-	// 	back_->setYPos(0.0);
-	// 	back_->setZPos(0.0);
-	// 	back_->setWidth(getWidth());
-	// 	back_->setHeight(getHeight());
-	// 	back_->draw();
-	// }
-	// for(auto view : children_){
-	// 	view->draw();
-	// }
-	// ::glPopMatrix();
+	for(auto view : children_){
+		if (view->isVisible()) {
+			view->draw(shader);
+		}
+	}
 }
 
 void ViewGroup::addChild(std::shared_ptr<View> child)

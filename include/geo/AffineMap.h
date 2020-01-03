@@ -15,8 +15,8 @@ class AffineMap
 public:
 	UNCOPYABLE(AffineMap);
 	AffineMap()
-		: pos_()
-		, size_()
+		: pos_(0.0f, 0.0f, 0.0f)
+		, size_(1.0f, 1.0f, 1.0f)
 		, rotation_()
 		, matrix_()
 		, isChange_(true)

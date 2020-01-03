@@ -2,6 +2,8 @@
 #include "sdl/SDLWindow.h"
 #include "gl/GLSprite.h"
 #include "gl/GLShader.h"
+#include "gl/widget/GLViewGroup.h"
+#include "gl/widget/GLImageView.h"
 #include "geo/Calculator.h"
 #include "app/Application.h"
 #include "resources/Resources.h"
@@ -13,14 +15,13 @@
 OpeningScene::OpeningScene(Application &app, Resources &res, TaskManager &manager)
 	: Scene(app, res, manager)
 	, spriteShader_()
+	, back_()
+	, image_()
 {
 }
 
 void OpeningScene::dispatch(const SDL_Event &event)
 {
-//	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_F5) {
-//		reload();
-//	}
 	switch (event.type)
 	{
 	case SDL_QUIT:
@@ -45,6 +46,51 @@ void OpeningScene::dispatch(const SDL_Event &event)
 		case SDLK_LEFT:
 			back_->setXPos(back_->getXPos() - 1.0f);
 			break;
+
+		case SDLK_q:
+			image_->alignLeft();
+			image_->alignTop();
+			break;
+			
+		case SDLK_w:
+			image_->centeringXPos();
+			image_->alignTop();
+			break;
+
+		case SDLK_e:
+			image_->alignRight();
+			image_->alignTop();
+			break;
+
+		case SDLK_a:
+			image_->alignLeft();
+			image_->centeringYPos();
+			break;
+
+		case SDLK_s:
+			image_->centeringXPos();
+			image_->centeringYPos();
+			break;
+
+		case SDLK_d:
+			image_->alignRight();
+			image_->centeringYPos();
+			break;
+
+		case SDLK_z:
+			image_->alignLeft();
+			image_->alignBottom();
+			break;
+
+		case SDLK_x:
+			image_->centeringXPos();
+			image_->alignBottom();
+			break;
+
+		case SDLK_c:
+			image_->alignRight();
+			image_->alignBottom();
+			break;
 		}
 		break;
 
@@ -68,7 +114,19 @@ bool OpeningScene::onIdle(uint32_t tick)
 void OpeningScene::onCreate()
 {
 	Scene::onCreate();
-	back_ = std::make_shared<GL_::Sprite>(getResources().getImage(ImageId::BackGround2));
+	auto &res = getResources();
+
+	back_ = std::make_shared<GL_::ViewGroup>();
+	back_->setWidth(static_cast<float>(res.getScreenWidth()));
+	back_->setHeight(static_cast<float>(res.getScreenHeight()));
+	image_ = std::make_shared<GL_::ImageView>(GL_::xright, GL_::ybottom);
+	GL_::ViewGroup::addChild(back_, image_);
+	image_->setImage(res.getImage(ImageId::BackGround2));
+	image_->centeringYPos();
+	image_->centeringXPos();
+
+	//back_ = std::make_shared<GL_::Sprite>(res.getImage(ImageId::BackGround2));
+
 	if (!loadShaders())
 	{
 		SDL_Log("Failed to load shaders.");
@@ -97,8 +155,9 @@ bool OpeningScene::loadShaders()
 
 	spriteShader_->setActive();
 	// Set the view-projection matrix
-	const float sw = static_cast<float>(getResources().getScreenWidth());
-	const float sh = static_cast<float>(getResources().getScreenHeight());
+	auto &res = getResources();
+	const float sw = static_cast<float>(res.getScreenWidth());
+	const float sh = static_cast<float>(res.getScreenHeight());
 
 	const auto viewProj = geo::createSimpleViewProj(sw, sh);
 	spriteShader_->setMatrixUniform("uViewProj", viewProj);

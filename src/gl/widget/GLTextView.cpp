@@ -9,7 +9,7 @@ namespace GL_
 void TextView::setText(SDL_::TtfFont &font, const char * const text, const SDL_::Color &color)
 {
 	text_ = text;
-	setSrc(font.renderBlendedText(text, color));
+	setImage(font.renderBlendedText(text, color));
 }
 
 } // GL_

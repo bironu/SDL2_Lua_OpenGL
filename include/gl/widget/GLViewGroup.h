@@ -1,8 +1,8 @@
+#pragma once
 #ifndef GLVIEWGROUP_H_
 #define GLVIEWGROUP_H_
 
 #include "GLView.h"
-#include "sdl/SDLColor.h"
 #include <list>
 
 namespace GL_
@@ -10,11 +10,15 @@ namespace GL_
 
 class Texture;
 class Sprite;
+class Shader;
+
 class ViewGroup: public View
 {
 public:
-	ViewGroup();
+	ViewGroup(XOrigin &xorigin = xcenter, YOrigin &yorigin = ycenter);
 	virtual ~ViewGroup() override;
+
+	virtual void draw(std::shared_ptr<Shader> shader) override;
 
 	void removeChild(std::shared_ptr<View> child);
 	void clearChild();
@@ -22,9 +26,6 @@ public:
 	void setBack(std::shared_ptr<Texture> back) ;
 
 	static void addChild(std::shared_ptr<ViewGroup> parent, std::shared_ptr<View> child);
-
-protected:
-	virtual void onDraw() override;
 
 private:
 	void addChild(std::shared_ptr<View> child);

@@ -1,116 +1,85 @@
 #include "gl/widget/GLImageView.h"
 #include "gl/GLTexture.h"
-#include "gl/GLSprite.h"
+#include "gl/GLShader.h"
+#include "gl/GLVertexArray.h"
 #include "sdl/SDLImage.h"
 
 namespace GL_
 {
 
-ImageView::ImageView()
-	: View()
-	, src_()
-	, back_()
-	, drawer_()
-	, paddingLeft_()
-	, paddingRight_()
-	, paddingTop_()
-	, paddingBottom_()
-	, alignX_(ViewXAlign::Center)
-	, alignY_(ViewYAlign::Center)
-	, keepAspect_(true)
-	, keepInbound_(true)
+ImageView::ImageView(XOrigin &xorigin, YOrigin &yorigin)
+	: View(xorigin, yorigin)
+	, texture_()
+	, vertexArray_()
 {
 }
 
-void ImageView::setSrc(std::shared_ptr<SDL_::Image> image)
+void ImageView::setImage(std::shared_ptr<SDL_::Image> image)
 {
-	src_ = std::make_shared<Texture>(image);
+	texture_ = std::make_shared<Texture>(image);
+	setWrapContentSize();
+	vertexArray_.reset();
 }
 
-void ImageView::setBack(std::shared_ptr<SDL_::Image> image)
+void ImageView::setImage(std::shared_ptr<Texture> texture)
 {
-	back_ = std::make_shared<Texture>(image);
+	texture_ = texture;
+	setWrapContentSize();
+	vertexArray_.reset();
 }
 
-void ImageView::onDraw()
+void ImageView::draw(std::shared_ptr<Shader> shader)
 {
-	// if(back_){
-	// 	drawer_->setTexture(back_);
-	// 	drawer_->setPos(getPos());
-	// 	drawer_->setSize(getSize());
-	// 	drawer_->draw();
-	// }
-	// if(src_){
-	// 	const double sw = src_->getWidth();
-	// 	const double sh = src_->getHeight();
-	// 	const double vw = this->getWidth() - getPaddingLeft() - getPaddingRight();
-	// 	const double vh = this->getHeight() - getPaddingTop() - getPaddingBottom();
+	if (!texture_ || !shader) {
+		return;
+	}
 
-	// 	drawer_->setTexture(src_);
-	// 	drawer_->setWidth(sw);
-	// 	drawer_->setHeight(sh);
-	// 	if (keepInbound_) {
-	// 		if (keepAspect_) {
-	// 			if (vh < sh || vw < sw) {
-	// 				const double yratio = vh / sh;
-	// 				const double xratio = vw / sw;
-
-	// 				if(xratio < yratio) {
-	// 					drawer_->setWidth(vw);
-	// 					drawer_->setHeight(sh * xratio);
-	// 				}
-	// 				else {
-	// 					drawer_->setWidth(sw * yratio);
-	// 					drawer_->setHeight(vh);
-	// 				}
-	// 			}
-	// 		}
-	// 		else {
-	// 			if (vw < sw) {
-	// 				drawer_->setWidth(vw);
-	// 			}
-	// 			if (vh < sh) {
-	// 				drawer_->setHeight(vh);
-	// 			}
-	// 		}
-	// 	}
-
-	// 	drawer_->setZPos(0.0);
-	// 	switch (alignY_) {
-	// 	case ViewYAlign::Top:
-	// 		drawer_->setYPos(getYPos() + getPaddingTop());
-	// 		break;
-	// 	case ViewYAlign::Center:
-	// 		drawer_->setYPos(getYPos() + getPaddingTop() + (vh - drawer_->getHeight()) / 2);
-	// 		break;
-	// 	case ViewYAlign::Bottom:
-	// 		drawer_->setYPos(getYPos() + vh - getPaddingBottom() - drawer_->getHeight());
-	// 		break;
-	// 	}
-
-	// 	switch(alignX_) {
-	// 	case ViewXAlign::Left:
-	// 		drawer_->setXPos(getXPos() + getPaddingLeft());
-	// 		break;
-	// 	case ViewXAlign::Center:
-	// 		drawer_->setXPos(getXPos() + getPaddingLeft() + (vw - drawer_->getWidth()) / 2);
-	// 		break;
-	// 	case ViewXAlign::Right:
-	// 		drawer_->setXPos(getXPos() + vw - getPaddingRight() - drawer_->getWidth());
-	// 		break;
-	// 	}
-	// 	drawer_->draw();
-	// }
+	auto scale = geo::createScale(getWidth(), getHeight(), 1.0f);
+	shader->setMatrixUniform("uWorldTransform", getMatrix() * scale);
+	texture_->bind();
+	getSpriteVerts()->SetActive();
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 }
 
 void ImageView::setWrapContentSize()
 {
-	if(src_){
-		const double sw = src_->getWidth();
-		const double sh = src_->getHeight();
+	if(texture_){
+		const double sw = texture_->getWidth();
+		const double sh = texture_->getHeight();
 		setWidth(sw);
 		setHeight(sh);
 	}
+}
+
+std::shared_ptr<VertexArray> ImageView::getSpriteVerts()
+{
+	if (!vertexArray_) {
+		const std::array<float, 4> &texRange = texture_->getTexRange();
+		const float tleft = texRange[0];
+		const float ttop = texRange[1];
+		const float tright = texRange[2];
+		const float tbottom = texRange[3];
+
+		const float vleft = getXOrigin().getLeft();
+		const float vright = getXOrigin().getRight();
+		const float vtop = getYOrigin().getTop();
+		const float vbottom = getYOrigin().getBottom();
+
+		const float vertices[] = {
+			vleft,  vtop, 0.f, tleft, ttop, // top left
+			vright,  vtop, 0.f, tright, ttop, // top right
+			vright, vbottom, 0.f, tright, tbottom, // bottom right
+			vleft, vbottom, 0.f, tleft, tbottom  // bottom left
+		};
+
+		const unsigned int indices[] = {
+			0, 1, 2,
+			2, 3, 0
+		};
+
+		vertexArray_ = std::make_shared<VertexArray>(vertices, 4, indices, 6);
+	}
+	return vertexArray_;
 }
 
 } // GL_

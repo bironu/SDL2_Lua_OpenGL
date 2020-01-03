@@ -16,8 +16,8 @@ namespace GL_
 class TextView : public ImageView
 {
 public:
-	TextView()
-		: ImageView()
+	TextView(XOrigin &xorigin = xcenter, YOrigin &yorigin = ycenter)
+		: ImageView(xorigin, yorigin)
 		, text_()
 	{
 	}

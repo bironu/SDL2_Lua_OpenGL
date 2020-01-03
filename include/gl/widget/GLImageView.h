@@ -2,6 +2,7 @@
 #define GLIMAGEVIEW_H_
 
 #include "GLView.h"
+#include "GLViewOrigin.h"
 
 namespace SDL_
 {
@@ -13,57 +14,26 @@ namespace GL_
 
 class Sprite;
 class Texture;
+class VertexArray;
 class ImageView: public View
 {
 public:
-	ImageView();
+	ImageView(XOrigin &xorigin = xcenter, YOrigin &yorigin = ycenter);
 	virtual ~ImageView() override = default;
 
-	void setSrc(std::shared_ptr<SDL_::Image> image);
-	void setSrc(std::shared_ptr<Texture> texture) { src_ = texture; }
-	std::shared_ptr<Texture> getSrc() const { return src_; }
+	virtual void draw(std::shared_ptr<Shader> shader) override;
 
-	void setBack(std::shared_ptr<SDL_::Image> image);
-	void setBack(std::shared_ptr<Texture> texture) { back_ = texture; }
-	std::shared_ptr<Texture> getBack() const { return back_; }
+	void setImage(std::shared_ptr<SDL_::Image> image);
+	void setImage(std::shared_ptr<Texture> texture);
+	std::shared_ptr<Texture> getImage() const { return texture_; }
 
-	int getPaddingLeft() const { return paddingLeft_; }
-	int getPaddingRight() const { return paddingRight_; }
-	int getPaddingTop() const { return paddingTop_; }
-	int getPaddingBottom() const { return paddingBottom_; }
-	void setPaddingLeft(int padding) { paddingLeft_ = padding; }
-	void setPaddingRight(int padding) { paddingRight_ = padding; }
-	void setPaddingTop(int padding) { paddingTop_ = padding; }
-	void setPaddingBottom(int padding) { paddingBottom_ = padding; }
-	void setPaddingAll(int padding)
-	{
-		setPaddingLeft(padding);
-		setPaddingRight(padding);
-		setPaddingTop(padding);
-		setPaddingBottom(padding);
-	}
-
-	void keepAspect(bool keep) { keepAspect_ = keep; }
-	void keepInbound(bool inbound) { keepInbound_ = inbound; }
-	void setXAlign(ViewXAlign align) { alignX_ = align; }
-	void setYAlign(ViewYAlign align) { alignY_ = align; }
 	void setWrapContentSize();
 
-protected:
-	virtual void onDraw() override;
-
 private:
-	std::shared_ptr<Texture> src_;
-	std::shared_ptr<Texture> back_;
-	std::shared_ptr<Sprite> drawer_;
-	int paddingLeft_;
-	int paddingRight_;
-	int paddingTop_;
-	int paddingBottom_;
-	ViewXAlign alignX_;
-	ViewYAlign alignY_;
-	bool keepAspect_;
-	bool keepInbound_;
+	std::shared_ptr<VertexArray> getSpriteVerts();
+
+	std::shared_ptr<Texture> texture_;
+	std::shared_ptr<VertexArray> vertexArray_;
 };
 
 } // GL_

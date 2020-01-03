@@ -1,63 +1,47 @@
 #include "gl/widget/GLView.h"
 #include "gl/widget/GLViewGroup.h"
-#include "task/Interpolator.h"
+#include "geo/Calculator.h"
 
 namespace GL_ {
 
-View::View()
+View::View(XOrigin &xorigin, YOrigin &yorigin)
 	: parent_()
 	, affine_()
+	, matrix_(geo::createIdentityMatrix4x4<float>())
 	, visible_(true)
+	, xorigin_(xorigin)
+	, yorigin_(yorigin)
 {
 }
 
 void View::alignLeft()
 {
-	setXPos(0);
+	xorigin_.alignLeft(*this);
 }
 
 void View::alignRight()
 {
-	auto parent = getParent();
-	if (parent) {
-		setXPos(parent->getWidth() - this->getWidth());
-	}
+	xorigin_.alignRight(*this);
 }
 
 void View::alignTop()
 {
-	setYPos(0);
+	yorigin_.alignTop(*this);
 }
 
 void View::alignBottom()
 {
-	auto parent = getParent();
-	if (parent) {
-		setYPos(parent->getHeight() - this->getHeight());
-	}
+	yorigin_.alignBottom(*this);
 }
 
 void View::centeringXPos()
 {
-	auto parent = getParent();
-	if (parent) {
-		setXPos((parent->getWidth()/2) - (this->getWidth()/2));
-	}
+	xorigin_.centering(*this);
 }
 
 void View::centeringYPos()
 {
-	auto parent = getParent();
-	if (parent) {
-		setYPos((parent->getHeight()/2) - (this->getHeight()/2));
-	}
-}
-
-void View::draw()
-{
-	if (isVisible()) {
-		onDraw();
-	}
+	yorigin_.centering(*this);
 }
 
 void View::matchParentWidth()
@@ -94,14 +78,18 @@ bool View::isChange() const
 	return result;
 }
 
-const geo::Matrix4x4f View::getMatrix()
+const geo::Matrix4x4f &View::getMatrix()
 {
-	auto result = affine_.getMatrix();
-	auto parent = getParent();
-	if (parent) {
-		result = parent->getMatrix() * result;
+	if (isChange()) {
+		auto parent = getParent();
+		if (parent) {
+			matrix_ = parent->getMatrix() * affine_.getMatrix();
+		}
+		else {
+			matrix_ = affine_.getMatrix();
+		}
 	}
-	return result;
+	return matrix_;
 }
 
 } // GL_
