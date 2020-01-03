@@ -44,12 +44,6 @@ public:
 	Resources &getResources() { return res_; }
 	TaskManager &getManager() { return manager_; }
 
-	// static void calcViewPort(int, int, int, int);
-	// static void Enter2DMode();
-	// static void Leave2DMode();
-	// static void Enter3DMode();
-	// static void Leave3DMode();
-
 private:
 	Application &app_;
 	Resources &res_;

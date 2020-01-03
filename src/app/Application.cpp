@@ -217,12 +217,14 @@ bool Application::handlePreEvent(Resources &res, TaskManager &manager, SDL_Event
 			res.setWindowHeight(event.window.data2);
 			SDL_Log("Window %d resized to %dx%d",
 					event.window.windowID, event.window.data1, event.window.data2);
+			calcViewPort(res);
 			break;
 		case SDL_WINDOWEVENT_SIZE_CHANGED:
 			res.setWindowWidth(event.window.data1);
 			res.setWindowHeight(event.window.data2);
 			SDL_Log("Window %d size changed to %dx%d",
 					event.window.windowID, event.window.data1, event.window.data2);
+			calcViewPort(res);
 			break;
 		case SDL_WINDOWEVENT_MINIMIZED:
 			SDL_Log("Window %d minimized", event.window.windowID);
@@ -268,6 +270,31 @@ bool Application::handlePreEvent(Resources &res, TaskManager &manager, SDL_Event
 	}
 
 	return result;
+}
+
+void Application::calcViewPort(Resources &res)
+{
+	const int ww = res.getWindowWidth();
+	const int wh = res.getWindowHeight();
+	const int sw = res.getScreenWidth();
+	const int sh = res.getScreenHeight();
+	if (static_cast<float>(ww)/static_cast<float>(wh) != static_cast<float>(sw)/static_cast<float>(sh)) {
+		const auto waspect = static_cast<float>(ww)/static_cast<float>(sw);
+		const auto haspect = static_cast<float>(wh)/static_cast<float>(sh);
+		if(waspect > haspect) {
+			auto pw = sw * haspect;
+			auto ph = wh;
+			::glViewport((ww-pw)/2, 0, pw, ph);
+		}
+		else {
+			auto ph = sh * waspect;
+			auto pw = ww;
+			::glViewport(0, (wh-ph)/2, pw, ph);
+		}
+	}
+	else {
+		::glViewport(0, 0, ww, wh);
+	}
 }
 
 //void Application::waitFrame()

@@ -51,6 +51,7 @@ public:
 
 private:
 	bool handlePreEvent(Resources &res, TaskManager &manager, SDL_Event &);
+	void calcViewPort(Resources &res);
 
 	const bool is_application_;
 	const bool is_ttf_;

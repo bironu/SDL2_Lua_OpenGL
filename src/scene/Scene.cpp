@@ -56,27 +56,6 @@ void Scene::quit()
 	app_.quit();
 }
 
-// void Scene::calcViewPort(int ww, int wh, int sw, int sh)
-// {
-// 	if (static_cast<double>(ww)/static_cast<double>(wh) != static_cast<int>(sw)/static_cast<double>(sh)) {
-// 		const auto waspect = static_cast<double>(ww)/static_cast<double>(sw);
-// 		const auto haspect = static_cast<double>(wh)/static_cast<double>(sh);
-// 		if(waspect > haspect) {
-// 			auto pw = sw * haspect;
-// 			auto ph = wh;
-// 			::glViewport((ww-pw)/2, 0, pw, ph);
-// 		}
-// 		else {
-// 			auto ph = sh * waspect;
-// 			auto pw = ww;
-// 			::glViewport(0, (wh-ph)/2, pw, ph);
-// 		}
-// 	}
-// 	else {
-// 		::glViewport(0, 0, ww, wh);
-// 	}
-// }
-
 // void Scene::Enter2DMode()
 // {
 // 	auto &res = Resources::instance();
