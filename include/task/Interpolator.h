@@ -20,7 +20,7 @@ enum class InterpolatorType
 class InterpolatorFactory
 {
 public:
-	static std::function<double(double)> create(InterpolatorType);
+	static std::function<float(float)> create(InterpolatorType);
 };
 
 #endif // TASK_INTERPOLATOR_H_

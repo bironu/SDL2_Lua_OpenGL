@@ -76,13 +76,13 @@ void ActionTask::collect()
 	pool_.collect(shared_from_this());
 }
 
-void ActionTask::setAction(std::function<void(double)> action)
+void ActionTask::setAction(std::function<void(float)> action)
 {
 	action_ = action;
 }
 
 
-void ActionTask::setup(double startValue, double stopValue, uint32_t duration, uint32_t tick)
+void ActionTask::setup(float startValue, float stopValue, uint32_t duration, uint32_t tick)
 {
 	finished_ = false;
 	duration_ = duration;
@@ -93,7 +93,7 @@ void ActionTask::setup(double startValue, double stopValue, uint32_t duration, u
 	durationReciprocal_ = 1.0 / static_cast<double>(duration_);
 }
 
-void ActionTask::setInterpolator(std::function<double(double)> interpolator)
+void ActionTask::setInterpolator(std::function<float(float)> interpolator)
 {
 	interpolator_ = interpolator;
 }

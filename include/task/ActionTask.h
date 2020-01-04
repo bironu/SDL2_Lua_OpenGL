@@ -1,3 +1,4 @@
+#pragma once
 #ifndef TASK_ACTIONTASK_H_
 #define TASK_ACTIONTASK_H_
 
@@ -37,13 +38,13 @@ public:
 		return startTime_;
 	}
 
-	void setAction(std::function<void(double)>);
-	void setup(double, double, uint32_t, uint32_t);
-	void setInterpolator(std::function<double(double)>);
+	void setAction(std::function<void(float)>);
+	void setup(float, float, uint32_t, uint32_t);
+	void setInterpolator(std::function<float(float)>);
 
 private:
 	static TaskPool<ActionTask> pool_;
-	std::function<double(double)> interpolator_;
+	std::function<float(float)> interpolator_;
 	bool finished_;
 	uint32_t duration_;
 	double currValue_;
@@ -52,7 +53,7 @@ private:
 	double deltaValue_;
 	double durationReciprocal_;
 	uint32_t startTime_;
-	std::function<void(double)> action_;
+	std::function<void(float)> action_;
 };
 
 #endif // TASK_ACTIONTASK_H_

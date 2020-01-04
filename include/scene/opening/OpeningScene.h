@@ -41,7 +41,6 @@ private:
 	std::shared_ptr<GL_::Shader> spriteShader_;
 	std::shared_ptr<GL_::ViewGroup> back_;
 	std::shared_ptr<GL_::ImageView> image_;
-	//std::shared_ptr<GL_::Sprite> back_;
 };
 
 #endif // SCENE_OPENING_OPENINGSCENE_H_
