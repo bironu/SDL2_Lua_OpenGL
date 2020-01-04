@@ -13,7 +13,7 @@ public:
 	explicit TaskManager();
 	~TaskManager();
 
-	void registerTask(int, std::shared_ptr<Task> &&);
+	void registerTask(int, std::shared_ptr<Task>);
 	void unregisterTask(int, bool);
 	bool compute(uint32_t);
 	void clear();

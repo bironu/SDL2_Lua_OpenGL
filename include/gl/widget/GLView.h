@@ -42,6 +42,9 @@ public:
 	void setWidth(const float w) { size_.setWidth(w); }
 	void setHeight(const float h) { size_.setHeight(h); }
 
+	auto getScale() const { return affine_.getWidth(); }
+	void setScale(const float s) { affine_.setWidth(s); affine_.setHeight(s); }
+
 	bool isChange() const;
 	const geo::Matrix4x4f &getMatrix();
 

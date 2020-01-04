@@ -65,6 +65,7 @@ bool ActionTask::isFinished()
 void ActionTask::reset(uint32_t tick)
 {
 	startTime_ = tick;
+	finished_ = false;
 }
 
 void ActionTask::collect()

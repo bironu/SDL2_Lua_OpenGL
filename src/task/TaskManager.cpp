@@ -12,9 +12,9 @@ TaskManager::~TaskManager()
 	clear();
 }
 
-void TaskManager::registerTask(int id, std::shared_ptr<Task> &&task)
+void TaskManager::registerTask(int id, std::shared_ptr<Task> task)
 {
-	mapTask_.emplace(id, std::move(task));
+	mapTask_.emplace(id, task);
 }
 
 void TaskManager::unregisterTask(int id, bool isFinishAction)

@@ -17,6 +17,10 @@ SerialTask::~SerialTask()
 
 bool SerialTask::compute(uint32_t tick)
 {
+	if (listTask_.empty()) {
+		return true;
+	}
+
 	if ((*iterator_)->compute(tick)) {
 		++iterator_;
 		if (iterator_ != listTask_.end()) {
@@ -59,5 +63,6 @@ void SerialTask::collect()
 void SerialTask::addTask(std::shared_ptr<Task> task)
 {
 	listTask_.push_back(task);
+	iterator_ = listTask_.begin();
 }
 

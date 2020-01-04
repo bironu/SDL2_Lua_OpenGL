@@ -8,6 +8,11 @@
 #include "app/Application.h"
 #include "resources/Resources.h"
 #include "resources/ImageId.h"
+#include "task/TaskManager.h"
+#include "task/ActionTask.h"
+#include "task/LoopTask.h"
+#include "task/SerialTask.h"
+#include "task/Interpolator.h"
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL_log.h>
@@ -121,11 +126,37 @@ void OpeningScene::onCreate()
 	back_->setHeight(static_cast<float>(res.getScreenHeight()));
 	image_ = std::make_shared<GL_::ImageView>(GL_::xright, GL_::ybottom);
 	GL_::ViewGroup::addChild(back_, image_);
-	image_->setImage(res.getImage(ImageId::BackGround2));
+	image_->setImage(res.getImage(ImageId::BackGround1));
 	image_->centeringYPos();
 	image_->centeringXPos();
 
-	//back_ = std::make_shared<GL_::Sprite>(res.getImage(ImageId::BackGround2));
+	auto loop = LoopTask::get();
+	loop->setLoopCount(LoopTask::INFINIT);
+
+	auto serial = SerialTask::get();
+
+	const auto tick = Application::getTickCount();
+
+	auto big = ActionTask::get();
+	big->setInterpolator(InterpolatorFactory::create(InterpolatorType::AccelerateDecelerate));
+	big->setAction([this](double value){
+		image_->setScale(value);
+	});
+	big->setup(0.5, 1.5, 1000, tick);
+
+
+	auto small = ActionTask::get();
+	small->setInterpolator(InterpolatorFactory::create(InterpolatorType::AccelerateDecelerate));
+	small->setAction([this](double value){
+		image_->setScale(value);
+	});
+	small->setup(1.5, 0.5, 1000, tick);
+
+	serial->addTask(big);
+	serial->addTask(small);
+
+	loop->setTask(serial);
+	getManager().registerTask(0, loop);
 
 	if (!loadShaders())
 	{
@@ -136,6 +167,7 @@ void OpeningScene::onCreate()
 
 void OpeningScene::onDestroy()
 {
+	getManager().unregisterTask(0, false);
 	spriteShader_->unload();
 	spriteShader_.reset();
 	Scene::onDestroy();
