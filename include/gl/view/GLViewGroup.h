@@ -23,7 +23,6 @@ public:
 	void removeChild(std::shared_ptr<View> child);
 	void clearChild();
 	std::list<std::shared_ptr<View>> &getChildren() { return children_; }
-	void setBack(std::shared_ptr<Texture> back) ;
 
 	static void addChild(std::shared_ptr<ViewGroup> parent, std::shared_ptr<View> child);
 
@@ -31,7 +30,6 @@ private:
 	void addChild(std::shared_ptr<View> child);
 
 	std::list<std::shared_ptr<View>> children_;
-	std::shared_ptr<Sprite> back_;
 };
 
 } // GL_

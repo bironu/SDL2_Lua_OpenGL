@@ -4,14 +4,14 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-inline double radian2degrees(double radian)
+inline float radian2degrees(float radian)
 {
-	return radian * 180.0 / M_PI;
+	return radian * 180.0f / M_PI;
 }
 
-inline double degrees2radian(double degrees)
+inline float degrees2radian(float degrees)
 {
-	return M_PI * degrees / 180.0;
+	return M_PI * degrees / 180.0f;
 }
 
 inline int power_of_two(int input)

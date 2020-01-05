@@ -1,5 +1,5 @@
 #include "gl/widget/HorizontalRotateMenu.h"
-#include "gl/GLSprite.h"
+#include "gl/widget/GLSprite.h"
 #include <SDL2/SDL_opengl.h>
 #include <iostream>
 

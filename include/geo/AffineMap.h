@@ -16,6 +16,7 @@ public:
 	UNCOPYABLE(AffineMap);
 	AffineMap()
 		: pos_(0.0f, 0.0f, 0.0f)
+		, offset_(0.0f, 0.0f, 0.0f)
 		, size_(1.0f, 1.0f, 1.0f)
 		, rotation_()
 		, matrix_()
@@ -28,6 +29,11 @@ public:
 	const auto getYPos() const { return pos_.getY(); }
 	const auto getZPos() const { return pos_.getZ(); }
 
+	const auto &getOffset() const { return offset_; }
+	const auto getXOffset() const { return offset_.getX(); }
+	const auto getYOffset() const { return offset_.getY(); }
+	const auto getZOffset() const { return offset_.getZ(); }
+
 	const auto &getSize() const { return size_; }
 	const auto getWidth() const { return size_.getX(); }
 	const auto getHeight() const { return size_.getY(); }
@@ -39,6 +45,11 @@ public:
 	void setXPos(const float x);
 	void setYPos(const float y);
 	void setZPos(const float z);
+
+	void setOffset(const geo::Vector3f &offset);
+	void setXOffset(const float x);
+	void setYOffset(const float y);
+	void setZOffset(const float z);
 
 	void setSize(const geo::Vector3f &size);
 	void setWidth(const float w);
@@ -54,6 +65,7 @@ public:
 
 private:
 	geo::Vector3f pos_;
+	geo::Vector3f offset_;
 	geo::Vector3f size_;
 	geo::Quaternionf rotation_;
 	geo::Matrix4x4f matrix_;

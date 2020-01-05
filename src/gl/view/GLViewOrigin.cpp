@@ -1,6 +1,6 @@
-#include "gl/widget/GLViewOrigin.h"
-#include "gl/widget/GLView.h"
-#include "gl/widget/GLViewGroup.h"
+#include "gl/view/GLViewOrigin.h"
+#include "gl/view/GLView.h"
+#include "gl/view/GLViewGroup.h"
 
 namespace GL_
 {

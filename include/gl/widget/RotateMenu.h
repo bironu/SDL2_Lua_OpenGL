@@ -2,7 +2,7 @@
 #define WIDGET_ROTATEMENU_H_
 
 #include "misc/Uncopyable.h"
-#include "gl/GLSprite.h"
+#include "gl/widget/GLSprite.h"
 #include <memory>
 #include <vector>
 
@@ -22,13 +22,13 @@ public:
 	}
 	virtual ~RotateMenu(){}
 
-	void setRadius(double radius) { radius_ = radius; }
-	double getRadius() const { return radius_; }
+	void setRadius(float radius) { radius_ = radius; }
+	float getRadius() const { return radius_; }
 
-	void setDegrees(double degrees)
+	void setDegrees(float degrees)
 	{
 		while(true) {
-			if (degrees < 0.0) {
+			if (degrees < 0.0f) {
 				degrees += MAX_DEGREES;
 			}
 			else if (MAX_DEGREES <= degrees) {
@@ -40,25 +40,26 @@ public:
 		}
 		degrees_ = degrees;
 	}
-	double getDegrees() const { return degrees_; }
+	float getDegrees() const { return degrees_; }
 
-	std::pair<double, uint32_t> computeDgrees(int oldPos, int movePos, uint32_t duration)
+	float computeDgrees(int oldPos, int movePos, uint32_t duration)
 	{
-		const int newPos = oldPos + movePos;
-		const double delta = (MAX_DEGREES / listMenuItem_.size());
-		double endDegrees = delta * newPos;
 		if (movePos == 0) {
-			return {0, 0};
+			return 0.0f;
 		}
 
-		const double beginDegrees = delta * oldPos;
-		const double currDegrees = getDegrees();
+		const int newPos = oldPos + movePos;
+		const float delta = (MAX_DEGREES / listMenuItem_.size());
+		float endDegrees = delta * newPos;
+
+		const float beginDegrees = delta * oldPos;
+		const float currDegrees = getDegrees();
 
 		if (currDegrees != beginDegrees) {
-			return {0, 0};
+			return 0.0f;
 		}
 
-		double subDegrees;
+		float subDegrees;
 		// 左
 		if (movePos < 0) {
 			if (currDegrees < endDegrees) {
@@ -81,15 +82,7 @@ public:
 			subDegrees = endDegrees - currDegrees;
 		}
 
-		uint32_t newDuration;
-		const double ratio = subDegrees/delta;
-		if (ratio <= 1.0) {
-			newDuration = static_cast<uint32_t>(duration * ratio);
-		}
-		else {
-			newDuration = static_cast<uint32_t>(duration / ratio);
-		}
-		return {endDegrees, newDuration};
+		return endDegrees;
 	}
 
 	void addMenuItem(std::shared_ptr<Sprite> item) { listMenuItem_.push_back(item); }

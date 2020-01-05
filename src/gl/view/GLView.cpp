@@ -1,5 +1,5 @@
-#include "gl/widget/GLView.h"
-#include "gl/widget/GLViewGroup.h"
+#include "gl/view/GLView.h"
+#include "gl/view/GLViewGroup.h"
 #include "geo/Calculator.h"
 
 namespace GL_ {

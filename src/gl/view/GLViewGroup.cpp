@@ -1,5 +1,4 @@
-#include "gl/widget/GLViewGroup.h"
-#include "gl/GLSprite.h"
+#include "gl/view/GLViewGroup.h"
 #include <SDL2/SDL_opengl.h>
 
 namespace GL_
@@ -8,7 +7,6 @@ namespace GL_
 ViewGroup::ViewGroup(XOrigin &xorigin, YOrigin &yorigin)
 	: View(xorigin, yorigin)
 	, children_()
-	, back_()
 {
 }
 
@@ -49,11 +47,6 @@ void ViewGroup::addChild(std::shared_ptr<ViewGroup> parent, std::shared_ptr<View
 {
 	parent->addChild(child);
 	child->setParent(parent);
-}
-
-void ViewGroup::setBack(std::shared_ptr<Texture> texture)
-{
-	back_->setTexture(texture);
 }
 
 } // GL_

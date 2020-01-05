@@ -1,5 +1,5 @@
-#if !defined(GLVIEW_H_)
-#define GLVIEW_H_
+#if !defined(GLWIDGET_H_)
+#define GLWIDGET_H_
 
 #include "gl/widget/GLViewOrigin.h"
 #include "geo/AffineMap.h"

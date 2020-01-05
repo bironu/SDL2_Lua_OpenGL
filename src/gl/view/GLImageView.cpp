@@ -1,4 +1,4 @@
-#include "gl/widget/GLImageView.h"
+#include "gl/view/GLImageView.h"
 #include "gl/GLTexture.h"
 #include "gl/GLShader.h"
 #include "gl/GLVertexArray.h"
