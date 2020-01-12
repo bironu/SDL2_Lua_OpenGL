@@ -73,8 +73,8 @@ std::shared_ptr<VertexArray> ImageView::getSpriteVerts()
 		};
 
 		const unsigned int indices[] = {
-			0, 1, 2,
-			2, 3, 0
+			0, 3, 1,
+			1, 3, 2
 		};
 
 		vertexArray_ = std::make_shared<VertexArray>(vertices, 4, indices, 6);

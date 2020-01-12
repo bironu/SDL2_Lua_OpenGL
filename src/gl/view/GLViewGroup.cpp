@@ -17,6 +17,10 @@ ViewGroup::~ViewGroup()
 
 void ViewGroup::draw(std::shared_ptr<Shader> shader)
 {
+    if (!shader) {
+        return;
+    }
+
 	for(auto view : children_){
 		if (view->isVisible()) {
 			view->draw(shader);

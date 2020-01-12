@@ -51,27 +51,27 @@ void AffineMap::setZOffset(const float z)
     isChange_ = true;
 }
 
-void AffineMap::setSize(const geo::Vector3f &size)
+void AffineMap::setScale(const geo::Vector3f &scale)
 {
-    size_ = size;
+    scale_ = scale;
     isChange_ = true;
 }
 
-void AffineMap::setWidth(const float w)
+void AffineMap::setWidth(const float width)
 {
-    size_.setX(w);
+    scale_.setX(width);
     isChange_ = true;
 }
 
-void AffineMap::setHeight(const float h)
+void AffineMap::setHeight(const float height)
 {
-    size_.setY(h);
+    scale_.setY(height);
     isChange_ = true;
 }
 
-void AffineMap::setDepth(const float d)
+void AffineMap::setDepth(const float depth)
 {
-    size_.setZ(d);
+    scale_.setZ(depth);
     isChange_ = true;
 }
 
@@ -99,7 +99,7 @@ const Matrix4x4f &AffineMap::getMatrix()
     if (isChange_) {
         matrix_ = geo::createTranslation<float>(getPos() + getOffset());
         matrix_ = matrix_ * geo::createFromQuaternion<float>(getRotation());
-        matrix_ = matrix_ * geo::createScale<float>(getSize());
+        matrix_ = matrix_ * geo::createScale<float>(getScale());
         isChange_ = false;
     }
 

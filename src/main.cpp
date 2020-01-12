@@ -10,8 +10,6 @@
 
 int main(int argc, char *argv[])
 {
-	//const std::vector<std::string> args(argv, argv+argc);
-
 	Application app(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_AUDIO);
 	if(!app.isApplication()){
 		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "SDL Init error. %s", SDL_GetError());
@@ -37,6 +35,12 @@ int main(int argc, char *argv[])
 
 	SDL_Log("GL_VERSION: %s\n", glGetString(GL_VERSION));
 	SDL_Log("GL_SHADING_LANGUAGE_VERSION: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+
+	::glCullFace(GL_BACK);
+	::glFrontFace(GL_CCW);
+	::glEnable(GL_CULL_FACE);
+	::glEnable(GL_DEPTH_TEST);
+	::glClearDepth(1.0);
 
 	TaskManager manager;
 	return app.run(res, manager);

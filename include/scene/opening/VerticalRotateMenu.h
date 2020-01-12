@@ -1,6 +1,7 @@
 #ifndef WIDGET_VERTICALROTATEMENU_H_
 #define WIDGET_VERTICALROTATEMENU_H_
 
+#include "gl/widget/GLWidgetGroup.h"
 #include <memory>
 #include <vector>
 
@@ -8,7 +9,7 @@ namespace GL_ {
 
 class Shader;
 class Sprite;
-class VerticalRotateMenu
+class VerticalRotateMenu : public WidgetGroup
 {
 public:
 	VerticalRotateMenu()
@@ -18,20 +19,15 @@ public:
 		, step_(3)
 	{
 	}
-	~VerticalRotateMenu() = default;
+	virtual ~VerticalRotateMenu() override = default;
 
 	void setRadius(float radius) { radius_ = radius; }
 	float getRadius() const { return radius_; }
 	void setDegrees(float degrees);
 	float getDegrees() const { return degrees_; }
-	void addMenuItem(std::shared_ptr<Sprite> item) { listMenuItem_.push_back(item); }
-	void clearMenuItem() { listMenuItem_.clear(); }
-	const std::vector<std::shared_ptr<Sprite>> &getMenuItemList() const { return listMenuItem_; }
-	const auto getMenuItemListSize() const { return listMenuItem_.size(); }
-	std::shared_ptr<Sprite> getMenuItem(int index);
 	void prepare();
 
-	void draw(std::shared_ptr<Shader> shader);
+	//virtual void draw(std::shared_ptr<Shader> shader) override;
 
 	static constexpr double MAX_DEGREES = 360.0;
 

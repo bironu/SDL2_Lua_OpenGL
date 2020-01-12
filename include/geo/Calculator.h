@@ -182,8 +182,8 @@ namespace geo
 		const std::array<T, 16> data = {
 			two / width, zero,         zero,                zero,
 			zero,        two / height, zero,                zero,
-			zero,        zero,         one / (far - near),  zero,
-			zero,        zero,         near / (near - far), one
+			zero,        zero,         two / (far - near),  zero,
+			zero,        zero,         -(far + near) / (far - near), one
 		};
 		return Matrix4x4<T>(data);
 	}
@@ -193,14 +193,17 @@ namespace geo
 	{
         const T zero = static_cast<T>(0.0);
         const T one = static_cast<T>(1.0);
-        const T divtwo = one / static_cast<T>(2.0);
+        const T two = static_cast<T>(2.0);
+        const T divtwo = one / two;
 		const T yScale = one / std::tan(fovY * divtwo);
 		const T xScale = yScale * height / width;
 		const std::array<T, 16> data = {
 			xScale, zero,   zero,                       zero,
 			zero,   yScale, zero,                       zero,
-			zero,   zero,   far / (far - near),         one,
-			zero,   zero,   -near * far / (far - near), zero,
+			// zero,   zero,   far / (far - near),         one,
+			// zero,   zero,   -near * far / (far - near), zero,
+			zero,   zero,   -(far + near) / (far - near), -one,
+			zero,   zero,   -(2 * far * near) / (far - near), zero,
 		};
 		return Matrix4x4<T>(data);
 	}

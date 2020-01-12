@@ -99,7 +99,7 @@ public:
 	}
 
 	// Normalize this vector
-	void normalizeSeslf()
+	void normalizeSelf()
 	{
 		const T invLength = static_cast<T>(1.0) / getLength();
 		setX(getX() * invLength);

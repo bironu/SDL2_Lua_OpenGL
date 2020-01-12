@@ -10,18 +10,11 @@
 namespace GL_
 {
 
-Sprite::Sprite(XOrigin xorigin, YOrigin yorigin)
+Sprite::Sprite()
 	: texture_()
 	, vertexArray_()
-	, size_(0.0f, 0.0f)
 	, alpha_(1.0f)
-	, xorigin_(xorigin)
-	, yorigin_(yorigin)
 	, isChange_()
-{
-}
-
-Sprite::~Sprite()
 {
 }
 
@@ -30,8 +23,8 @@ void Sprite::setTexture(std::shared_ptr<Texture> texture)
 	texture_ = texture;
 	vertexArray_.reset();
 	if (texture) {
-		setWidth(texture->getWidth());
-		setHeight(texture->getHeight());
+		setWidth(texture->getWidth() / 1080.0f);
+		setHeight(texture->getHeight() / 1080.0f);
 	}
 }
 
@@ -60,15 +53,6 @@ void Sprite::draw(std::shared_ptr<Shader> shader)
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 }
 
-const geo::Matrix4x4f &Sprite::getMatrix()
-{
-	if (isChange() || isChange_) {
-		matrix_ = affine_.getMatrix() * geo::createScale(getWidth(), getHeight(), 1.0f);
-		isChange_ = false;
-	}
-	return matrix_;
-}
-
 std::shared_ptr<VertexArray> Sprite::getSpriteVerts()
 {
 	if (!vertexArray_) {
@@ -78,40 +62,10 @@ std::shared_ptr<VertexArray> Sprite::getSpriteVerts()
 		const float tright = texRange[2];
 		const float tbottom = texRange[3];
 
-		float vtop, vbottom, vleft, vright;
-		switch(xorigin_)
-		{
-		case XOrigin::Left:
-			vleft = 0.0f;
-			vright = 1.0f;
-			break;
-		case XOrigin::Right:
-			vleft = -1.0f;
-			vright = 0.0f;
-			break;
-		case XOrigin::Center:
-		default:
-			vleft = -0.5f;
-			vright = 0.5f;
-			break;
-		}
-
-		switch(yorigin_)
-		{
-		case YOrigin::Top:
-			vtop = 0.0f;
-			vbottom = -1.0f;
-			break;
-		case YOrigin::Bottom:
-			vtop = 1.0f;
-			vbottom = 0.0f;
-			break;
-		default:
-		case YOrigin::Center:
-			vtop = 0.5f;
-			vbottom = -0.5f;
-			break;
-		}
+		const float vleft = -0.5f;
+		const float vright = 0.5f;
+		const float vtop = 0.5f;
+		const float vbottom = -0.5f;
 
 		const float vertices[] = {
 			vleft,  vtop, 0.f, tleft, ttop, // top left
@@ -121,8 +75,8 @@ std::shared_ptr<VertexArray> Sprite::getSpriteVerts()
 		};
 
 		const unsigned int indices[] = {
-			0, 1, 2,
-			2, 3, 0
+			0, 3, 1,
+			1, 3, 2
 		};
 		vertexArray_ = std::make_shared<VertexArray>(vertices, 4, indices, 6);
 	}

@@ -17,7 +17,7 @@ public:
 	AffineMap()
 		: pos_(0.0f, 0.0f, 0.0f)
 		, offset_(0.0f, 0.0f, 0.0f)
-		, size_(1.0f, 1.0f, 1.0f)
+		, scale_(1.0f, 1.0f, 1.0f)
 		, rotation_()
 		, matrix_()
 		, isChange_(true)
@@ -34,10 +34,10 @@ public:
 	const auto getYOffset() const { return offset_.getY(); }
 	const auto getZOffset() const { return offset_.getZ(); }
 
-	const auto &getSize() const { return size_; }
-	const auto getWidth() const { return size_.getX(); }
-	const auto getHeight() const { return size_.getY(); }
-	const auto getDepth() const { return size_.getZ(); }
+	const auto &getScale() const { return scale_; }
+	const auto getWidth() const { return scale_.getX(); }
+	const auto getHeight() const { return scale_.getY(); }
+	const auto getDepth() const { return scale_.getZ(); }
 
 	const auto &getRotation() const { return rotation_; }
 
@@ -51,10 +51,10 @@ public:
 	void setYOffset(const float y);
 	void setZOffset(const float z);
 
-	void setSize(const geo::Vector3f &size);
-	void setWidth(const float w);
-	void setHeight(const float h);
-	void setDepth(const float d);
+	void setScale(const geo::Vector3f &scale);
+	void setWidth(const float width);
+	void setHeight(const float height);
+	void setDepth(const float depth);
 
 	void setRotation(const geo::Quaternionf &rotation);
 	void addRotation(const geo::Quaternionf &rotation);
@@ -66,7 +66,7 @@ public:
 private:
 	geo::Vector3f pos_;
 	geo::Vector3f offset_;
-	geo::Vector3f size_;
+	geo::Vector3f scale_;
 	geo::Quaternionf rotation_;
 	geo::Matrix4x4f matrix_;
 	bool isChange_;

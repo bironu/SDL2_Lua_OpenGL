@@ -78,13 +78,12 @@ public:
 		return a.getX() * b.getX() + a.getY() * b.getY() + a.getZ() * b.getZ() + a.getW() * b.getW();
 	}
 
-
-	static Quaternion createRotater(const T &radian, const Vector3d &axis)
+	static Quaternion createRotater(const T &radian, const Vector3<T> &axis)
 	{
 		//原点を中心とした軸ベクトル = (x, y, z)
 		//回転する角度 = th
 		//Q = (cos(th / 2); x * sin(th / 2), y * sin(th / 2), z * sin(th / 2))
-		const double th2 = radian * static_cast<T>(0.5);
+		const T th2 = radian * static_cast<T>(0.5);
 		return {std::cos(th2), axis * std::sin(th2)};
 	}
 

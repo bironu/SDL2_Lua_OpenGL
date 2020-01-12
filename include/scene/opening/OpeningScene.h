@@ -8,8 +8,9 @@ namespace GL_
 {
 class ViewGroup;
 class ImageView;
-class Sprite;
+class VerticalRotateMenu;
 class Shader;
+class Sprite;
 }
 
 class OpeningScene : public Scene
@@ -30,7 +31,8 @@ public:
 	// OpeningUseCase &getUseCase() { return useCase_; }
 	// OpeningController &getContoller() { return controller_; }
 
-	bool loadShaders();
+	bool loadShaders2D();
+	bool loadShaders3D();
 
 private:
 	// OpeningRepository repository_;
@@ -38,9 +40,12 @@ private:
 	// OpeningUseCase useCase_;
 	// OpeningController controller_;
 
-	std::shared_ptr<GL_::Shader> spriteShader_;
+	std::shared_ptr<GL_::Shader> spriteShader2D_;
+	std::shared_ptr<GL_::Shader> spriteShader3D_;
 	std::shared_ptr<GL_::ViewGroup> back_;
 	std::shared_ptr<GL_::ImageView> image_;
+	std::shared_ptr<GL_::VerticalRotateMenu> menu_;
+	std::shared_ptr<GL_::Sprite> sprite_;
 };
 
 #endif // SCENE_OPENING_OPENINGSCENE_H_
