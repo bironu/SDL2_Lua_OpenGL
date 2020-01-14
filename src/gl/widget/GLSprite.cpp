@@ -1,4 +1,5 @@
 #include "gl/widget/GLSprite.h"
+#include "gl/widget/GLWidgetGroup.h"
 #include "gl/GLTexture.h"
 #include "gl/GLVertexArray.h"
 #include "gl/GLShader.h"

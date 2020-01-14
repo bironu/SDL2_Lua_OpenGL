@@ -15,16 +15,18 @@ Widget::Widget()
 bool Widget::isChange() const
 {
 	bool result = affine_.isChange();
-	auto parent = getParent();
-	if (parent) {
-		result |= parent->isChange();
+	if (!result) {
+		auto parent = getParent();
+		if (parent) {
+			result |= parent->isChange();
+		}
 	}
 	return result;
 }
 
 const geo::Matrix4x4f &Widget::getMatrix()
 {
-	if (isChange()) {
+	//if (isChange() || isForceChange_) {
 		auto parent = getParent();
 		if (parent) {
 			matrix_ = parent->getMatrix() * affine_.getMatrix();
@@ -32,7 +34,7 @@ const geo::Matrix4x4f &Widget::getMatrix()
 		else {
 			matrix_ = affine_.getMatrix();
 		}
-	}
+	//}
 	return matrix_;
 }
 

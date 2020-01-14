@@ -78,31 +78,31 @@ void OpeningScene::onCreate()
 	loop->setTask(serial);
 	getManager().registerTask(0, loop);
 
-	// menu_ = std::make_shared<GL_::VerticalRotateMenu>();
-	// menu_->setRadius(0.1f);
-	// auto item1 = std::make_shared<GL_::Sprite>();
-	// item1->setTexture(res.getImage(ImageId::ButtonBackNormal));
-	// auto item2 = std::make_shared<GL_::Sprite>();
-	// item2->setTexture(res.getImage(ImageId::ButtonBackSelect));
-	// auto item3 = std::make_shared<GL_::Sprite>();
-	// item3->setTexture(res.getImage(ImageId::TextBack));
+	menu_ = std::make_shared<GL_::VerticalRotateMenu>();
+	menu_->setRadius(0.5f);
+	auto item1 = std::make_shared<GL_::Sprite>();
+	item1->setTexture(res.getImage(ImageId::TextBack));
+	auto item2 = std::make_shared<GL_::Sprite>();
+	item2->setTexture(res.getImage(ImageId::TextBack));
+	auto item3 = std::make_shared<GL_::Sprite>();
+	item3->setTexture(res.getImage(ImageId::TextBack));
 	
-	// GL_::WidgetGroup::addChild(menu_, item1);
-	// GL_::WidgetGroup::addChild(menu_, item2);
-	// GL_::WidgetGroup::addChild(menu_, item3);
-	// menu_->prepare();
-	// menu_->setZPos(-1.0f);
+	GL_::WidgetGroup::addChild(menu_, item1);
+	GL_::WidgetGroup::addChild(menu_, item2);
+	GL_::WidgetGroup::addChild(menu_, item3);
+	menu_->prepare();
+	menu_->setZPos(-1.0f);
 
-	// loop = LoopTask::get();
-	// loop->setLoopCount(LoopTask::INFINIT);
-	// auto rotate = ActionTask::get();
-	// rotate->setInterpolator(InterpolatorFactory::create(InterpolatorType::AccelerateDecelerate));
-	// rotate->setAction([this](float value){
-	// 	menu_->setRotation(geo::Quaternionf::createRotater(degrees2radian(value), geo::Vector3f(1.0f, 0.0f, 0.0f)));
-	// });
-	// rotate->setup(0.0, 360.0, 360 * 16, tick);
-	// loop->setTask(rotate);
-	// getManager().registerTask(1, loop);
+	loop = LoopTask::get();
+	loop->setLoopCount(LoopTask::INFINIT);
+	auto rotate = ActionTask::get();
+	rotate->setInterpolator(InterpolatorFactory::create(InterpolatorType::AccelerateDecelerate));
+	rotate->setAction([this](float value){
+		menu_->setRotation(geo::Quaternionf::createRotater(degrees2radian(value), geo::Vector3f(1.0f, 0.0f, 0.0f)));
+	});
+	rotate->setup(0.0, 120.0, 1000, tick);
+	loop->setTask(rotate);
+	getManager().registerTask(1, loop);
 
 	sprite_ = std::make_shared<GL_::Sprite>();
 	sprite_->setTexture(res.getImage(ImageId::BackGround2));
@@ -127,8 +127,8 @@ bool OpeningScene::onIdle(uint32_t tick)
 	// 	geo::Vector3f(0.0f, 1.0f, 0.0f)
 	// );
 	spriteShader3D_->setActive();
-	// menu_->draw(spriteShader3D_);
 	sprite_->draw(spriteShader3D_);
+	menu_->draw(spriteShader3D_);
 
 	swap();
 	return true;

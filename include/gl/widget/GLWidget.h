@@ -65,6 +65,9 @@ public:
 	void show() { visible_ = true; }
 	void hide() { visible_ = false; }
 
+protected:
+	geo::AffineMap &getAffine() { return affine_; }
+
 private:
 	std::weak_ptr<WidgetGroup> parent_;
 	geo::AffineMap affine_;

@@ -27,13 +27,13 @@ void VerticalRotateMenu::setDegrees(float degrees)
 void VerticalRotateMenu::prepare()
 {
 	int n = 0;
-	const auto degrees = (MAX_DEGREES / step_);
+	const auto radian = degrees2radian(MAX_DEGREES / step_);
 	for (auto item : getChildren()) {
-		const auto radian = degrees2radian(degrees * n++);
+		const auto nradian = radian * n++;
 		item->setXPos(0.0f);
-		item->setYPos(radius_ * std::sin(radian));
-		item->setZPos(radius_ * std::cos(radian));
-		//item->setRotation(geo::Quaternionf::createRotater(radian, geo::Vector3f(0.0f, 0.0f, 1.0f)));
+		item->setYPos(radius_ * std::sin(nradian));
+		item->setZPos(radius_ * std::cos(nradian));
+		item->setRotation(geo::Quaternionf::createRotater(nradian, geo::Vector3f(1.0f, 0.0f, 0.0f)));
 
 		std::cout << "n = " << n << ", ypos = " << item->getYPos() << ", zpos = " << item->getZPos() << std::endl;
 	}

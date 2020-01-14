@@ -5,6 +5,7 @@
 #include "MatrixDef.h"
 #include <algorithm>
 #include <array>
+#include <iostream>
 
 namespace geo
 {
@@ -124,6 +125,18 @@ inline Matrix<T, LHROW, RHCOL, Mejor> operator*(const Matrix<T, LHROW, M, Mejor>
 	}
 
 	return result;
+}
+
+template <typename T, int Row, int Col, template <int, int> class Mejor>
+std::ostream& operator<<(std::ostream& stream, const Matrix<T, Row, Col, Mejor>& value)
+{
+	for (int row = 0; row < Row; ++row) {
+		for (int col = 0; col < Col; ++col) {
+			stream << '[' << value.get(row, col) << "] ";
+		}
+		stream << std::endl;
+	}
+	return stream;
 }
 
 } // namespace geo

@@ -128,9 +128,12 @@ namespace geo
         const T yz2 = two * q.getY() * q.getZ();
         const T wx2 = two * q.getW() * q.getX();
 		const std::array<T, 16> data = {
-            one - yy2 - zz2, xy2 + wz2,       xz2 - wy2,       zero,
-            xy2 - wz2,       one - xx2 - zz2, yz2 + wx2,       zero,
-            xz2 + wy2,       yz2 - wx2,       one - xx2 - yy2, zero,
+            // one - yy2 - zz2, xy2 + wz2,       xz2 - wy2,       zero,
+            // xy2 - wz2,       one - xx2 - zz2, yz2 + wx2,       zero,
+            // xz2 + wy2,       yz2 - wx2,       one - xx2 - yy2, zero,
+            one - yy2 - zz2, xy2 - wz2,       xz2 + wy2,       zero,
+            xy2 + wz2,       one - xx2 - zz2, yz2 - wx2,       zero,
+            xz2 - wy2,       yz2 + wx2,       one - xx2 - yy2, zero,
             zero,            zero,            zero,            one
         };
         return Matrix4x4<T>(data);
